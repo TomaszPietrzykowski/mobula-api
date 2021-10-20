@@ -1,3 +1,9 @@
 .root {
   padding: 1rem 3rem;
 }
+
+.output {
+  font-size: 2rem;
+  padding: 4rem;
+  color: steelblue;
+}
