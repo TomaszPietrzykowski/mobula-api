@@ -1,0 +1,12 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+}
+
+.nav {
+  display: flex;
+}
+.nav li {
+  padding: 0.5rem 1rem;
+}

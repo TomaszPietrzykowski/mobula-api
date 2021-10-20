@@ -1,0 +1,10 @@
+.root {
+  width: "100%";
+  background: steelblue;
+  color: black;
+  padding: 1rem 3rem;
+}
+
+.nav li {
+  padding: 0.5rem;
+}
