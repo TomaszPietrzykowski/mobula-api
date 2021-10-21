@@ -7,3 +7,23 @@
   padding: 4rem;
   color: steelblue;
 }
+.root form {
+  display: flex;
+  align-items: stretch;
+}
+.urlForm {
+  min-width: max-content;
+}
+.urlForm > * {
+  border-color: lightblue;
+  border-radius: 3px;
+}
+.urlForm input {
+  padding: 0.5rem;
+}
+.urlForm button {
+  padding: 0 1rem;
+}
+.url {
+  width: 100%;
+}
