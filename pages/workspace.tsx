@@ -1,6 +1,7 @@
-import React, { FormEventHandler, useState } from "react"
+import React, { useState } from "react"
 import styles from "../styles/Workspace.module.css"
 import axios from "axios"
+import { useTypedDispatch } from "../redux/hooks"
 
 export interface KeyValuePair {
   key?: string
@@ -24,6 +25,9 @@ const Workspace = () => {
   const [reqQueries, setReqQueries] = useState<KeyValuePair[]>([])
   const [reqMethod, setReqMethod] = useState<string>("GET")
   const [output, setOutput] = useState<string>("")
+
+  const dispatch = useTypedDispatch()
+
   // axios request
   interface makeRequest {
     (p: string, url: string): Promise<any>
@@ -78,6 +82,13 @@ const Workspace = () => {
     setActiveTab(activeTab)
   }
 
+  const login = () => {
+    dispatch({
+      type: "USER_LOGIN_SUCCESS",
+      payload: { name: "Brian", id: 222, email: "123@345.okm" },
+    })
+  }
+
   return (
     <div className={styles.root}>
       <h1>Workspace</h1>
@@ -125,6 +136,10 @@ const Workspace = () => {
           Response
         </label>
       </div>
+      <section>
+        <button onClick={login}>Dispatch login</button>
+        <p>user</p>
+      </section>
       {loading ? (
         <h1>Loading</h1>
       ) : activeTab === "request" ? (

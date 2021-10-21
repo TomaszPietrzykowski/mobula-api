@@ -1,3 +1,4 @@
+import { AnyAction } from 'redux'
 import * as constants from "../constants/userConstants"
 
 const initialState = {
@@ -6,7 +7,7 @@ const initialState = {
   error: null
 }
 
-export const userLoginReducer = (state = initialState, action) => {
+export const userLoginReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
 
     case constants.USER_LOGIN_REQUEST:
