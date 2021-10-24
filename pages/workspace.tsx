@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styles from "../styles/Workspace.module.css"
 import axios from "axios"
-import { useTypedDispatch } from "../redux/hooks"
-
+import { sendRequest } from "../redux/actions/requestActions"
+import { useDispatch } from "react-redux"
+import { useTypedSelector } from "../redux/hooks"
 export interface KeyValuePair {
   key?: string
   value?: string
@@ -15,60 +16,44 @@ export interface RequestInterface {
 }
 
 const Workspace = () => {
-  const [loading, setLoading] = useState<boolean>(false)
   const [activeTab, setActiveTab] = useState<string>("request")
   const [protocol, setProtocol] = useState<string>("http")
   const [reqUrl, setReqUrl] = useState<string>(
     "jsonplaceholder.typicode.com/todos/1"
   )
-  const [reqHeaders, setReqHeaders] = useState<KeyValuePair[]>([])
-  const [reqQueries, setReqQueries] = useState<KeyValuePair[]>([])
+  // const [reqHeaders, setReqHeaders] = useState<KeyValuePair[]>([])
+  // const [reqQueries, setReqQueries] = useState<KeyValuePair[]>([])
   const [reqMethod, setReqMethod] = useState<string>("GET")
-  const [output, setOutput] = useState<string>("")
 
-  const dispatch = useTypedDispatch()
+  const { loading, error, response, success } = useTypedSelector(
+    (state) => state.requestSend
+  )
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (success) {
+      setActiveTab("response")
+    }
+  }, [success])
 
   // axios request
-  interface makeRequest {
-    (p: string, url: string): Promise<any>
+  const makeRequest = async (
+    method: string,
+    url: string,
+    config?: {},
+    body?: {}
+  ) => {
+    dispatch(sendRequest(method, url, config, body))
   }
-  const makeRequest: makeRequest = async (p: string, url: string) => {
-    const outputHeaders = {}
-    reqHeaders.forEach((h) => {
-      outputHeaders[`${h.key}`] = h.value
-    })
 
-    const outputParams = {}
-    reqQueries.forEach((p) => {
-      outputParams[`${p.key}`] = p.value
-    })
-    const axiosConfig: RequestInterface = {
-      url: `${p}://${url}`,
-      method: reqMethod,
-      params: outputParams,
-      headers: outputHeaders,
-    }
-    console.log(axiosConfig.url)
-    setLoading(true)
-    try {
-      const { data } = await axios(axiosConfig)
-      setOutput(JSON.stringify(data))
-      setActiveTab("response")
-      setLoading(false)
-      return data
-    } catch (error) {
-      setOutput(JSON.stringify(error))
-      setActiveTab("response")
-      console.log(error)
-      setLoading(false)
-    }
-  }
   // form submit
   const handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault()
 
-    makeRequest(protocol, reqUrl)
+    makeRequest(reqMethod, `${protocol}://${reqUrl}`)
   }
+  // state handlers
   const handleProtocol = (e: any): void => {
     setProtocol(e.currentTarget.value)
   }
@@ -149,7 +134,7 @@ const Workspace = () => {
       ) : (
         <article className={styles.output}>
           <p>Response</p>
-          <p>{output}</p>
+          <p>{JSON.stringify(response)}</p>
         </article>
       )}
     </div>
