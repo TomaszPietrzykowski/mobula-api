@@ -4,11 +4,7 @@ import { sendRequest } from "../../redux/actions/requestActions"
 import { useDispatch } from "react-redux"
 import { useTypedSelector } from "../../redux/hooks"
 import styles from "../../styles/Request.module.css"
-
-export interface KeyValuePair {
-  key?: string
-  value?: string
-}
+import Response from "./Response"
 
 const Request = () => {
   const [activeTab, setActiveTab] = useState<string>("request")
@@ -31,12 +27,14 @@ const Request = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (success) {
+    if (success || error) {
       setActiveTab("response")
     }
-  }, [success])
+  }, [success, error])
 
-  // axios request
+  /*
+   * Axios request - execute
+   */
   const makeRequest = async () => {
     const config: AxiosRequestConfig = {
       method: reqMethod,
@@ -236,11 +234,7 @@ const Request = () => {
         </article>
       ) : (
         <article className={styles.output}>
-          <p>Response</p>
-          <p>{JSON.stringify(response.data)}</p>
-          <div>{JSON.stringify(response.headers)}</div>
-          <div>{JSON.stringify(response.status)}</div>
-          <div>{JSON.stringify(response.statusText)}</div>
+          <Response />
         </article>
       )}
     </div>
