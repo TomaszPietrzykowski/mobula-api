@@ -1,6 +1,15 @@
-.output {
+.root {
+  border: 1px solid orange;
   font-size: 2rem;
   padding: 4rem;
+  color: steelblue;
+}
+.root > * {
+  border: 1px solid lavender;
+  padding-bottom: 3rem;
+}
+.output {
+  border: 1px solid orange;
   color: steelblue;
 }
 .root form {

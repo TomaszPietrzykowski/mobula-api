@@ -15,14 +15,28 @@ const Workspace = () => {
     })
   }
 
+  const workspace = { name: "New Workspace" }
+
   return (
     <div className={styles.root}>
-      <h1>Workspace</h1>
-      <section>{userLogin.user && <p>user: {userLogin.user.name}</p>}</section>
-      <section>
-        <button onClick={login}>Dispatch login</button>
-      </section>
-      <Request />
+      <aside>
+        <h2>Workspace: {workspace.name}</h2>
+        <nav>
+          <ul>
+            <li>collections</li>
+          </ul>
+        </nav>
+      </aside>
+      <main className={styles.workbench}>
+        <h1>Workspace</h1>
+        <section>
+          {userLogin.user && <p>user: {userLogin.user.name}</p>}
+        </section>
+        <section>
+          <button onClick={login}>Dispatch login</button>
+        </section>
+        <Request />
+      </main>
     </div>
   )
 }

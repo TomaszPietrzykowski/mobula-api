@@ -16,10 +16,12 @@ const Request = () => {
   const [reqUrl, setReqUrl] = useState<string>(
     "jsonplaceholder.typicode.com/todos/1"
   )
-  const [reqHeaders, setReqHeaders] = useState<KeyValuePair>({})
-  const [reqQueries, setReqQueries] = useState<KeyValuePair>({})
+  const [reqHeaders, setReqHeaders] = useState<{}>({})
   const [newHeaderKey, setNewHeaderKey] = useState<string>("")
   const [newHeaderValue, setNewHeaderValue] = useState<string>("")
+  const [reqQueries, setReqQueries] = useState<{}>({})
+  const [newQueryKey, setNewQueryKey] = useState<string>("")
+  const [newQueryValue, setNewQueryValue] = useState<string>("")
   const [reqMethod, setReqMethod] = useState<Method>("GET")
 
   const { loading, error, response, success } = useTypedSelector(
@@ -39,17 +41,24 @@ const Request = () => {
     const config: AxiosRequestConfig = {
       method: reqMethod,
       url: `${protocol}://${reqUrl}`,
+      headers: reqHeaders,
+      params: reqQueries,
     }
     dispatch(sendRequest(config))
   }
 
-  // form submit
+  /*
+   * Form submit handler - send request
+   */
   const handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault()
 
     makeRequest()
   }
-  // state handlers
+
+  /*
+   * Form state handlers - component level state
+   */
   const handleProtocol = (e: any): void => {
     setProtocol(e.currentTarget.value)
   }
@@ -62,12 +71,18 @@ const Request = () => {
   const handleActivetab = (activeTab: string): void => {
     setActiveTab(activeTab)
   }
+
+  /*
+   * Add custom header
+   */
   const handleAddHeader = (e: React.SyntheticEvent): void => {
-    console.log("handle submit called")
     e.preventDefault()
-    const obj = { ...reqHeaders, [newHeaderKey]: newHeaderValue }
-    setReqHeaders(obj)
+    if (newHeaderKey === "" || newHeaderValue === "") return
+    setReqHeaders({ ...reqHeaders, [newHeaderKey]: newHeaderValue })
+    setNewHeaderKey("")
+    setNewHeaderValue("")
   }
+  // new header form state
   const handleNewHeaderKey = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setNewHeaderKey(e.currentTarget.value)
   }
@@ -76,8 +91,28 @@ const Request = () => {
   ): void => {
     setNewHeaderValue(e.currentTarget.value)
   }
+
+  /*
+   * Add custom query param
+   */
+  const handleAddQuery = (e: React.SyntheticEvent): void => {
+    e.preventDefault()
+    if (newQueryKey === "" || newQueryValue === "") return
+    setReqQueries({ ...reqQueries, [newQueryKey]: newQueryValue })
+    setNewQueryKey("")
+    setNewQueryValue("")
+  }
+  // new query form state
+  const handleNewQueryKey = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setNewQueryKey(e.currentTarget.value)
+  }
+  const handleNewQueryValue = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setNewQueryValue(e.currentTarget.value)
+  }
   return (
-    <div>
+    <div className={styles.root}>
       <form onSubmit={handleSubmit} className={styles.urlForm}>
         <select id="method" onChange={(e) => handleMethod(e)}>
           <option value="GET">GET</option>
@@ -130,30 +165,74 @@ const Request = () => {
           <h2>Request</h2>
           <section>
             <h3>Request Headers</h3>
-            {Array(reqHeaders).map((header) => (
+            {Object.entries(reqHeaders).map(([key, value]) => (
               <div style={{ display: "flex" }}>
-                <div>{header.key}</div>
+                <div style={{ marginRight: "2rem" }}>{key}</div>
+                <div>{String(value)}</div>
+                <button
+                  onClick={() => {
+                    const newObj = { ...reqHeaders }
+                    delete newObj[key]
+                    setReqHeaders(newObj)
+                  }}
+                >
+                  Nuke
+                </button>
               </div>
             ))}
-          </section>
-          <form onSubmit={handleAddHeader}>
-            <input
-              type="text"
-              id="new-header-key"
-              value={newHeaderKey}
-              onChange={handleNewHeaderKey}
-              className={styles.headerInput}
-            />
-            <input
-              type="text"
-              id="new-header-value"
-              value={newHeaderValue}
-              onChange={handleNewHeaderValue}
-              className={styles.headerInput}
-            />
+            <form onSubmit={handleAddHeader}>
+              <input
+                type="text"
+                id="new-header-key"
+                value={newHeaderKey}
+                onChange={handleNewHeaderKey}
+                className={styles.headerInput}
+              />
+              <input
+                type="text"
+                id="new-header-value"
+                value={newHeaderValue}
+                onChange={handleNewHeaderValue}
+                className={styles.headerInput}
+              />
 
-            <button type="submit">Add header</button>
-          </form>
+              <button type="submit">Add header</button>
+            </form>
+          </section>
+          <section>
+            <h3>Query Params</h3>
+            {Object.entries(reqQueries).map(([key, value]) => (
+              <div style={{ display: "flex" }}>
+                <div style={{ marginRight: "2rem" }}>{key}</div>
+                <div>{String(value)}</div>
+                <button
+                  onClick={() => {
+                    const newObj = { ...reqQueries }
+                    delete newObj[key]
+                    setReqQueries(newObj)
+                  }}
+                >
+                  Nuke
+                </button>
+              </div>
+            ))}
+            <form onSubmit={handleAddQuery}>
+              <input
+                type="text"
+                value={newQueryKey}
+                onChange={handleNewQueryKey}
+                className={styles.QueryInput}
+              />
+              <input
+                type="text"
+                value={newQueryValue}
+                onChange={handleNewQueryValue}
+                className={styles.QueryInput}
+              />
+
+              <button type="submit">Add Query Param</button>
+            </form>
+          </section>
         </article>
       ) : (
         <article className={styles.output}>
@@ -161,7 +240,7 @@ const Request = () => {
           <p>{JSON.stringify(response.data)}</p>
           <div>{JSON.stringify(response.headers)}</div>
           <div>{JSON.stringify(response.status)}</div>
-          <div>{JSON.stringify(response)}</div>
+          <div>{JSON.stringify(response.statusText)}</div>
         </article>
       )}
     </div>
