@@ -41,6 +41,7 @@ const Request = () => {
       url: `${protocol}://${reqUrl}`,
       headers: reqHeaders,
       params: reqQueries,
+      validateStatus: (status) => status >= 100 && status < 600,
     }
     dispatch(sendRequest(config))
   }
@@ -118,6 +119,8 @@ const Request = () => {
           <option value="PUT">PUT</option>
           <option value="PATCH">PATCH</option>
           <option value="DELETE">DELETE</option>
+          <option value="OPTIONS">OPTIONS</option>
+          <option value="HEAD">HEAD</option>
         </select>
         <select id="protocol" onChange={(e) => handleProtocol(e)}>
           <option value="http">HTTP</option>
