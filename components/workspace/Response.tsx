@@ -1,6 +1,4 @@
-import { AxiosResponse } from "axios"
 import React from "react"
-import { useSelector } from "react-redux"
 import { useTypedSelector } from "../../redux/hooks"
 import styles from "../../styles/Request.module.css"
 
@@ -15,8 +13,13 @@ const Response = () => {
         <main>
           <div className={styles.responseInfoContainer}>
             <div>status code: {JSON.stringify(response.status)}</div>
-            <div>status: {JSON.stringify(response.statusText)}</div>
-            <div>time: {"123"}ms</div>
+            <div>status: {response.statusText}</div>
+            <div>
+              time:{" "}
+              {response.mobula.reqEndTime - response.config.mobula.reqStartTime}
+              ms
+            </div>
+            <div>size: {"123"}ks</div>
           </div>
           <h5>Response Headers</h5>
           {Object.entries(response.headers).map(([key, value]) => (
@@ -33,11 +36,10 @@ const Response = () => {
         error && (
           <main>
             <div className={styles.responseInfoContainer}>
-              <div>
-                status code: {String(JSON.parse(JSON.stringify(error)).status)}
-              </div>
+              <div>status code: {error.response.status}</div>
               <div>status: {String(error.name)}</div>
               <div>time: {"123"}ms</div>
+              <div>size: {"123"}ks</div>
             </div>
             <h5>Response Headers</h5>
             {Object.entries(error.config.headers).map(([key, value]) => (
