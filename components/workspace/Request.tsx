@@ -164,7 +164,7 @@ const Request = () => {
           <section>
             <h3>Request Headers</h3>
             {Object.entries(reqHeaders).map(([key, value]) => (
-              <div style={{ display: "flex" }}>
+              <div style={{ display: "flex" }} key={key}>
                 <div style={{ marginRight: "2rem" }}>{key}</div>
                 <div>{String(value)}</div>
                 <button
@@ -200,7 +200,7 @@ const Request = () => {
           <section>
             <h3>Query Params</h3>
             {Object.entries(reqQueries).map(([key, value]) => (
-              <div style={{ display: "flex" }}>
+              <div style={{ display: "flex" }} key={key}>
                 <div style={{ marginRight: "2rem" }}>{key}</div>
                 <div>{String(value)}</div>
                 <button

@@ -23,7 +23,7 @@ const Response = () => {
           </div>
           <h5>Response Headers</h5>
           {Object.entries(response.headers).map(([key, value]) => (
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex" }} key={key}>
               <div style={{ marginRight: "2rem" }}>{key}</div>
               <div>{String(value)}</div>
             </div>
