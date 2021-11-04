@@ -27,6 +27,11 @@ export const sendRequest =
           return res
         },
         (err) => {
+          if (typeof err.response === "undefined") {
+            alert(
+              "Request could not be sent. This could be a CORS issue or a dropped internet connection. Consider using CORS PROXY and check your internet connection."
+            )
+          }
           return Promise.reject(err)
         }
       )
