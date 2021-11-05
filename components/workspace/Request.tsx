@@ -19,12 +19,16 @@ const Request = () => {
   const [newQueryKey, setNewQueryKey] = useState<string>("")
   const [newQueryValue, setNewQueryValue] = useState<string>("")
   const [reqMethod, setReqMethod] = useState<Method>("GET")
+  const [proxy, setProxy] = useState<boolean>(false)
 
   const { loading, error, response, success } = useTypedSelector(
     (state) => state.requestSend
   )
 
   const dispatch = useDispatch()
+
+  const proxyUrl: string = "https://mobula.dev/api/proxy?url="
+  // const proxyUrl: string = "http://localhost:5000/proxy?url="
 
   useEffect(() => {
     if (success || error) {
@@ -36,9 +40,12 @@ const Request = () => {
    * Axios request - execute
    */
   const makeRequest = async () => {
+    const requestUrl: string = proxy
+      ? `${proxyUrl}${protocol}://${reqUrl}`
+      : `${protocol}://${reqUrl}`
     const config: AxiosRequestConfig = {
       method: reqMethod,
-      url: `${protocol}://${reqUrl}`,
+      url: requestUrl,
       headers: reqHeaders,
       params: reqQueries,
       validateStatus: (status) => status >= 100 && status < 600,
@@ -136,6 +143,13 @@ const Request = () => {
         />
         <button type="submit">Send</button>
       </form>
+      <input
+        type="checkbox"
+        checked={proxy}
+        id="proxy"
+        onChange={() => setProxy(!proxy)}
+      />
+      <label htmlFor="proxy">CORS PROXY</label>
       <div>
         <label>
           <input
