@@ -27,9 +27,6 @@ const Request = () => {
 
   const dispatch = useDispatch()
 
-  const proxyUrl: string = "https://mobula.dev/api/proxy?url="
-  // const proxyUrl: string = "http://localhost:5000/proxy?url="
-
   useEffect(() => {
     if (success || error) {
       setActiveTab("response")
@@ -39,14 +36,24 @@ const Request = () => {
   /*
    * Axios request - execute
    */
+  const proxyHeaders = (headers: {}): {} => {
+    const proxyArray = Object.entries(headers).map(([key, value]) => {
+      return { [`mobula-proxy-${[key]}`]: value }
+    })
+    let outputHeaders = {}
+    proxyArray.forEach((obj) => {
+      outputHeaders = { ...outputHeaders, ...obj }
+    })
+    return outputHeaders
+  }
   const makeRequest = async () => {
     const requestUrl: string = proxy
-      ? `${proxyUrl}${protocol}://${reqUrl}`
+      ? `${process.env.NEXT_PUBLIC_CORS_PROXY}${protocol}://${reqUrl}`
       : `${protocol}://${reqUrl}`
     const config: AxiosRequestConfig = {
       method: reqMethod,
       url: requestUrl,
-      headers: reqHeaders,
+      headers: proxy ? proxyHeaders(reqHeaders) : reqHeaders,
       params: reqQueries,
       validateStatus: (status) => status >= 100 && status < 600,
     }

@@ -4,10 +4,14 @@ import { Dispatch } from "redux"
 
 declare module "axios" {
   export interface AxiosRequestConfig {
-    mobula?: { reqStartTime?: number }
+    mobula?: {
+      reqStartTime?: number
+    }
   }
   export interface AxiosResponse {
-    mobula?: { reqEndTime?: number }
+    mobula?: {
+      reqEndTime?: number
+    }
   }
 }
 
@@ -28,7 +32,7 @@ export const sendRequest =
         },
         (err) => {
           if (typeof err.response === "undefined") {
-            alert(
+            console.log(
               "Request could not be sent. This could be a CORS issue or a dropped internet connection. Consider using CORS PROXY and check your internet connection."
             )
           }
