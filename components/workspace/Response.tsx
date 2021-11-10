@@ -1,6 +1,7 @@
 import React from "react"
 import { useTypedSelector } from "../../redux/hooks"
 import styles from "../../styles/Request.module.css"
+import BodyEditor from "./BodyEditor"
 
 const getStatusText = (response) => {
   if (Number(response.status) >= 200 && Number(response.status) < 300) {
@@ -43,6 +44,10 @@ const Response = () => {
             </div>
           ))}
           <h5>Response Body</h5>
+          <BodyEditor
+            value={JSON.stringify(response.data)}
+            onChange={(value) => value}
+          />
           <p>{JSON.stringify(response.data)}</p>
         </main>
       ) : (

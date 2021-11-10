@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux"
 import { useTypedSelector } from "../../redux/hooks"
 import styles from "../../styles/Request.module.css"
 import Response from "./Response"
+import BodyEditor from "./BodyEditor"
 
 const Request = () => {
   const [activeTab, setActiveTab] = useState<string>("request")
@@ -20,6 +21,7 @@ const Request = () => {
   const [newQueryValue, setNewQueryValue] = useState<string>("")
   const [reqMethod, setReqMethod] = useState<Method>("GET")
   const [proxy, setProxy] = useState<boolean>(false)
+  const [bodyEditorValue, setBodyEditorValue] = useState<string>("{\n\t\n}")
 
   const { loading, error, response, success } = useTypedSelector(
     (state) => state.requestSend
@@ -56,6 +58,11 @@ const Request = () => {
       headers: proxy ? proxyHeaders(reqHeaders) : reqHeaders,
       params: reqQueries,
       validateStatus: (status) => status >= 100 && status < 600,
+      data:
+        reqMethod.toUpperCase() !== "GET" &&
+        reqMethod.toUpperCase() !== "OPTIONS"
+          ? JSON.parse(bodyEditorValue) || {}
+          : null,
     }
     dispatch(sendRequest(config))
   }
@@ -255,6 +262,7 @@ const Request = () => {
               <button type="submit">Add Query Param</button>
             </form>
           </section>
+          <BodyEditor value={bodyEditorValue} onChange={setBodyEditorValue} />
         </article>
       ) : (
         <article className={styles.output}>
