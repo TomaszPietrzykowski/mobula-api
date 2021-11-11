@@ -2,6 +2,7 @@ import React from "react"
 import { useTypedSelector } from "../../redux/hooks"
 import styles from "../../styles/Request.module.css"
 import BodyDisplay from "./BodyDisplay"
+import getResponseSize from "../../utils/getResponseSize"
 
 const getStatusText = (response) => {
   if (Number(response.status) >= 200 && Number(response.status) < 300) {
@@ -29,12 +30,37 @@ const Response = () => {
               status: {JSON.stringify(response.status)}{" "}
               {response.statusText || getStatusText(response)}
             </div>
-            <div>
-              time:{" "}
-              {response.mobula.reqEndTime - response.config.mobula.reqStartTime}
-              ms
-            </div>
-            <div>size: {"123"}ks</div>
+            {response.data.proxyTiming ? (
+              <div>
+                <span className={styles.timingSpan}>
+                  Total time:{" "}
+                  {response.mobula.reqEndTime -
+                    response.config.mobula.reqStartTime}{" "}
+                  ms
+                </span>
+
+                <span className={styles.timingSpan}>
+                  Request time: {response.data.proxyTiming}ms{" "}
+                </span>
+                <span className={styles.timingSpan}>
+                  Proxy delay:{" "}
+                  {response.mobula.reqEndTime -
+                    response.config.mobula.reqStartTime -
+                    response.data.proxyTiming}{" "}
+                  ms
+                </span>
+              </div>
+            ) : (
+              <div>
+                <span className={styles.timingSpan}>
+                  Request time:{" "}
+                  {response.mobula.reqEndTime -
+                    response.config.mobula.reqStartTime}{" "}
+                  ms
+                </span>
+              </div>
+            )}
+            <div>Response size: {getResponseSize(response)}</div>
           </div>
           <h5>Response Headers</h5>
           {response.data.originalResponseHeaders
@@ -66,15 +92,9 @@ const Response = () => {
           <h5>Response Body</h5>
           {response.data.originalResponseHeaders &&
           response.data.originalData ? (
-            <BodyDisplay
-              value={JSON.stringify(response.data.originalData)}
-              onChange={(value) => value}
-            />
+            <BodyDisplay value={JSON.stringify(response.data.originalData)} />
           ) : (
-            <BodyDisplay
-              value={JSON.stringify(response.data)}
-              onChange={(value) => value}
-            />
+            <BodyDisplay value={JSON.stringify(response.data)} />
           )}
         </main>
       ) : (

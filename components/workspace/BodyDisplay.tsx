@@ -8,7 +8,7 @@ import { js as beautify } from "js-beautify"
 
 export interface IPropsEditor {
   value: string
-  onChange: any
+  onChange?: any
   language?: string
 }
 

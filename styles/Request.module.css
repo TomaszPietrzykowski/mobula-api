@@ -40,3 +40,12 @@
 .responseInfoContainer > * {
   margin-right: 2rem;
 }
+
+/* 
+
+Response styles
+
+*/
+.timingSpan {
+  margin-right: 2rem;
+}
