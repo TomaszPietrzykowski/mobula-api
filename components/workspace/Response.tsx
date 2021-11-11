@@ -1,7 +1,7 @@
 import React from "react"
 import { useTypedSelector } from "../../redux/hooks"
 import styles from "../../styles/Request.module.css"
-import BodyEditor from "./BodyEditor"
+import BodyDisplay from "./BodyDisplay"
 
 const getStatusText = (response) => {
   if (Number(response.status) >= 200 && Number(response.status) < 300) {
@@ -37,18 +37,45 @@ const Response = () => {
             <div>size: {"123"}ks</div>
           </div>
           <h5>Response Headers</h5>
-          {Object.entries(response.headers).map(([key, value]) => (
-            <div style={{ display: "flex" }} key={key}>
-              <div style={{ marginRight: "2rem" }}>{key}</div>
-              <div>{String(value)}</div>
-            </div>
-          ))}
+          {response.data.originalResponseHeaders
+            ? Object.entries(response.data.originalResponseHeaders).map(
+                ([key, value]) => (
+                  <div style={{ display: "flex" }} key={key}>
+                    <div style={{ marginRight: "2rem" }}>{key}</div>
+                    <div>{String(value)}</div>
+                  </div>
+                )
+              )
+            : Object.entries(response.headers).map(([key, value]) => (
+                <div style={{ display: "flex" }} key={key}>
+                  <div style={{ marginRight: "2rem" }}>{key}</div>
+                  <div>{String(value)}</div>
+                </div>
+              ))}
+          {response.data.originalResponseHeaders && (
+            <section>
+              <h5>Proxy headers</h5>
+              {Object.entries(response.headers).map(([key, value]) => (
+                <div style={{ display: "flex" }} key={key}>
+                  <div style={{ marginRight: "2rem" }}>{key}</div>
+                  <div>{String(value)}</div>
+                </div>
+              ))}
+            </section>
+          )}
           <h5>Response Body</h5>
-          <BodyEditor
-            value={JSON.stringify(response.data)}
-            onChange={(value) => value}
-          />
-          <p>{JSON.stringify(response.data)}</p>
+          {response.data.originalResponseHeaders &&
+          response.data.originalData ? (
+            <BodyDisplay
+              value={JSON.stringify(response.data.originalData)}
+              onChange={(value) => value}
+            />
+          ) : (
+            <BodyDisplay
+              value={JSON.stringify(response.data)}
+              onChange={(value) => value}
+            />
+          )}
         </main>
       ) : (
         !loading &&
