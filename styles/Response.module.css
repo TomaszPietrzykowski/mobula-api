@@ -1,0 +1,30 @@
+.root {
+  padding: 2rem 0;
+  border: 1px solid blue;
+  max-width: 100%;
+  background: rgb(24, 32, 37);
+}
+
+.h5 {
+  margin: 1rem 0;
+  font-size: 1.3rem;
+  padding-left: 0.5rem;
+}
+
+.headersRow {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin: 0.5rem;
+  border-radius: 6px;
+  color: rgb(187, 215, 235);
+}
+.headersRow:hover > * {
+  color: lime;
+}
+
+.headersCol {
+  padding: 0.5rem;
+  overflow-wrap: break-word;
+  background: rgb(36, 51, 61);
+}
