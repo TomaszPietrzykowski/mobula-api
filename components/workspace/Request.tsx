@@ -22,6 +22,7 @@ const Request = () => {
   const [reqMethod, setReqMethod] = useState<Method>("GET")
   const [proxy, setProxy] = useState<boolean>(false)
   const [bodyEditorValue, setBodyEditorValue] = useState<string>("{\n\t\n}")
+  const [requestNavState, setRequestNavState] = useState<number>(0)
 
   const { loading, error, response, success } = useTypedSelector(
     (state) => state.requestSend
@@ -157,13 +158,14 @@ const Request = () => {
         />
         <button type="submit">Send</button>
       </form>
-      <input
-        type="checkbox"
-        checked={proxy}
-        id="proxy"
-        onChange={() => setProxy(!proxy)}
-      />
-      <label htmlFor="proxy">CORS PROXY</label>
+      <section className={styles.styledProxy}>
+        <div
+          className={proxy ? styles.proxyBtnActive : styles.proxyBtn}
+          onClick={() => setProxy(!proxy)}
+        >
+          Proxy
+        </div>
+      </section>
       <div>
         <label>
           <input
@@ -189,7 +191,7 @@ const Request = () => {
 
       {loading ? (
         <h1>Loading</h1>
-      ) : activeTab === "request" ? (
+      ) : (
         <article className={styles.output}>
           <h2>Request</h2>
           <section>
@@ -263,9 +265,6 @@ const Request = () => {
             </form>
           </section>
           <BodyEditor value={bodyEditorValue} onChange={setBodyEditorValue} />
-        </article>
-      ) : (
-        <article className={styles.output}>
           <Response />
         </article>
       )}

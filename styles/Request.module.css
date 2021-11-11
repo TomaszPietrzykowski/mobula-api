@@ -4,10 +4,6 @@
   color: steelblue;
   max-width: 100%;
 }
-.root > * {
-  border: 1px solid lavender;
-  padding-bottom: 3rem;
-}
 .output {
   border: 1px solid lime;
   color: steelblue;
@@ -20,7 +16,6 @@
   min-width: max-content;
 }
 .urlForm > * {
-  border-color: lightblue;
   border-radius: 3px;
 }
 .urlForm input {
@@ -44,9 +39,85 @@
 
 /* 
 
-Response styles
+Proxy control
 
 */
-.timingSpan {
-  margin-right: 2rem;
+.styledProxy {
+  padding: 1.5rem;
+  background: rgb(24, 32, 37);
+  color: hsl(317 100% 54%);
+  font-family: "Balsamiq Sans", cursive;
+  margin: 3rem 0;
+}
+.proxyBtn {
+  font-size: 1.2rem;
+  padding: 0.25em 1em;
+  color: hsl(317 100% 54%);
+  display: inline-block;
+  cursor: pointer;
+  border: 2px solid hsl(317 100% 54%);
+  border-radius: 0.25em;
+  text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.4), 0 0 0.45em hsl(317 100% 54%);
+  box-shadow: inset 0 0 0.4em 0 hsl(317 100% 54%), 0 0 0.4em 0 hsl(317 100% 54%);
+  position: relative;
+}
+.proxyBtnActive {
+  font-size: 1.2rem;
+  padding: 0.25em 1em;
+  background: hsl(317 100% 54%);
+  color: rgb(24, 32, 37);
+  display: inline-block;
+  cursor: pointer;
+  border: 2px solid hsl(317 100% 54%);
+  border-radius: 0.25em;
+  box-shadow: inset 0 0 0.4em 0 hsl(317 100% 54%), 0 0 0.4em 0 hsl(317 100% 54%);
+  position: relative;
+}
+.proxyBtn::before {
+  content: "";
+  position: absolute;
+  top: 90%;
+  left: 0;
+  background: hsl(317 100% 54%);
+  width: 100%;
+  height: 100%;
+
+  transform: perspective(1em) rotateX(40deg) scale(1, 0.35);
+  filter: blur(1.5em);
+  opacity: 0.65;
+}
+.proxyBtnActive::before {
+  content: "";
+  position: absolute;
+  top: 90%;
+  left: 0;
+  background: hsl(317 100% 54%);
+  width: 100%;
+  height: 100%;
+
+  transform: perspective(1em) rotateX(40deg) scale(1, 0.35);
+  filter: blur(1.5em);
+  opacity: 1;
+}
+.proxyBtn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: 0 0 2em 0.3em hsl(317 100% 54%);
+  opacity: 0;
+  transition: all 200ms linear;
+}
+.proxyBtnActive::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: 0 0 2em 0.3em hsl(317 100% 54%);
+  opacity: 1;
+  transition: all 200ms linear;
 }

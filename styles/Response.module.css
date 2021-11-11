@@ -28,3 +28,6 @@
   overflow-wrap: break-word;
   background: rgb(36, 51, 61);
 }
+.timingSpan {
+  margin-right: 2rem;
+}

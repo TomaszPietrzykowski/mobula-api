@@ -15,34 +15,6 @@ const Response = () => {
       {!loading && success && (
         <main>
           <ResponseStatusBar response={response} />
-          <ResponseHeaders response={response} />
-          {/* <h5>Response Headers</h5>
-          {response.data.originalResponseHeaders
-            ? Object.entries(response.data.originalResponseHeaders).map(
-                ([key, value]) => (
-                  <div style={{ display: "flex" }} key={key}>
-                    <div style={{ marginRight: "2rem" }}>{key}</div>
-                    <div>{String(value)}</div>
-                  </div>
-                )
-              )
-            : Object.entries(response.headers).map(([key, value]) => (
-                <div style={{ display: "flex" }} key={key}>
-                  <div style={{ marginRight: "2rem" }}>{key}</div>
-                  <div>{String(value)}</div>
-                </div>
-              ))}
-          {response.data.originalResponseHeaders && (
-            <section>
-              <h5>Proxy headers</h5>
-              {Object.entries(response.headers).map(([key, value]) => (
-                <div style={{ display: "flex" }} key={key}>
-                  <div style={{ marginRight: "2rem" }}>{key}</div>
-                  <div>{String(value)}</div>
-                </div>
-              ))}
-            </section>
-          )} */}
           <h5>Response Body</h5>
           {response.data.originalResponseHeaders &&
           response.data.originalData ? (
@@ -50,6 +22,7 @@ const Response = () => {
           ) : (
             <BodyDisplay value={JSON.stringify(response.data)} />
           )}
+          <ResponseHeaders response={response} />
         </main>
         // TO DO --- check cors eror handling --------------------- TO DO
         // ) : (
