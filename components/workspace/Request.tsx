@@ -8,8 +8,6 @@ import Response from "./Response"
 import BodyEditor from "./BodyEditor"
 
 const Request = () => {
-  const [activeTab, setActiveTab] = useState<string>("request")
-  const [protocol, setProtocol] = useState<string>("http")
   const [reqUrl, setReqUrl] = useState<string>(
     "jsonplaceholder.typicode.com/todos/1"
   )
@@ -30,12 +28,6 @@ const Request = () => {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    if (success || error) {
-      setActiveTab("response")
-    }
-  }, [success, error])
-
   /*
    * Axios request - execute
    */
@@ -51,8 +43,8 @@ const Request = () => {
   }
   const makeRequest = async () => {
     const requestUrl: string = proxy
-      ? `${process.env.NEXT_PUBLIC_CORS_PROXY}${protocol}://${reqUrl}`
-      : `${protocol}://${reqUrl}`
+      ? `${process.env.NEXT_PUBLIC_CORS_PROXY}${reqUrl}`
+      : `${reqUrl}`
     const config: AxiosRequestConfig = {
       method: reqMethod,
       url: requestUrl,
@@ -80,17 +72,11 @@ const Request = () => {
   /*
    * Form state handlers - component level state
    */
-  const handleProtocol = (e: any): void => {
-    setProtocol(e.currentTarget.value)
-  }
   const handleUrl = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setReqUrl(e.currentTarget.value)
   }
   const handleMethod = (e: any): void => {
     setReqMethod(e.currentTarget.value)
-  }
-  const handleActivetab = (activeTab: string): void => {
-    setActiveTab(activeTab)
   }
 
   /*
@@ -144,11 +130,6 @@ const Request = () => {
           <option value="OPTIONS">OPTIONS</option>
           <option value="HEAD">HEAD</option>
         </select>
-        <select id="protocol" onChange={(e) => handleProtocol(e)}>
-          <option value="http">HTTP</option>
-          <option value="https">HTTPS</option>
-          <option value="ftp">FTP</option>
-        </select>
         <input
           type="text"
           id="url"
@@ -166,29 +147,6 @@ const Request = () => {
           Proxy
         </div>
       </section>
-      <div>
-        <label>
-          <input
-            type="radio"
-            value="request"
-            name="request"
-            onChange={(e) => handleActivetab("request")}
-            checked={activeTab === "request"}
-          />
-          Request
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="response"
-            name="response"
-            onChange={(e) => handleActivetab("response")}
-            checked={activeTab === "response"}
-          />
-          Response
-        </label>
-      </div>
-
       {loading ? (
         <h1>Loading</h1>
       ) : (
