@@ -4,6 +4,21 @@
   color: steelblue;
   max-width: 100%;
 }
+.requestNav ul {
+  display: flex;
+  padding: 1rem 0;
+}
+.requestNav li {
+  margin: 0.5rem 1rem 0.5rem 0;
+}
+.navLi {
+  color: lightblue;
+  cursor: pointer;
+}
+.navLiActive {
+  color: lime;
+  cursor: default;
+}
 .output {
   border: 1px solid lime;
   color: steelblue;

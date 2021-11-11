@@ -194,77 +194,109 @@ const Request = () => {
       ) : (
         <article className={styles.output}>
           <h2>Request</h2>
-          <section>
-            <h3>Request Headers</h3>
-            {Object.entries(reqHeaders).map(([key, value]) => (
-              <div style={{ display: "flex" }} key={key}>
-                <div style={{ marginRight: "2rem" }}>{key}</div>
-                <div>{String(value)}</div>
-                <button
-                  onClick={() => {
-                    const newObj = { ...reqHeaders }
-                    delete newObj[key]
-                    setReqHeaders(newObj)
-                  }}
-                >
-                  Nuke
-                </button>
-              </div>
-            ))}
-            <form onSubmit={handleAddHeader}>
-              <input
-                type="text"
-                id="new-header-key"
-                value={newHeaderKey}
-                onChange={handleNewHeaderKey}
-                className={styles.headerInput}
-              />
-              <input
-                type="text"
-                id="new-header-value"
-                value={newHeaderValue}
-                onChange={handleNewHeaderValue}
-                className={styles.headerInput}
-              />
+          <nav className={styles.requestNav}>
+            <ul>
+              <li
+                className={
+                  requestNavState === 0 ? styles.navLiActive : styles.navLi
+                }
+                onClick={() => setRequestNavState(0)}
+              >
+                Request headers
+              </li>
+              <li
+                className={
+                  requestNavState === 1 ? styles.navLiActive : styles.navLi
+                }
+                onClick={() => setRequestNavState(1)}
+              >
+                Query Params
+              </li>
+              <li
+                className={
+                  requestNavState === 2 ? styles.navLiActive : styles.navLi
+                }
+                onClick={() => setRequestNavState(2)}
+              >
+                JSON Body
+              </li>
+            </ul>
+          </nav>
+          {requestNavState === 0 ? (
+            <section>
+              <h3>Request Headers</h3>
+              {Object.entries(reqHeaders).map(([key, value]) => (
+                <div style={{ display: "flex" }} key={key}>
+                  <div style={{ marginRight: "2rem" }}>{key}</div>
+                  <div>{String(value)}</div>
+                  <button
+                    onClick={() => {
+                      const newObj = { ...reqHeaders }
+                      delete newObj[key]
+                      setReqHeaders(newObj)
+                    }}
+                  >
+                    Nuke
+                  </button>
+                </div>
+              ))}
+              <form onSubmit={handleAddHeader}>
+                <input
+                  type="text"
+                  id="new-header-key"
+                  value={newHeaderKey}
+                  onChange={handleNewHeaderKey}
+                  className={styles.headerInput}
+                />
+                <input
+                  type="text"
+                  id="new-header-value"
+                  value={newHeaderValue}
+                  onChange={handleNewHeaderValue}
+                  className={styles.headerInput}
+                />
 
-              <button type="submit">Add header</button>
-            </form>
-          </section>
-          <section>
-            <h3>Query Params</h3>
-            {Object.entries(reqQueries).map(([key, value]) => (
-              <div style={{ display: "flex" }} key={key}>
-                <div style={{ marginRight: "2rem" }}>{key}</div>
-                <div>{String(value)}</div>
-                <button
-                  onClick={() => {
-                    const newObj = { ...reqQueries }
-                    delete newObj[key]
-                    setReqQueries(newObj)
-                  }}
-                >
-                  Nuke
-                </button>
-              </div>
-            ))}
-            <form onSubmit={handleAddQuery}>
-              <input
-                type="text"
-                value={newQueryKey}
-                onChange={handleNewQueryKey}
-                className={styles.QueryInput}
-              />
-              <input
-                type="text"
-                value={newQueryValue}
-                onChange={handleNewQueryValue}
-                className={styles.QueryInput}
-              />
+                <button type="submit">Add header</button>
+              </form>
+            </section>
+          ) : requestNavState === 1 ? (
+            <section>
+              <h3>Query Params</h3>
+              {Object.entries(reqQueries).map(([key, value]) => (
+                <div style={{ display: "flex" }} key={key}>
+                  <div style={{ marginRight: "2rem" }}>{key}</div>
+                  <div>{String(value)}</div>
+                  <button
+                    onClick={() => {
+                      const newObj = { ...reqQueries }
+                      delete newObj[key]
+                      setReqQueries(newObj)
+                    }}
+                  >
+                    Nuke
+                  </button>
+                </div>
+              ))}
+              <form onSubmit={handleAddQuery}>
+                <input
+                  type="text"
+                  value={newQueryKey}
+                  onChange={handleNewQueryKey}
+                  className={styles.QueryInput}
+                />
+                <input
+                  type="text"
+                  value={newQueryValue}
+                  onChange={handleNewQueryValue}
+                  className={styles.QueryInput}
+                />
 
-              <button type="submit">Add Query Param</button>
-            </form>
-          </section>
-          <BodyEditor value={bodyEditorValue} onChange={setBodyEditorValue} />
+                <button type="submit">Add Query Param</button>
+              </form>
+            </section>
+          ) : (
+            <BodyEditor value={bodyEditorValue} onChange={setBodyEditorValue} />
+          )}
           <Response />
         </article>
       )}

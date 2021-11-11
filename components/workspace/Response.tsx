@@ -59,6 +59,7 @@ const Response = () => {
         //     </main>
         //   )
       )}
+      {!loading && !response.headers && <h2>Send request to see response</h2>}
     </div>
   )
 }
