@@ -1,7 +1,7 @@
 import React from "react"
 import { useTypedSelector } from "../../redux/hooks"
 import styles from "../../styles/Request.module.css"
-import ResponseHeaders from "../response/ResponseHeaders"
+import ResponseHeaders from "./ResponseHeaders"
 import BodyDisplay from "./BodyDisplay"
 import ResponseStatusBar from "./ResponseStatusBar"
 
@@ -26,7 +26,7 @@ const Response = () => {
         </main>
         // TO DO --- check cors eror handling --------------------- TO DO
         // ) : (
-        //   !loading &&
+        //   {!loading &&
         //   error && (
         //     <main>
         //       <div className={styles.responseInfoContainer}>
@@ -56,10 +56,10 @@ const Response = () => {
         //       <p>Stack:</p>
         //       <p>{String(error.stack)}</p>
         //       <p>{JSON.stringify(error.config)}</p>
-        //     </main>
+        //     </main>}
         //   )
       )}
-      {!loading && !response.headers && <h2>Send request to see response</h2>}
+      {!loading && !response?.headers && <h2>Send request to see response</h2>}
     </div>
   )
 }

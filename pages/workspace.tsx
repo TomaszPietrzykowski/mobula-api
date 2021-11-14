@@ -2,7 +2,7 @@ import React from "react"
 import styles from "../styles/Workspace.module.css"
 import { useDispatch } from "react-redux"
 import { useTypedSelector } from "../redux/hooks"
-import Request from "../components/workspace/Request"
+import Request from "../components/request/Request"
 
 const Workspace = () => {
   const dispatch = useDispatch()

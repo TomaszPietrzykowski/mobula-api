@@ -4,12 +4,12 @@ import { sendRequest } from "../../redux/actions/requestActions"
 import { useDispatch } from "react-redux"
 import { useTypedSelector } from "../../redux/hooks"
 import styles from "../../styles/Request.module.css"
-import Response from "./Response"
+import Response from "../response/Response"
 import BodyEditor from "./BodyEditor"
 
 const Request = () => {
   const [reqUrl, setReqUrl] = useState<string>(
-    "jsonplaceholder.typicode.com/todos/1"
+    "http://jsonplaceholder.typicode.com/todos"
   )
   const [reqHeaders, setReqHeaders] = useState<{}>({})
   const [newHeaderKey, setNewHeaderKey] = useState<string>("")
