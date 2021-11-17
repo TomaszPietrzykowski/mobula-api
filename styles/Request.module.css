@@ -28,6 +28,7 @@
   align-items: stretch;
 }
 .urlForm {
+  padding: 0 1.3rem;
   min-width: max-content;
 }
 .urlForm > * {

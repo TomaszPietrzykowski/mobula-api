@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from "react"
-import { AxiosRequestConfig, Method } from "axios"
-import { sendRequest } from "../../redux/actions/requestActions"
-import { useDispatch } from "react-redux"
-import { useTypedSelector } from "../../redux/hooks"
+import axios, { AxiosRequestConfig, AxiosResponse, Method } from "axios"
+// import { sendRequest } from "../../redux/actions/requestActions"
+// import { useDispatch } from "react-redux"
+// import { useTypedSelector } from "../../redux/hooks"
+// import * as constants from "../../redux/constants/requestConstants"
 import styles from "../../styles/Request.module.css"
 import Response from "../response/Response"
 import BodyEditor from "./BodyEditor"
+
+// extend axios types
+declare module "axios" {
+  export interface AxiosRequestConfig {
+    mobula?: {
+      reqStartTime?: number
+    }
+  }
+  export interface AxiosResponse {
+    mobula?: {
+      reqEndTime?: number
+    }
+  }
+}
 
 const Request = () => {
   const [reqUrl, setReqUrl] = useState<string>(
@@ -21,16 +36,19 @@ const Request = () => {
   const [proxy, setProxy] = useState<boolean>(false)
   const [bodyEditorValue, setBodyEditorValue] = useState<string>("{\n\t\n}")
   const [requestNavState, setRequestNavState] = useState<number>(0)
-
-  const { loading, error, response, success } = useTypedSelector(
-    (state) => state.requestSend
-  )
-
-  const dispatch = useDispatch()
+  const [loading, setLoading] = useState<boolean>(false)
+  const [success, setSuccess] = useState<boolean>(false)
+  const [response, setResponse] = useState<AxiosResponse | null>(null)
+  const [isCorsError, setIsCorsError] = useState<boolean>(false)
+  const [error, setError] = useState<any>(null)
 
   /*
-   * Axios request - execute
+   * -----------  Axios request - E X E C U T E ---------------------
    */
+
+  // 1. prefix custom headers
+  // ----------------------
+
   const proxyHeaders = (headers: {}): {} => {
     const proxyArray = Object.entries(headers).map(([key, value]) => {
       return { [`mobula-proxy-${[key]}`]: value }
@@ -41,6 +59,10 @@ const Request = () => {
     })
     return outputHeaders
   }
+
+  // 2. request config
+  // ----------------------
+
   const makeRequest = async () => {
     const requestUrl: string = proxy
       ? `${process.env.NEXT_PUBLIC_CORS_PROXY}${reqUrl}`
@@ -57,7 +79,40 @@ const Request = () => {
           ? JSON.parse(bodyEditorValue) || {}
           : null,
     }
-    dispatch(sendRequest(config))
+    sendRequest(config)
+  }
+
+  // send request exec
+  // -----------------
+
+  const sendRequest = async (config: AxiosRequestConfig) => {
+    setLoading(true)
+    setSuccess(false)
+    try {
+      axios.interceptors.request.use((req) => {
+        req.mobula = req.mobula || {}
+        req.mobula.reqStartTime = new Date().getTime()
+        return req
+      })
+      axios.interceptors.response.use(
+        (res) => {
+          res.mobula = res.mobula || {}
+          res.mobula.reqEndTime = new Date().getTime()
+          return res
+        },
+        (err) => {
+          if (typeof err.response === "undefined") setIsCorsError(true)
+          return Promise.reject(err)
+        }
+      )
+      const res: AxiosResponse = await axios(config)
+      setResponse(res)
+      setSuccess(true)
+      setLoading(false)
+    } catch (error) {
+      setError(error)
+      setLoading(false)
+    }
   }
 
   /*
@@ -70,7 +125,7 @@ const Request = () => {
   }
 
   /*
-   * Form state handlers - component level state
+   * URL form state handlers
    */
   const handleUrl = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setReqUrl(e.currentTarget.value)
@@ -118,6 +173,8 @@ const Request = () => {
   ): void => {
     setNewQueryValue(e.currentTarget.value)
   }
+
+  // jsx
   return (
     <div className={styles.root}>
       <form onSubmit={handleSubmit} className={styles.urlForm}>
@@ -255,7 +312,51 @@ const Request = () => {
           ) : (
             <BodyEditor value={bodyEditorValue} onChange={setBodyEditorValue} />
           )}
-          <Response />
+          {!loading && !response?.headers && (
+            <h2>Send request to see response</h2>
+          )}
+          {!loading && response && <Response response={response} />}
+
+          {
+            // TO DO --- check cors eror handling --------------------- TO DO
+            !loading && isCorsError && (
+              <main>
+                <h2>Request could not be sent</h2>
+                <p>
+                  It may be a CORS issue or connection problem. Try using PROXY
+                  for cross origin secured resources and check your internet
+                  connection
+                </p>
+                <div className={styles.responseInfoContainer}>
+                  <div>status code: {error.response?.status || "400"}</div>
+                  <div>status: {String(error.name)}</div>
+                  <div>
+                    Error time:{" "}
+                    {error.response?.mobula.reqEndTime -
+                      error.response?.config.mobula.reqStartTime || ""}
+                    ms
+                  </div>
+                  <div>size: {"123"}ks</div>
+                </div>
+                <h5>Response Headers</h5>
+                {Object.entries(error.config.headers).map(([key, value]) => (
+                  <div style={{ display: "flex" }} key={key}>
+                    <div style={{ marginRight: "2rem" }}>{key}</div>
+                    <div>{String(value)}</div>
+                  </div>
+                ))}
+                <br />
+                <h5>Response Body</h5>
+                <p>
+                  {String(error.name)}: {String(error.message)}
+                </p>
+                <br />
+                <p>Stack:</p>
+                <p>{String(error.stack)}</p>
+                <p>{JSON.stringify(error.config)}</p>
+              </main>
+            )
+          }
         </article>
       )}
     </div>

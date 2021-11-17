@@ -2,11 +2,9 @@ import { createStore, applyMiddleware, combineReducers } from "redux"
 import thunk from "redux-thunk"
 import { composeWithDevTools } from "redux-devtools-extension"
 import { userLoginReducer } from "./reducers/userReducer"
-import { requestSendReducer } from "./reducers/requestReducer"
 
 const rootReducer = combineReducers({
   userLogin: userLoginReducer,
-  requestSend: requestSendReducer,
 })
 
 const initialState = {}
