@@ -23,6 +23,10 @@ declare module "axios" {
 }
 
 const Request = () => {
+
+  /*
+   * -----------  Component level state ---------------------
+   */
   const [reqUrl, setReqUrl] = useState<string>(
     "http://jsonplaceholder.typicode.com/todos"
   )
@@ -47,7 +51,7 @@ const Request = () => {
    */
 
   // 1. prefix custom headers
-  // ----------------------
+  // ------------------------
 
   const proxyHeaders = (headers: {}): {} => {
     const proxyArray = Object.entries(headers).map(([key, value]) => {
@@ -61,7 +65,7 @@ const Request = () => {
   }
 
   // 2. request config
-  // ----------------------
+  // -----------------
 
   const makeRequest = async () => {
     const requestUrl: string = proxy
@@ -75,6 +79,7 @@ const Request = () => {
       validateStatus: (status) => status >= 100 && status < 600,
       data:
         reqMethod.toUpperCase() !== "GET" &&
+        reqMethod.toUpperCase() !== "HEAD" &&
         reqMethod.toUpperCase() !== "OPTIONS"
           ? JSON.parse(bodyEditorValue) || {}
           : null,
@@ -82,12 +87,14 @@ const Request = () => {
     sendRequest(config)
   }
 
-  // send request exec
-  // -----------------
+  // 3. send request exec
+  // --------------------
 
   const sendRequest = async (config: AxiosRequestConfig) => {
     setLoading(true)
     setSuccess(false)
+    setResponse(null)
+    setIsCorsError(false)
     try {
       axios.interceptors.request.use((req) => {
         req.mobula = req.mobula || {}
@@ -97,7 +104,7 @@ const Request = () => {
       axios.interceptors.response.use(
         (res) => {
           res.mobula = res.mobula || {}
-          res.mobula.reqEndTime = new Date().getTime()
+         res.mobula.reqEndTime = new Date().getTime()
           return res
         },
         (err) => {
@@ -116,7 +123,7 @@ const Request = () => {
   }
 
   /*
-   * Form submit handler - send request
+   * ------------ Form submit handler - send request --------
    */
   const handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault()
@@ -174,7 +181,7 @@ const Request = () => {
     setNewQueryValue(e.currentTarget.value)
   }
 
-  // jsx
+  // ------------- JSX --------------------------
   return (
     <div className={styles.root}>
       <form onSubmit={handleSubmit} className={styles.urlForm}>

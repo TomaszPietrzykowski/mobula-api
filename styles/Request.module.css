@@ -1,5 +1,5 @@
 .root {
-  border: 1px solid orange;
+  /* border: 1px solid orange; */
   padding: 4rem;
   color: steelblue;
   max-width: 100%;
@@ -20,7 +20,7 @@
   cursor: default;
 }
 .output {
-  border: 1px solid lime;
+  /* border: 1px solid lime; */
   color: steelblue;
 }
 .root form {
