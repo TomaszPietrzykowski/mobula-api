@@ -241,6 +241,22 @@ const Request = () => {
               >
                 JSON Body
               </li>
+              <li
+                className={
+                  requestNavState === 3 ? styles.navLiActive : styles.navLi
+                }
+                onClick={() => setRequestNavState(3)}
+              >
+                Cookies
+              </li>
+              <li
+                className={
+                  requestNavState === 4 ? styles.navLiActive : styles.navLi
+                }
+                onClick={() => setRequestNavState(4)}
+              >
+                cURL
+              </li>
             </ul>
           </nav>
           {requestNavState === 0 ? (
@@ -315,11 +331,19 @@ const Request = () => {
                 <button type='submit'>Add Query Param</button>
               </form>
             </section>
-          ) : (
+          ) : requestNavState === 2 ? (
             <BodyEditor value={bodyEditorValue} onChange={setBodyEditorValue} />
+          ) : requestNavState === 3 ? (
+            <section>
+              <h3>Cookies</h3>
+            </section>
+          ) : (
+            <section>
+              <h3>cURL</h3>
+            </section>
           )}
           {!loading && !response?.headers && (
-            <h2>Send request to see request and response details</h2>
+            <h2>Send request to see more details</h2>
           )}
           {!loading && response && <Response response={response} />}
 

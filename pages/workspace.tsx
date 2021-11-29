@@ -9,8 +9,8 @@ const Workspace = () => {
   const dispatch = useDispatch()
   const userLogin = useTypedSelector((state) => state.userLogin)
 
-  const login = () => {
-    dispatch(logIn('abc@abc.pl', '123456'))
+  const login = (email: string, password: string): void => {
+    dispatch(logIn(email, password))
   }
 
   const workspace = { name: 'New Workspace' }
@@ -32,7 +32,9 @@ const Workspace = () => {
             {userLogin.user && <p>user: {userLogin.user.name}</p>}
           </section>
           <section>
-            <button onClick={login}>Dispatch login</button>
+            <button onClick={() => login('abc@abc.pl', '123456')}>
+              Dispatch login
+            </button>
           </section>
           <Request />
         </main>
