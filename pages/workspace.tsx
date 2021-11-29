@@ -1,21 +1,19 @@
-import React from "react"
-import styles from "../styles/Workspace.module.css"
-import { useDispatch } from "react-redux"
-import { useTypedSelector } from "../redux/hooks"
-import Request from "../components/request/Request"
+import React from 'react'
+import styles from '../styles/Workspace.module.css'
+import { useDispatch } from 'react-redux'
+import { useTypedSelector } from '../redux/hooks'
+import { logIn } from '../redux/actions/userActions'
+import Request from '../components/request/Request'
 
 const Workspace = () => {
   const dispatch = useDispatch()
   const userLogin = useTypedSelector((state) => state.userLogin)
 
   const login = () => {
-    dispatch({
-      type: "USER_LOGIN_SUCCESS",
-      payload: { name: "Brian", id: 222, email: "123@345.okm" },
-    })
+    dispatch(logIn('abc@abc.pl', '123456'))
   }
 
-  const workspace = { name: "New Workspace" }
+  const workspace = { name: 'New Workspace' }
 
   return (
     <div className={styles.container}>
