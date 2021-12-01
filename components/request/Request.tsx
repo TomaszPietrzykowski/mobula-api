@@ -7,6 +7,7 @@ import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
 import styles from '../../styles/Request.module.css'
 import Response from '../response/Response'
 import BodyEditor from './BodyEditor'
+import UrlPreview from './UrlPreview'
 
 // extend axios types
 declare module 'axios' {
@@ -202,6 +203,7 @@ const Request = () => {
         />
         <button type='submit'>Send</button>
       </form>
+      <UrlPreview url={reqUrl} queryParams={reqQueries} />
       <section className={styles.styledProxy}>
         <div
           className={proxy ? styles.proxyBtnActive : styles.proxyBtn}
@@ -348,7 +350,7 @@ const Request = () => {
           {!loading && response && <Response response={response} />}
 
           {
-            // TO DO --- check cors eror handling --------------------- TO DO
+            // TO DO --- check cors error handling --------------------- TO DO
             !loading && isCorsError && (
               <main>
                 <h2>Request could not be sent</h2>
