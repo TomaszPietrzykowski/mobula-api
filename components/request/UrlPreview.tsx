@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import isEmptyObj from '../../utils/isEmptyObj'
+import parseEnv from '../../utils/parseEnv'
+
+type KeyVal = {
+  key: string
+  value: string
+}
 
 interface IProps {
   url: string
   queryParams: object
+  env: KeyVal[]
 }
 
-const UrlPreview = ({ url, queryParams }: IProps): JSX.Element => {
+const UrlPreview = ({ url, queryParams, env }: IProps): JSX.Element => {
   const [outputString, setOutputString] = useState<string>(url)
 
   // TODO --- parse ENV variables from url
@@ -23,7 +30,13 @@ const UrlPreview = ({ url, queryParams }: IProps): JSX.Element => {
       setOutputString(url)
     }
   }, [url, queryParams])
-  return <div style={{ padding: '1.3rem' }}>{outputString}</div>
+
+  // jsx
+  return (
+    <div style={{ padding: '1.3rem', color: 'lightblue' }}>
+      {parseEnv(outputString, env)}
+    </div>
+  )
 }
 
 export default UrlPreview

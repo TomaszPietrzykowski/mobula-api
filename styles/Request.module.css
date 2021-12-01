@@ -20,7 +20,6 @@
   cursor: default;
 }
 .output {
-  /* border: 1px solid lime; */
   color: steelblue;
 }
 .root form {
@@ -62,7 +61,7 @@ Proxy control
   padding: 1.5rem;
   background: rgb(24, 32, 37);
   color: hsl(317 100% 54%);
-  font-family: "Balsamiq Sans", cursive;
+  font-family: 'Balsamiq Sans', cursive;
   margin: 3rem 0;
 }
 .proxyBtn {
@@ -90,7 +89,7 @@ Proxy control
   position: relative;
 }
 .proxyBtn::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 90%;
   left: 0;
@@ -103,7 +102,7 @@ Proxy control
   opacity: 0.65;
 }
 .proxyBtnActive::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 90%;
   left: 0;
@@ -116,7 +115,7 @@ Proxy control
   opacity: 1;
 }
 .proxyBtn::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -127,7 +126,7 @@ Proxy control
   transition: all 200ms linear;
 }
 .proxyBtnActive::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

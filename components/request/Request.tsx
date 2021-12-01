@@ -23,6 +23,11 @@ declare module 'axios' {
   }
 }
 
+type KeyVal = {
+  key: string
+  value: string
+}
+
 const Request = () => {
   /*
    * -----------  Component level state ---------------------
@@ -38,6 +43,9 @@ const Request = () => {
   const [newQueryValue, setNewQueryValue] = useState<string>('')
   const [reqMethod, setReqMethod] = useState<Method>('GET')
   const [proxy, setProxy] = useState<boolean>(false)
+  const [env, setEnv] = useState<KeyVal[]>([
+    { key: 'URL', value: 'http://jsonplaceholder.typicode.com' },
+  ])
   const [bodyEditorValue, setBodyEditorValue] = useState<string>('{\n\t\n}')
   const [requestNavState, setRequestNavState] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
@@ -203,7 +211,7 @@ const Request = () => {
         />
         <button type='submit'>Send</button>
       </form>
-      <UrlPreview url={reqUrl} queryParams={reqQueries} />
+      <UrlPreview url={reqUrl} queryParams={reqQueries} env={env} />
       <section className={styles.styledProxy}>
         <div
           className={proxy ? styles.proxyBtnActive : styles.proxyBtn}
