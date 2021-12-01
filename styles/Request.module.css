@@ -39,8 +39,27 @@
 .urlForm button {
   padding: 0 1rem;
 }
+.urlWrapper {
+  position: relative;
+}
 .url {
   width: 100%;
+  height: 100%;
+  /* opacity: 0; */
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0.4rem;
+  background: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0);
+}
+.urlMask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  padding: 0.4rem;
 }
 .responseInfoContainer {
   display: flex;

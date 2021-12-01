@@ -1,5 +1,3 @@
-import isEmptyObj from './isEmptyObj'
-
 type KeyVal = {
   key: string
   value: string
@@ -11,7 +9,7 @@ const parseEnv = (str: string, env: EnvArrType): string => {
   if (env.length === 0) return str
   let output = str
   env.forEach((el) => {
-    output = output.replace(`{{${el.key}}}`, `${el.value}`)
+    output = output.replaceAll(`{{${el.key}}}`, `${el.value}`)
   })
   return output
 }

@@ -8,6 +8,8 @@ import styles from '../../styles/Request.module.css'
 import Response from '../response/Response'
 import BodyEditor from './BodyEditor'
 import UrlPreview from './UrlPreview'
+import markEnv from '../../utils/markEnv'
+import parseEnv from '../../utils/parseEnv'
 
 // extend axios types
 declare module 'axios' {
@@ -81,7 +83,7 @@ const Request = () => {
       : `${reqUrl}`
     const config: AxiosRequestConfig = {
       method: reqMethod,
-      url: requestUrl,
+      url: parseEnv(requestUrl, env),
       headers: proxy ? proxyHeaders(reqHeaders) : reqHeaders,
       params: reqQueries,
       validateStatus: (status) => status >= 100 && status < 600,
@@ -192,6 +194,7 @@ const Request = () => {
   // ------------- JSX --------------------------
   return (
     <div className={styles.root}>
+      <div contentEditable={true}>Dupsko</div>
       <form onSubmit={handleSubmit} className={styles.urlForm}>
         <select id='method' onChange={(e) => handleMethod(e)}>
           <option value='GET'>GET</option>
@@ -202,13 +205,19 @@ const Request = () => {
           <option value='OPTIONS'>OPTIONS</option>
           <option value='HEAD'>HEAD</option>
         </select>
-        <input
-          type='text'
-          id='url'
-          value={reqUrl}
-          className={styles.url}
-          onChange={(e) => handleUrl(e)}
-        />
+        <div className={styles.urlWrapper}>
+          <input
+            type='text'
+            id='url'
+            value={reqUrl}
+            className={styles.url}
+            onChange={(e) => handleUrl(e)}
+          />
+          <p
+            className={styles.urlMask}
+            dangerouslySetInnerHTML={{ __html: markEnv(reqUrl, env) }}
+          ></p>
+        </div>
         <button type='submit'>Send</button>
       </form>
       <UrlPreview url={reqUrl} queryParams={reqQueries} env={env} />
