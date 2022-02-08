@@ -17,16 +17,17 @@
   grid-template-columns: 50% 50%;
   margin: 0.5rem;
   border-radius: 6px;
-  color: rgb(187, 215, 235);
+  color: rgba(var(--clr-secondary), 1);
 }
 .headersRow:hover > * {
-  color: lime;
+  color: rgba(var(--clr-accent), 1);
+  /* color: lime; */
 }
 
 .headersCol {
   padding: 0.5rem;
   overflow-wrap: break-word;
-  background: rgb(36, 51, 61);
+  background: rgba(var(--clr-primary-2), 1);
 }
 .timingSpan {
   margin-right: 2rem;

@@ -5,6 +5,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 /* --------------- */
+/* Variables       */
+/* --------------- */
+
+:root {
+  --clr-primary-1: 24, 32, 37;
+  --clr-primary-2: 36, 51, 61;
+  --clr-secondary: 187, 215, 235;
+  --clr-accent: 0, 255, 0;
+}
+
+/* --------------- */
 /* Reset           */
 /* --------------- */
 
@@ -59,8 +70,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.5;
-  background: rgb(24, 32, 37);
-  color: rgb(187, 215, 235);
+  background: rgba(var(--clr-primary-1), 1);
+  color: rgba(var(--clr-secondary), 1);
 }
 
 /* --------------- */
