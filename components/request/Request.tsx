@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
+import React, { useState, useEffect } from "react"
+import axios, { AxiosRequestConfig, AxiosResponse, Method } from "axios"
 // import { sendRequest } from "../../redux/actions/requestActions"
 // import { useDispatch } from "react-redux"
 // import { useTypedSelector } from "../../redux/hooks"
 // import * as constants from "../../redux/constants/requestConstants"
-import styles from '../../styles/Request.module.css'
-import Response from '../response/Response'
-import BodyEditor from './BodyEditor'
-import UrlPreview from './UrlPreview'
-import markEnv from '../../utils/markEnv'
-import parseEnv from '../../utils/parseEnv'
+import styles from "../../styles/Request.module.css"
+import Response from "../response/Response"
+import BodyEditor from "./BodyEditor"
+import UrlPreview from "./UrlPreview"
+import markEnv from "../../utils/markEnv"
+import parseEnv from "../../utils/parseEnv"
 
 // extend axios types
-declare module 'axios' {
+declare module "axios" {
   export interface AxiosRequestConfig {
     mobula?: {
       reqStartTime?: number
@@ -35,20 +35,20 @@ const Request = () => {
    * -----------  Component level state ---------------------
    */
   const [reqUrl, setReqUrl] = useState<string>(
-    'http://jsonplaceholder.typicode.com/todos'
+    "{{URL}}/api/public/v1/co2/latest"
   )
   const [reqHeaders, setReqHeaders] = useState<{}>({})
-  const [newHeaderKey, setNewHeaderKey] = useState<string>('')
-  const [newHeaderValue, setNewHeaderValue] = useState<string>('')
+  const [newHeaderKey, setNewHeaderKey] = useState<string>("")
+  const [newHeaderValue, setNewHeaderValue] = useState<string>("")
   const [reqQueries, setReqQueries] = useState<{}>({})
-  const [newQueryKey, setNewQueryKey] = useState<string>('')
-  const [newQueryValue, setNewQueryValue] = useState<string>('')
-  const [reqMethod, setReqMethod] = useState<Method>('GET')
+  const [newQueryKey, setNewQueryKey] = useState<string>("")
+  const [newQueryValue, setNewQueryValue] = useState<string>("")
+  const [reqMethod, setReqMethod] = useState<Method>("GET")
   const [proxy, setProxy] = useState<boolean>(false)
   const [env, setEnv] = useState<KeyVal[]>([
-    { key: 'URL', value: 'http://jsonplaceholder.typicode.com' },
+    { key: "URL", value: "https://climatemonitor.info" },
   ])
-  const [bodyEditorValue, setBodyEditorValue] = useState<string>('{\n\t\n}')
+  const [bodyEditorValue, setBodyEditorValue] = useState<string>("{\n\t\n}")
   const [requestNavState, setRequestNavState] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)
@@ -88,9 +88,9 @@ const Request = () => {
       params: reqQueries,
       validateStatus: (status) => status >= 100 && status < 600,
       data:
-        reqMethod.toUpperCase() !== 'GET' &&
-        reqMethod.toUpperCase() !== 'HEAD' &&
-        reqMethod.toUpperCase() !== 'OPTIONS'
+        reqMethod.toUpperCase() !== "GET" &&
+        reqMethod.toUpperCase() !== "HEAD" &&
+        reqMethod.toUpperCase() !== "OPTIONS"
           ? JSON.parse(bodyEditorValue) || {}
           : null,
     }
@@ -118,7 +118,7 @@ const Request = () => {
           return res
         },
         (err) => {
-          if (typeof err.response === 'undefined') setIsCorsError(true)
+          if (typeof err.response === "undefined") setIsCorsError(true)
           return Promise.reject(err)
         }
       )
@@ -156,10 +156,10 @@ const Request = () => {
    */
   const handleAddHeader = (e: React.SyntheticEvent): void => {
     e.preventDefault()
-    if (newHeaderKey === '' || newHeaderValue === '') return
+    if (newHeaderKey === "" || newHeaderValue === "") return
     setReqHeaders({ ...reqHeaders, [newHeaderKey]: newHeaderValue })
-    setNewHeaderKey('')
-    setNewHeaderValue('')
+    setNewHeaderKey("")
+    setNewHeaderValue("")
   }
   // new header form state
   const handleNewHeaderKey = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -176,10 +176,10 @@ const Request = () => {
    */
   const handleAddQuery = (e: React.SyntheticEvent): void => {
     e.preventDefault()
-    if (newQueryKey === '' || newQueryValue === '') return
+    if (newQueryKey === "" || newQueryValue === "") return
     setReqQueries({ ...reqQueries, [newQueryKey]: newQueryValue })
-    setNewQueryKey('')
-    setNewQueryValue('')
+    setNewQueryKey("")
+    setNewQueryValue("")
   }
   // new query form state
   const handleNewQueryKey = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -196,19 +196,19 @@ const Request = () => {
     <div className={styles.root}>
       <div contentEditable={true}>Dupsko</div>
       <form onSubmit={handleSubmit} className={styles.urlForm}>
-        <select id='method' onChange={(e) => handleMethod(e)}>
-          <option value='GET'>GET</option>
-          <option value='POST'>POST</option>
-          <option value='PUT'>PUT</option>
-          <option value='PATCH'>PATCH</option>
-          <option value='DELETE'>DELETE</option>
-          <option value='OPTIONS'>OPTIONS</option>
-          <option value='HEAD'>HEAD</option>
+        <select id="method" onChange={(e) => handleMethod(e)}>
+          <option value="GET">GET</option>
+          <option value="POST">POST</option>
+          <option value="PUT">PUT</option>
+          <option value="PATCH">PATCH</option>
+          <option value="DELETE">DELETE</option>
+          <option value="OPTIONS">OPTIONS</option>
+          <option value="HEAD">HEAD</option>
         </select>
         <div className={styles.urlWrapper}>
           <input
-            type='text'
-            id='url'
+            type="text"
+            id="url"
             value={reqUrl}
             className={styles.url}
             onChange={(e) => handleUrl(e)}
@@ -218,7 +218,7 @@ const Request = () => {
             dangerouslySetInnerHTML={{ __html: markEnv(reqUrl, env) }}
           ></p>
         </div>
-        <button type='submit'>Send</button>
+        <button type="submit">Send</button>
       </form>
       <UrlPreview url={reqUrl} queryParams={reqQueries} env={env} />
       <section className={styles.styledProxy}>
@@ -282,8 +282,8 @@ const Request = () => {
             <section>
               <h3>Request Headers</h3>
               {Object.entries(reqHeaders).map(([key, value]) => (
-                <div style={{ display: 'flex' }} key={key}>
-                  <div style={{ marginRight: '2rem' }}>{key}</div>
+                <div style={{ display: "flex" }} key={key}>
+                  <div style={{ marginRight: "2rem" }}>{key}</div>
                   <div>{String(value)}</div>
                   <button
                     onClick={() => {
@@ -298,29 +298,29 @@ const Request = () => {
               ))}
               <form onSubmit={handleAddHeader}>
                 <input
-                  type='text'
-                  id='new-header-key'
+                  type="text"
+                  id="new-header-key"
                   value={newHeaderKey}
                   onChange={handleNewHeaderKey}
                   className={styles.headerInput}
                 />
                 <input
-                  type='text'
-                  id='new-header-value'
+                  type="text"
+                  id="new-header-value"
                   value={newHeaderValue}
                   onChange={handleNewHeaderValue}
                   className={styles.headerInput}
                 />
 
-                <button type='submit'>Add header</button>
+                <button type="submit">Add header</button>
               </form>
             </section>
           ) : requestNavState === 1 ? (
             <section>
               <h3>Query Params</h3>
               {Object.entries(reqQueries).map(([key, value]) => (
-                <div style={{ display: 'flex' }} key={key}>
-                  <div style={{ marginRight: '2rem' }}>{key}</div>
+                <div style={{ display: "flex" }} key={key}>
+                  <div style={{ marginRight: "2rem" }}>{key}</div>
                   <div>{String(value)}</div>
                   <button
                     onClick={() => {
@@ -335,19 +335,19 @@ const Request = () => {
               ))}
               <form onSubmit={handleAddQuery}>
                 <input
-                  type='text'
+                  type="text"
                   value={newQueryKey}
                   onChange={handleNewQueryKey}
                   className={styles.QueryInput}
                 />
                 <input
-                  type='text'
+                  type="text"
                   value={newQueryValue}
                   onChange={handleNewQueryValue}
                   className={styles.QueryInput}
                 />
 
-                <button type='submit'>Add Query Param</button>
+                <button type="submit">Add Query Param</button>
               </form>
             </section>
           ) : requestNavState === 2 ? (
@@ -377,20 +377,20 @@ const Request = () => {
                   connection
                 </p>
                 <div className={styles.responseInfoContainer}>
-                  <div>status code: {error.response?.status || '400'}</div>
+                  <div>status code: {error.response?.status || "400"}</div>
                   <div>status: {String(error.name)}</div>
                   <div>
-                    Error time:{' '}
+                    Error time:{" "}
                     {error.response?.mobula.reqEndTime -
-                      error.response?.config.mobula.reqStartTime || ''}
+                      error.response?.config.mobula.reqStartTime || ""}
                     ms
                   </div>
-                  <div>size: {'123'}ks</div>
+                  <div>size: {"123"}ks</div>
                 </div>
                 <h5>Response Headers</h5>
                 {Object.entries(error.config.headers).map(([key, value]) => (
-                  <div style={{ display: 'flex' }} key={key}>
-                    <div style={{ marginRight: '2rem' }}>{key}</div>
+                  <div style={{ display: "flex" }} key={key}>
+                    <div style={{ marginRight: "2rem" }}>{key}</div>
                     <div>{String(value)}</div>
                   </div>
                 ))}
