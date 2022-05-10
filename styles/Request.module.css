@@ -39,9 +39,21 @@
 .urlForm button {
   padding: 0 1rem;
 }
+.select {
+  margin-right: 1rem;
+  background-color: rgb(25, 39, 44);
+  color: rgb(139, 221, 241);
+  padding-left: 1rem;
+}
+.select:focus,
+.select:active {
+  outline: none;
+  border-color: rgb(231, 23, 0);
+}
 .urlWrapper {
   width: 100%;
   position: relative;
+  margin-right: 1rem;
 }
 .url {
   width: 100%;
@@ -51,7 +63,8 @@
   font-family: inherit;
   padding: 0.4rem;
   background: rgba(0, 0, 0, 0);
-  color: rgba(0, 0, 0, 0);
+  color: rgba(20, 175, 46, 0);
+  caret-color: greenyellow;
 }
 .urlMask {
   position: absolute;
@@ -60,7 +73,18 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  padding: 0.4rem;
+  padding: 0.4rem 0.65rem;
+}
+.sendBtn {
+  background-color: rgb(25, 39, 44);
+  color: rgb(139, 221, 241);
+  border: none;
+}
+.sendBtn:hover {
+  background-color: rgb(44, 69, 78);
+  color: rgb(234, 241, 243);
+  border: none;
+  cursor: pointer;
 }
 .responseInfoContainer {
   display: flex;

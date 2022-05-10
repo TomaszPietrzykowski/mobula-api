@@ -194,9 +194,12 @@ const Request = () => {
   // ------------- JSX --------------------------
   return (
     <div className={styles.root}>
-      <div contentEditable={true}>Dupsko</div>
       <form onSubmit={handleSubmit} className={styles.urlForm}>
-        <select id="method" onChange={(e) => handleMethod(e)}>
+        <select
+          id="method"
+          onChange={(e) => handleMethod(e)}
+          className={styles.select}
+        >
           <option value="GET">GET</option>
           <option value="POST">POST</option>
           <option value="PUT">PUT</option>
@@ -218,7 +221,9 @@ const Request = () => {
             dangerouslySetInnerHTML={{ __html: markEnv(reqUrl, env) }}
           ></p>
         </div>
-        <button type="submit">Send</button>
+        <button type="submit" className={styles.sendBtn}>
+          Send
+        </button>
       </form>
       <UrlPreview url={reqUrl} queryParams={reqQueries} env={env} />
       <section className={styles.styledProxy}>
