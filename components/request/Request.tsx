@@ -10,6 +10,7 @@ import BodyEditor from "./BodyEditor"
 import UrlPreview from "./UrlPreview"
 import markEnv from "../../utils/markEnv"
 import parseEnv from "../../utils/parseEnv"
+import { KeyVal } from "../../types/index"
 
 // extend axios types
 declare module "axios" {
@@ -23,11 +24,6 @@ declare module "axios" {
       reqEndTime?: number
     }
   }
-}
-
-type KeyVal = {
-  key: string
-  value: string
 }
 
 const Request = () => {

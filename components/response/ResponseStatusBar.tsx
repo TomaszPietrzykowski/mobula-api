@@ -1,16 +1,7 @@
 import React from "react"
 import styles from "../../styles/Request.module.css"
 import getResponseSize from "../../utils/getResponseSize"
-
-export interface IPropsResponseStatus {
-  response: {
-    status?: number
-    statusText?: string
-    data?: any
-    config?: any
-    mobula?: any
-  }
-}
+import { ResponseStatusBarProps } from "../../types/index"
 
 const getStatusText = (response) => {
   if (Number(response.status) >= 200 && Number(response.status) < 300) {
@@ -23,7 +14,9 @@ const getStatusText = (response) => {
     return "Error"
   }
 }
-const ResponseStatusBar = ({ response }: IPropsResponseStatus): JSX.Element => {
+const ResponseStatusBar = ({
+  response,
+}: ResponseStatusBarProps): JSX.Element => {
   return (
     <div className={styles.responseInfoContainer}>
       <div>

@@ -5,14 +5,10 @@ import "codemirror/theme/material.css"
 import "codemirror/mode/javascript/javascript"
 import { Controlled } from "react-codemirror2"
 import { js as beautify } from "js-beautify"
+// types
+import { BodyEditorProps } from "../../types/index"
 
-export interface IPropsEditor {
-  value: string
-  onChange?: any
-  language?: string
-}
-
-const BodyDisplay = (props: IPropsEditor): JSX.Element => {
+const BodyDisplay = (props: BodyEditorProps): JSX.Element => {
   const handleChange = (editor, data, value) => {
     props.onChange(value)
   }

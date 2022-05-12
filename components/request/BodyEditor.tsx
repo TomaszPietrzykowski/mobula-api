@@ -4,14 +4,10 @@ import "codemirror/lib/codemirror.css"
 import "codemirror/theme/material.css"
 import "codemirror/mode/javascript/javascript"
 import { Controlled } from "react-codemirror2"
+// types
+import { BodyEditorProps } from "../../types/index"
 
-export interface IPropsEditor {
-  value: string
-  onChange: any
-  language?: string
-}
-
-const BodyEditor = (props: IPropsEditor): JSX.Element => {
+const BodyEditor = (props: BodyEditorProps): JSX.Element => {
   const handleChange = (editor, data, value) => {
     props.onChange(value)
   }

@@ -1,19 +1,9 @@
 import React from "react"
 import styles from "../../styles/Response.module.css"
 import { js as beautify } from "js-beautify"
+import { ResponseStatusBarProps } from "../../types/index"
 
-export interface IPropsResponseStatus {
-  response: {
-    status?: number
-    statusText?: string
-    data?: any
-    config?: any
-    mobula?: any
-    headers?: any
-  }
-}
-
-const ResponseHeaders = ({ response }: IPropsResponseStatus): JSX.Element => {
+const ResponseHeaders = ({ response }: ResponseStatusBarProps): JSX.Element => {
   return (
     <div className={styles.root}>
       <h5 className={styles.h5}>Response Headers</h5>
