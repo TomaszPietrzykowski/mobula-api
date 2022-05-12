@@ -3,9 +3,7 @@ type KeyVal = {
   value: string
 }
 
-type EnvArrType = KeyVal[]
-
-const parseEnv = (str: string, env: EnvArrType): string => {
+const parseEnv = (str: string, env: KeyVal[]): string => {
   if (env.length === 0) return str
   let output = str
   env.forEach((el) => {

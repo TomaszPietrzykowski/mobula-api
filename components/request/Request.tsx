@@ -74,9 +74,15 @@ const Request = () => {
   // -----------------
 
   const makeRequest = async () => {
+    console.log(reqUrl)
+    console.log(`${process.env.NEXT_PUBLIC_CORS_PROXY}${reqUrl}`)
     const requestUrl: string = proxy
-      ? `${process.env.NEXT_PUBLIC_CORS_PROXY}${reqUrl}`
+      ? `${process.env.NEXT_PUBLIC_CORS_PROXY}${reqUrl
+          .replace("?", "<>")
+          .replaceAll("&", "><")}`
       : `${reqUrl}`
+
+    console.log(requestUrl)
     const config: AxiosRequestConfig = {
       method: reqMethod,
       url: parseEnv(requestUrl, env),
