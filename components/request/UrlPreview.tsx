@@ -18,7 +18,8 @@ const UrlPreview = ({
       Object.entries(queryParams).forEach((el) => {
         arr.push(`${el[0]}=${el[1]}`)
       })
-      const queryStr: string = `?${arr.join("&")}`
+      const prefix: string = url.includes("?") ? "&" : "?"
+      const queryStr: string = `${prefix}${arr.join("&")}`
       setOutputString(`${url}${queryStr}`)
     } else {
       setOutputString(url)
