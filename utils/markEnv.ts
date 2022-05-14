@@ -11,7 +11,7 @@ const markEnv = (str: string, env: EnvArrType): string => {
   env.forEach((el) => {
     html = html.replaceAll(
       `{{${el.key}}}`,
-      `<span style="color: red">{{${el.key}}}</span>`
+      `<span style="color: lime">{{${el.key}}}</span>`
     )
   })
   return html

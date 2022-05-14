@@ -1,9 +1,9 @@
 import React from "react"
-// import styles from "../../styles/BodyEditor.module.css"
-import "codemirror/lib/codemirror.css"
-import "codemirror/theme/material.css"
+// import "codemirror/lib/codemirror.css"
+// import "codemirror/theme/material.css"
 import "codemirror/mode/javascript/javascript"
 import { Controlled } from "react-codemirror2"
+import "../../styles/BodyEditor.module.css"
 // types
 import { BodyEditorProps } from "../../types/index"
 

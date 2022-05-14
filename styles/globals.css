@@ -115,3 +115,21 @@ body {
   white-space: nowrap;
   border: 0;
 }
+
+/* ---------------- CodeMirror Editor -------------------- */
+
+/* Overwrite codemirror styles */
+/* .cm-s-default .cm-string {
+  color: green !important;
+} */
+
+/* Ovewrite styles in material theme */
+.cm-s-material.CodeMirror {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  letter-spacing: 0.1rem;
+}
+/* .cm-s-material.CodeMirror {
+    background-color: #9c1769 !important;
+    color: #eeffff;
+  } */
