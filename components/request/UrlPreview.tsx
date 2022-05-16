@@ -10,8 +10,6 @@ const UrlPreview = ({
 }: UrlPreviewProps): JSX.Element => {
   const [outputString, setOutputString] = useState<string>(url)
 
-  // TODO --- parse ENV variables from url
-
   useEffect(() => {
     if (!isEmptyObj(queryParams)) {
       const arr: string[] = []

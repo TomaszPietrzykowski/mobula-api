@@ -39,32 +39,99 @@
 .urlForm button {
   padding: 0 1rem;
 }
-.select {
+/* ----------------- Custom SELECT - REQ METHOD ------------------------ */
+.selectWrapper {
+  position: relative;
   margin-right: 1rem;
+}
+.selectWrapper:hover {
+  outline: 1px solid rgba(44, 235, 123, 0.6);
+}
+.select {
+  height: 100%;
+  padding: 0.5rem 2rem 0.5rem 1rem; /* make sure padding right prevents customArrow to cover longer labels */
   background-color: rgb(25, 39, 44);
   color: rgb(139, 221, 241);
-  padding-left: 1rem;
+  box-shadow: 0 0 20px rgba(44, 235, 123, 0.2);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  border: 0; /* for firefox */
+  cursor: pointer;
+  /* appearance: none; */
 }
 .select:focus,
 .select:active {
-  outline: none;
-  border-color: rgb(231, 23, 0);
+  outline: 1px solid rgba(44, 235, 123, 0.3);
 }
+.customArrow {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 2.3rem;
+  background-color: rgb(38, 59, 66);
+  pointer-events: none;
+}
+.customArrow:before,
+.customArrow:after {
+  --size: 0.3rem;
+
+  content: "";
+  position: absolute;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+.customArrow:before {
+  border-left: var(--size) solid rgba(44, 235, 123, 0);
+  border-right: var(--size) solid rgba(44, 235, 123, 0);
+  border-bottom: var(--size) solid rgba(44, 235, 123, 0.5);
+
+  top: 40%;
+}
+.customArrow:after {
+  border-left: var(--size) solid rgba(44, 235, 123, 0);
+  border-right: var(--size) solid rgba(44, 235, 123, 0);
+  border-top: var(--size) solid rgba(44, 235, 123, 0.5);
+
+  top: 60%;
+}
+
+/* -------------------- Custom TEXT INPUT - REQ URL --------------------- */
 .urlWrapper {
   width: 100%;
   position: relative;
   margin-right: 1rem;
+  box-shadow: 0 0 20px rgba(44, 235, 123, 0.2);
 }
 .url {
   width: 100%;
   height: 100%;
-  /* opacity: 0; */
-  font-size: inherit;
-  font-family: inherit;
-  padding: 0.4rem;
+
+  /* hide original input with transparence */
   background: rgba(0, 0, 0, 0);
   color: rgba(20, 175, 46, 0);
+
+  /* make carret visible */
   caret-color: greenyellow;
+
+  /* sync styles with mask to zero in carret */
+  font-size: inherit;
+  font-family: inherit;
+  letter-spacing: 1px;
+  padding: 0.4rem;
+  padding-left: 3rem;
+
+  border: none;
+}
+.url:active,
+.url:focus {
+  outline: 1px solid rgba(44, 235, 123, 0.3);
+}
+.url:hover {
+  outline: 1px solid rgba(44, 235, 123, 0.6);
 }
 .urlMask {
   position: absolute;
@@ -73,8 +140,14 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  padding: 0.4rem 0.65rem;
+  color: rgb(181, 245, 253);
+  background: rgb(38, 59, 66);
+
+  /* sync styles with original input to zero in carret */
+  padding: 0.4rem;
+  letter-spacing: 1px;
 }
+/* ----------------------------------------------------------------------------------------------- */
 .sendBtn {
   background-color: rgb(25, 39, 44);
   color: rgb(139, 221, 241);

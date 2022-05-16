@@ -197,19 +197,22 @@ const Request = () => {
   return (
     <div className={styles.root}>
       <form onSubmit={handleSubmit} className={styles.urlForm}>
-        <select
-          id="method"
-          onChange={(e) => handleMethod(e)}
-          className={styles.select}
-        >
-          <option value="GET">GET</option>
-          <option value="POST">POST</option>
-          <option value="PUT">PUT</option>
-          <option value="PATCH">PATCH</option>
-          <option value="DELETE">DELETE</option>
-          <option value="OPTIONS">OPTIONS</option>
-          <option value="HEAD">HEAD</option>
-        </select>
+        <div className={styles.selectWrapper}>
+          <select
+            id="method"
+            onChange={(e) => handleMethod(e)}
+            className={styles.select}
+          >
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="PATCH">PATCH</option>
+            <option value="DELETE">DELETE</option>
+            <option value="OPTIONS">OPTIONS</option>
+            <option value="HEAD">HEAD</option>
+          </select>
+          <span className={styles.customArrow}></span>
+        </div>
         <div className={styles.urlWrapper}>
           <input
             type="text"
@@ -267,7 +270,7 @@ const Request = () => {
               >
                 JSON Body
               </li>
-              <li
+              {/* <li
                 className={
                   requestNavState === 3 ? styles.navLiActive : styles.navLi
                 }
@@ -282,7 +285,7 @@ const Request = () => {
                 onClick={() => setRequestNavState(4)}
               >
                 cURL
-              </li>
+              </li> */}
             </ul>
           </nav>
           {requestNavState === 0 ? (
