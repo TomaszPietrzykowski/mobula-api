@@ -11,10 +11,13 @@ const RequestsBrowser = (props: RequestsBrowserProps): JSX.Element => {
       <div className={styles.wrapper}>
         <nav className={styles.nav}>tabs</nav>
         <div className={styles.viewport}>
-          <RequestD request={props.requests[0]} />
-          <div className={styles.empty}>
-            open existing or create <span>new request</span>
-          </div>
+          {props.requests.length > 0 ? (
+            <RequestD request={props.requests[0]} />
+          ) : (
+            <div className={styles.empty}>
+              open existing or create <span>new request</span>
+            </div>
+          )}
         </div>
       </div>
     </div>

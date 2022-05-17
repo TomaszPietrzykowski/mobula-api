@@ -16,7 +16,7 @@ const Workspace = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
 
   const defaultRequest = {
-    reqUrl: "{{URL}}/api/public/v1/co2/latest",
+    reqUrl: "{{URL}}/api/public/v1/co2/{{END}}",
     reqQueries: {},
     reqHeaders: {},
     reqMethod: "GET",
