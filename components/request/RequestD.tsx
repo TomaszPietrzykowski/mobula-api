@@ -26,24 +26,24 @@ declare module "axios" {
   }
 }
 
-const Request = () => {
+const RequestD = (props: { request: any }) => {
   /*
    * -----------  Component level state ---------------------
    */
-  const [reqUrl, setReqUrl] = useState<string>(
-    "{{URL}}/api/public/v1/co2/latest"
+  const [reqUrl, setReqUrl] = useState<string>(props.request.reqUrl)
+  const [reqHeaders, setReqHeaders] = useState<{}>(
+    props.request.reqHeaders || {}
   )
-  const [reqHeaders, setReqHeaders] = useState<{}>({})
   const [newHeaderKey, setNewHeaderKey] = useState<string>("")
   const [newHeaderValue, setNewHeaderValue] = useState<string>("")
-  const [reqQueries, setReqQueries] = useState<{}>({})
+  const [reqQueries, setReqQueries] = useState<{}>(
+    props.request.reqQueries || {}
+  )
   const [newQueryKey, setNewQueryKey] = useState<string>("")
   const [newQueryValue, setNewQueryValue] = useState<string>("")
-  const [reqMethod, setReqMethod] = useState<Method>("GET")
+  const [reqMethod, setReqMethod] = useState<Method>(props.request.reqMethod)
   const [proxy, setProxy] = useState<boolean>(false)
-  const [env, setEnv] = useState<KeyVal[]>([
-    { key: "URL", value: "https://climatemonitor.info" },
-  ])
+  const [env, setEnv] = useState<KeyVal[]>(props.request.env)
   const [bodyEditorValue, setBodyEditorValue] = useState<string>("{\n\t\n}")
   const [requestNavState, setRequestNavState] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
@@ -404,4 +404,4 @@ const Request = () => {
   )
 }
 
-export default Request
+export default RequestD

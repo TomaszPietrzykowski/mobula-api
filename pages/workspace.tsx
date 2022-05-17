@@ -3,7 +3,8 @@ import styles from "../styles/Workspace.module.css"
 import { useDispatch } from "react-redux"
 import { useTypedSelector } from "../redux/hooks"
 import { logIn } from "../redux/actions/userActions"
-import Request from "../components/request/Request"
+// import Request from "../components/request/Request"
+import RequestsBrowser from "../components/workspace/RequestsBrowser"
 
 const Workspace = () => {
   // EXTRACT: -----------------------------------------------
@@ -14,7 +15,22 @@ const Workspace = () => {
   // --------------------------------------------------------
   const userLogin = useTypedSelector((state) => state.userLogin)
 
-  const workspace = { name: "New Workspace" }
+  const defaultRequest = {
+    reqUrl: "{{URL}}/api/public/v1/co2/latest",
+    reqQueries: {},
+    reqHeaders: {},
+    reqMethod: "GET",
+    reqBody: {},
+    env: [
+      { key: "URL", value: "https://climatemonitor.info" },
+      { key: "END", value: "latest" },
+    ],
+  }
+
+  const defaultWorkspace = {
+    name: "New Workspace",
+    requests: [defaultRequest],
+  }
 
   return (
     <div className={styles.container}>
@@ -37,7 +53,8 @@ const Workspace = () => {
               Dispatch login
             </button>
           </section>
-          <Request />
+          <RequestsBrowser requests={defaultWorkspace.requests} />
+          {/* <Request /> */}
         </main>
       </div>
     </div>

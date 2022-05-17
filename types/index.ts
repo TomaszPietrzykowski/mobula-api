@@ -16,6 +16,9 @@ export interface BodyEditorProps {
   onChange?: any
   language?: string
 }
+export interface RequestsBrowserProps {
+  requests: any[]
+}
 
 export interface ResponseStatusBarProps {
   response: {
