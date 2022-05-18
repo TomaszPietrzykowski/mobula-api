@@ -5,6 +5,7 @@ import "codemirror/theme/material.css"
 import "codemirror/mode/javascript/javascript"
 import { Controlled } from "react-codemirror2"
 import { js as beautify } from "js-beautify"
+import styles from "../../styles/BodyEditor.module.css"
 // types
 import { BodyEditorProps } from "../../types/index"
 
@@ -14,25 +15,27 @@ const BodyDisplay = (props: BodyEditorProps): JSX.Element => {
   }
 
   return (
-    <div className="editor-container">
+    <React.Fragment>
       <h1 className="editor-title">Response Body</h1>
-      <Controlled
-        onBeforeChange={handleChange}
-        value={beautify(props.value, { intend_size: 2 })}
-        className="code-mirror-wrapper"
-        options={{
-          lineWrapping: true,
-          lint: true,
-          theme: "material",
-          lineNumbers: true,
-          readOnly: true,
-          mode: {
-            name: "javascript",
-            json: "true",
-          },
-        }}
-      />
-    </div>
+      <div className={styles.editorContainer}>
+        <Controlled
+          onBeforeChange={handleChange}
+          value={beautify(props.value, { intend_size: 2 })}
+          className="code-mirror-wrapper"
+          options={{
+            lineWrapping: true,
+            lint: true,
+            theme: "material",
+            lineNumbers: true,
+            readOnly: true,
+            mode: {
+              name: "javascript",
+              json: "true",
+            },
+          }}
+        />
+      </div>
+    </React.Fragment>
   )
 }
 

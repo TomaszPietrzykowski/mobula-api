@@ -44,7 +44,7 @@ const RequestD = (props: { request: any }) => {
   const [reqMethod, setReqMethod] = useState<Method>(props.request.reqMethod)
   const [proxy, setProxy] = useState<boolean>(false)
   const [env, setEnv] = useState<KeyVal[]>(props.request.env)
-  const [bodyEditorValue, setBodyEditorValue] = useState<string>("{\n\t\n}")
+  const [bodyEditorValue, setBodyEditorValue] = useState<string>("{\n\t\n}\n")
   const [requestNavState, setRequestNavState] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)

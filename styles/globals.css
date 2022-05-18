@@ -2,7 +2,7 @@
 /* Import          */
 /* --------------- */
 
-@import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Courier+Prime&display=swap");
 
 /* --------------- */
 /* Variables       */
@@ -127,8 +127,10 @@ body {
 .cm-s-material.CodeMirror {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  letter-spacing: 0.1rem;
+  font-family: "Courier Prime", monospace;
   /* height: auto; --- work out with container */
+  height: auto;
+  padding-bottom: 2rem;
 }
 /* .cm-s-material.CodeMirror {
     background-color: #9c1769 !important;

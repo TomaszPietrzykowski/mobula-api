@@ -13,24 +13,26 @@ const BodyEditor = (props: BodyEditorProps): JSX.Element => {
   }
 
   return (
-    <div className="editor-container">
+    <React.Fragment>
       <h1 className="editor-title">Body editor</h1>
-      <Controlled
-        onBeforeChange={handleChange}
-        value={props.value}
-        className="code-mirror-wrapper"
-        options={{
-          lineWrapping: true,
-          lint: true,
-          theme: "material",
-          lineNumbers: true,
-          mode: {
-            name: "javascript",
-            json: "true",
-          },
-        }}
-      />
-    </div>
+      <div className="editor-container">
+        <Controlled
+          onBeforeChange={handleChange}
+          value={props.value}
+          className="code-mirror-wrapper"
+          options={{
+            lineWrapping: true,
+            lint: true,
+            theme: "material",
+            lineNumbers: true,
+            mode: {
+              name: "javascript",
+              json: "true",
+            },
+          }}
+        />
+      </div>
+    </React.Fragment>
   )
 }
 
