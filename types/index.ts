@@ -5,6 +5,22 @@ export type KeyVal = {
   value: string
 }
 
+export interface MobulaRequest {
+  reqMethod: string
+  reqUrl: string
+  reqHeaders: KeyVal | {}
+  reqQueries: KeyVal | {}
+  reqBody?: object
+  proxy: boolean
+  env: KeyVal[]
+}
+
+export interface MobulaWorkspace {
+  name: string
+  requests: MobulaRequest[] | []
+  env: string
+}
+
 export interface UrlPreviewProps {
   url: string
   queryParams: object
@@ -17,7 +33,7 @@ export interface BodyEditorProps {
   language?: string
 }
 export interface RequestsBrowserProps {
-  requests: any[]
+  requests: MobulaRequest[] | []
 }
 
 export interface ResponseStatusBarProps {

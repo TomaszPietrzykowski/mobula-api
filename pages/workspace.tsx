@@ -5,6 +5,7 @@ import { useTypedSelector } from "../redux/hooks"
 import { logIn } from "../redux/actions/userActions"
 // import Request from "../components/request/Request"
 import RequestsBrowser from "../components/workspace/RequestsBrowser"
+import { MobulaRequest, MobulaWorkspace } from "../types/index"
 
 const Workspace = () => {
   // EXTRACT: -----------------------------------------------
@@ -15,21 +16,23 @@ const Workspace = () => {
   // --------------------------------------------------------
   const userLogin = useTypedSelector((state) => state.userLogin)
 
-  const defaultRequest = {
+  const defaultRequest: MobulaRequest = {
     reqUrl: "{{URL}}/api/public/v1/co2/{{END}}",
     reqQueries: {},
     reqHeaders: {},
     reqMethod: "GET",
     reqBody: {},
+    proxy: true,
     env: [
       { key: "URL", value: "https://climatemonitor.info" },
       { key: "END", value: "latest" },
     ],
   }
 
-  const defaultWorkspace = {
+  const defaultWorkspace: MobulaWorkspace = {
     name: "New Workspace",
     requests: [defaultRequest],
+    env: "no env",
   }
 
   return (
@@ -54,7 +57,6 @@ const Workspace = () => {
             </button>
           </section>
           <RequestsBrowser requests={defaultWorkspace.requests} />
-          {/* <Request /> */}
         </main>
       </div>
     </div>
