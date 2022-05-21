@@ -1,16 +1,19 @@
-.container {
+.root {
   width: 100%;
   /* border: 1px solid green; */
 }
-.root {
+.container {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1920px;
   margin: auto;
+  margin-top: 2rem;
   /* border: 1px solid red; */
   padding: 1rem 3rem;
   background-color: rgb(7, 16, 22);
+  display: grid;
+  grid-template-columns: 1fr 5fr;
 }
 
-.capitalize {
-  text-transform: uppercase;
+.drawer {
+  background-color: rgb(7, 16, 22);
 }

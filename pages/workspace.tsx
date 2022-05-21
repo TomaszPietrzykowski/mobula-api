@@ -17,26 +17,17 @@ const Workspace: React.FC = () => {
       </div>
       <div className={styles.container}>
         <aside className={styles.drawer}>
-          <h2>Collections: {ws.name}</h2>
+          <h2>Collections</h2>
           <nav>
             <ul>
               <li>
-                <b>collections</b>
+                <b>collection</b>
               </li>
               <li>
-                <b>collections</b>
+                <b>collection</b>
               </li>
               <li>
-                <b>collections</b>
-              </li>
-              <li>
-                <b>collections</b>
-              </li>
-              <li>
-                <b>collections</b>
-              </li>
-              <li>
-                <b>collections</b>
+                <b>collection</b>
               </li>
               <li>request</li>
               <li>request</li>
