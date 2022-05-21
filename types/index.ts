@@ -1,4 +1,4 @@
-// -
+// - custom types
 
 export type KeyVal = {
   key: string
@@ -18,7 +18,15 @@ export interface MobulaRequest {
 export interface MobulaWorkspace {
   name: string
   requests: MobulaRequest[] | []
-  env: string
+  openRequests: MobulaRequest[] | []
+  env: Env
+}
+
+export interface Env {
+  id: string
+  name: string
+  user: string
+  variables: KeyVal[]
 }
 
 export interface UrlPreviewProps {

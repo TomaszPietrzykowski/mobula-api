@@ -26,7 +26,7 @@ declare module "axios" {
   }
 }
 
-const RequestD = (props: { request: any }) => {
+const Request = (props: { request: any }) => {
   /*
    * -----------  Component level state ---------------------
    */
@@ -404,4 +404,4 @@ const RequestD = (props: { request: any }) => {
   )
 }
 
-export default RequestD
+export default Request

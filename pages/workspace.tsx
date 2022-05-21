@@ -1,62 +1,51 @@
 import React from "react"
 import styles from "../styles/Workspace.module.css"
-import { useDispatch } from "react-redux"
+// import { useDispatch } from "react-redux"
 import { useTypedSelector } from "../redux/hooks"
-import { logIn } from "../redux/actions/userActions"
-// import Request from "../components/request/Request"
 import RequestsBrowser from "../components/workspace/RequestsBrowser"
-import { MobulaRequest, MobulaWorkspace } from "../types/index"
+import { defaultWorkspace } from "../utils/defaults"
 
-const Workspace = () => {
-  // EXTRACT: -----------------------------------------------
-  const dispatch = useDispatch()
-  const login = (email: string, password: string): void => {
-    dispatch(logIn(email, password))
-  }
-  // --------------------------------------------------------
+const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
-
-  const defaultRequest: MobulaRequest = {
-    reqUrl: "{{URL}}/api/public/v1/co2/{{END}}",
-    reqQueries: {},
-    reqHeaders: {},
-    reqMethod: "GET",
-    reqBody: {},
-    proxy: true,
-    env: [
-      { key: "URL", value: "https://climatemonitor.info" },
-      { key: "END", value: "latest" },
-    ],
-  }
-
-  const defaultWorkspace: MobulaWorkspace = {
-    name: "New Workspace",
-    requests: [defaultRequest],
-    env: "no env",
-  }
+  // const ws = useTypedSelector((state) => state.workspaceActive)
+  const ws = defaultWorkspace
 
   return (
-    <div className={styles.container}>
-      <div className={styles.root}>
-        {/* <aside>
-        <h2>Workspace: {workspace.name}</h2>
-        <nav>
-          <ul>
-            <li>collections</li>
-          </ul>
-        </nav>
-      </aside> */}
+    <div className={styles.root}>
+      <div className={styles.header}>
+        <h1>{ws.name}</h1>
+      </div>
+      <div className={styles.container}>
+        <aside className={styles.drawer}>
+          <h2>Collections: {ws.name}</h2>
+          <nav>
+            <ul>
+              <li>
+                <b>collections</b>
+              </li>
+              <li>
+                <b>collections</b>
+              </li>
+              <li>
+                <b>collections</b>
+              </li>
+              <li>
+                <b>collections</b>
+              </li>
+              <li>
+                <b>collections</b>
+              </li>
+              <li>
+                <b>collections</b>
+              </li>
+              <li>request</li>
+              <li>request</li>
+              <li>request</li>
+            </ul>
+          </nav>
+        </aside>
         <main className={styles.workbench}>
-          <h1>Workspace</h1>
-          <section>
-            {userLogin.user && <p>user: {userLogin.user.name}</p>}
-          </section>
-          <section>
-            <button onClick={() => login("abc@abc.pl", "123456")}>
-              Dispatch login
-            </button>
-          </section>
-          <RequestsBrowser requests={defaultWorkspace.requests} />
+          <RequestsBrowser requests={defaultWorkspace.openRequests} />
         </main>
       </div>
     </div>
