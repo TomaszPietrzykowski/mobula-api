@@ -22,7 +22,7 @@ const Register: React.FC = () => {
   useEffect(() => {
     if (success) {
       if (router.query.redirect) {
-        router.push(`${router.query.redirect}`)
+        router.push(router.query.redirect as string)
       } else {
         router.push("/")
       }
