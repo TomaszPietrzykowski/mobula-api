@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styles from "../styles/Workspace.module.css"
 import { useDispatch } from "react-redux"
 import { useTypedSelector } from "../redux/hooks"
 import { logIn } from "../redux/actions/userActions"
+import { useRouter } from "next/router"
 
 const LogIn: React.FC = () => {
   const [email, setEmail] = useState<string>("")
@@ -10,8 +11,21 @@ const LogIn: React.FC = () => {
   const [remember, setRemember] = useState<boolean>(true)
   const [showPass, setShowPass] = useState<boolean>(false)
 
-  const userLogin = useTypedSelector((state) => state.userLogin)
+  const { user, error, loading, success } = useTypedSelector(
+    (state) => state.userLogin
+  )
   const dispatch = useDispatch()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (user && user.name) {
+      if (router.query.redirect) {
+        router.push(`${router.query.redirect}`)
+      } else {
+        router.push("/")
+      }
+    }
+  }, [user, success])
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,8 +35,8 @@ const LogIn: React.FC = () => {
   return (
     <div className={styles.container}>
       <main className={styles.workbench}>
-        {userLogin && userLogin.user.name ? (
-          <h1>{userLogin.user.name}</h1>
+        {error ? (
+          <h1>{error}</h1>
         ) : (
           <div className={styles.formContainer}>
             <form className={styles.form} onSubmit={submitHandler}>
