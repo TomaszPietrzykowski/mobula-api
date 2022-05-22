@@ -1,28 +1,49 @@
-import { AnyAction } from 'redux'
+import { AnyAction } from "redux"
 import * as constants from "../constants/userConstants"
 
 const initialState = {
   user: {},
   loading: false,
-  error: null
+  error: null,
 }
 
 export const userLoginReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
-
     case constants.USER_LOGIN_REQUEST:
-      return {...state, loading: true}
+      return { ...state, loading: true }
 
     case constants.USER_LOGIN_SUCCESS:
-      return {user: {...action.payload}, loading: false}
+      return { user: { ...action.payload }, loading: false }
 
     case constants.USER_LOGIN_FAIL:
-      return { error: action.payload, loading: false}
+      return { error: action.payload, loading: false }
 
     case constants.USER_LOGIN_RESET:
-      return {...state, user: {}}
+      return { ...state, user: {} }
 
     default:
-      return state 
+      return state
+  }
+}
+
+export const userRegisterReducer = (
+  state = initialState,
+  action: AnyAction
+) => {
+  switch (action.type) {
+    case constants.USER_REGISTER_REQUEST:
+      return { ...state, loading: true }
+
+    case constants.USER_REGISTER_SUCCESS:
+      return { user: { ...action.payload }, loading: false }
+
+    case constants.USER_REGISTER_FAIL:
+      return { error: action.payload, loading: false }
+
+    case constants.USER_REGISTER_RESET:
+      return { ...state, user: {} }
+
+    default:
+      return state
   }
 }
