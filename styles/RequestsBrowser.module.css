@@ -7,6 +7,16 @@
   min-height: 3rem;
   background-color: rgb(26, 79, 100);
 }
+.tabs {
+  display: flex;
+}
+.tabActive {
+  color: red;
+}
+.tabInactive {
+  color: blue;
+}
+
 .viewport {
   width: 100%;
   min-height: 20rem;

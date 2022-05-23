@@ -6,6 +6,7 @@ export type KeyVal = {
 }
 
 export interface MobulaRequest {
+  id: string
   reqMethod: string
   reqUrl: string
   reqHeaders: KeyVal | {}
@@ -19,6 +20,7 @@ export interface MobulaWorkspace {
   name: string
   requests: MobulaRequest[] | []
   openRequests: MobulaRequest[] | []
+  selectedRequest: MobulaRequest
   env: Env
 }
 
@@ -42,6 +44,7 @@ export interface BodyEditorProps {
 }
 export interface RequestsBrowserProps {
   requests: MobulaRequest[] | []
+  selectedRequest?: MobulaRequest
 }
 
 export interface ResponseStatusBarProps {

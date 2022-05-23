@@ -1,6 +1,7 @@
 import { MobulaRequest, MobulaWorkspace, KeyVal, Env } from "../types/index"
 
 export const defaultRequest: MobulaRequest = {
+  id: "1",
   reqUrl: "{{URL}}/api/public/v1/co2/{{END}}",
   reqQueries: {},
   reqHeaders: {},
@@ -13,6 +14,7 @@ export const defaultRequest: MobulaRequest = {
   ],
 }
 export const testRequest: MobulaRequest = {
+  id: "2",
   reqUrl: "{{URL}}/api/public/v1/ch4/{{END}}",
   reqQueries: {},
   reqHeaders: {},
@@ -25,6 +27,7 @@ export const testRequest: MobulaRequest = {
   ],
 }
 export const exemplaryRequest: MobulaRequest = {
+  id: "3",
   reqUrl: "{{URL}}/api/public/v1/co2/annual_ml",
   reqQueries: {},
   reqHeaders: {},
@@ -53,5 +56,6 @@ export const defaultWorkspace: MobulaWorkspace = {
   name: "New Workspace",
   requests: [defaultRequest, testRequest, exemplaryRequest],
   openRequests: [defaultRequest, testRequest],
+  selectedRequest: defaultRequest,
   env: defaultEnv,
 }
