@@ -44,7 +44,7 @@ export interface BodyEditorProps {
 }
 export interface RequestsBrowserProps {
   requests: MobulaRequest[] | []
-  selectedRequest?: MobulaRequest
+  selectedRequest: string
 }
 
 export interface ResponseStatusBarProps {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { ReactEventHandler, useEffect, useState } from "react"
 import styles from "../../styles/RequestsBrowser.module.css"
 import Request from "../request/Request"
 // types
@@ -7,11 +7,11 @@ import { MobulaRequest, RequestsBrowserProps } from "../../types/index"
 const RequestsBrowser = (props: RequestsBrowserProps): JSX.Element => {
   const [selectedRequest, setSelectedRequest] = useState<string>(
     props.selectedRequest
-      ? props.selectedRequest.id
-      : props.requests.length > 0
-      ? props.requests[0].id
-      : ""
   )
+
+  const handleRequestSelect = (e) => {
+    setSelectedRequest(e.target.id)
+  }
 
   return (
     <div>
@@ -22,14 +22,16 @@ const RequestsBrowser = (props: RequestsBrowserProps): JSX.Element => {
             {props.requests.length > 0 &&
               props.requests.map((request: MobulaRequest) => (
                 <li
+                  key={request._id}
                   className={
-                    request.id === selectedRequest
-                      ? styles.tabActiv
+                    request._id === selectedRequest
+                      ? styles.tabActive
                       : styles.tabInactive
                   }
+                  id={request._id}
+                  onClick={handleRequestSelect}
                 >
                   {request.reqMethod}
-                  {request.id}
                 </li>
               ))}
             <li>+</li>
@@ -37,7 +39,14 @@ const RequestsBrowser = (props: RequestsBrowserProps): JSX.Element => {
         </nav>
         <div className={styles.viewport}>
           {props.requests.length > 0 ? (
-            <Request request={props.requests[0]} />
+            // <Request request={props.requests[0]} env={[]} />
+            props.requests.map((request) => (
+              <Request
+                request={request}
+                env={[]}
+                isSelected={request._id === selectedRequest}
+              />
+            ))
           ) : (
             <div className={styles.empty}>
               open existing or create <span>new request</span>

@@ -26,7 +26,11 @@ declare module "axios" {
   }
 }
 
-const Request = (props: { request: any }) => {
+const Request = (props: {
+  request: any
+  env: KeyVal[] | []
+  isSelected: Boolean
+}) => {
   /*
    * -----------  Component level state ---------------------
    */
@@ -43,7 +47,7 @@ const Request = (props: { request: any }) => {
   const [newQueryValue, setNewQueryValue] = useState<string>("")
   const [reqMethod, setReqMethod] = useState<Method>(props.request.reqMethod)
   const [proxy, setProxy] = useState<boolean>(props.request.proxy)
-  const [env, setEnv] = useState<KeyVal[]>(props.request.env)
+  const [env, setEnv] = useState<KeyVal[]>(props.env)
   const [bodyEditorValue, setBodyEditorValue] = useState<string>("{\n\t\n}\n")
   const [requestNavState, setRequestNavState] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
@@ -191,9 +195,10 @@ const Request = (props: { request: any }) => {
     setNewQueryValue(e.currentTarget.value)
   }
 
+  const v = props.isSelected ? "block" : "none"
   // ------------- JSX --------------------------
   return (
-    <div className={styles.root}>
+    <div className={styles.root} style={{ display: v }}>
       <form onSubmit={handleSubmit} className={styles.urlForm}>
         <div className={styles.selectWrapper}>
           <select
@@ -369,7 +374,7 @@ const Request = (props: { request: any }) => {
                   connection
                 </p>
                 <div className={styles.responseInfoContainer}>
-                  <div>status code: {error.response?.status || "400"}</div>
+                  <div>status code: {error?.response?.status || "400"}</div>
                   <div>status: {String(error.name)}</div>
                   <div>
                     Error time:{" "}
