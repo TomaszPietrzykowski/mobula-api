@@ -6,7 +6,7 @@ export type KeyVal = {
 }
 
 export interface MobulaRequest {
-  id: string
+  _id: string
   reqMethod: string
   reqUrl: string
   reqHeaders: KeyVal | {}

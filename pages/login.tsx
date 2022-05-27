@@ -3,6 +3,7 @@ import styles from "../styles/Workspace.module.css"
 import { useDispatch } from "react-redux"
 import { useTypedSelector } from "../redux/hooks"
 import { logIn } from "../redux/actions/userActions"
+import { getWorkspace } from "../redux/actions/workspaceActions"
 import { useRouter } from "next/router"
 
 const LogIn: React.FC = () => {
@@ -18,6 +19,9 @@ const LogIn: React.FC = () => {
   const router = useRouter()
 
   useEffect(() => {
+    if (user && user.workspaceActive) {
+      dispatch(getWorkspace(user.workspaceActive))
+    }
     if (user && user.name) {
       if (router.query.redirect) {
         router.push(`${router.query.redirect}`)

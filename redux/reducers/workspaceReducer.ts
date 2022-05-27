@@ -1,9 +1,14 @@
-import { AnyAction } from 'redux'
-import * as constants from '../constants/workspaceConstants'
+import { AnyAction } from "redux"
+import * as constants from "../constants/workspaceConstants"
 
 const initialActiveWsState = {
-  workspace: {},
-  loading: false,
+  workspace: {
+    requests: [],
+    openRequests: [],
+    selectedRequest: "",
+    env: [],
+  },
+  loading: true,
   error: null,
 }
 

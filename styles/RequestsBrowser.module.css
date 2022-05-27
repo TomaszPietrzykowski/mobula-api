@@ -10,18 +10,19 @@
 .tabs {
   display: flex;
 }
-.tabActive {
-  color: red;
-}
 .tabInactive {
   color: blue;
+}
+.tabActive {
+  color: red;
 }
 
 .viewport {
   width: 100%;
-  min-height: 20rem;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
