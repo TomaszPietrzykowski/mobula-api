@@ -27,3 +27,12 @@
   color: rgb(161, 161, 161);
   padding: 0 1rem;
 }
+.reqLooseTab {
+  font-size: 0.85rem;
+  color: rgb(161, 161, 161);
+}
+.addRequestTab {
+  font-size: 0.85rem;
+  color: rgb(100, 184, 121);
+  padding: 0 1rem 2rem;
+}

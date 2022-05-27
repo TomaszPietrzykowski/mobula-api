@@ -6,6 +6,7 @@ import RequestsBrowser from "../components/workspace/RequestsBrowser"
 // import { getWorkspace } from "../redux/actions/workspaceActions"
 import { defaultWorkspace } from "../utils/defaults"
 import { useRouter } from "next/router"
+import FolderTab from "../components/workspace/FolderTab"
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
@@ -33,12 +34,13 @@ const Workspace: React.FC = () => {
               <nav>
                 <ul>
                   {workspace.collections.map((folder) => (
-                    <li key={folder._id} className={styles.folderDrawerTab}>
-                      {folder.name}
-                    </li>
+                    // <li key={folder._id} className={styles.folderDrawerTab}>
+                    //   {folder.name}
+                    // </li>
+                    <FolderTab key={folder._id} collection={folder} />
                   ))}
                   {workspace.requests.map((request) => (
-                    <li key={request._id} className={styles.reqDrawerTab}>
+                    <li key={request._id} className={styles.reqLooseTab}>
                       {request.reqName}
                     </li>
                   ))}
