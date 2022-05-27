@@ -26,7 +26,7 @@ const LogIn: React.FC = () => {
       if (router.query.redirect) {
         router.push(`${router.query.redirect}`)
       } else {
-        router.push("/")
+        router.push("/workspace")
       }
     }
   }, [user, success])

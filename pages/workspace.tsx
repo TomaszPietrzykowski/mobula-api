@@ -5,13 +5,19 @@ import { useTypedSelector } from "../redux/hooks"
 import RequestsBrowser from "../components/workspace/RequestsBrowser"
 // import { getWorkspace } from "../redux/actions/workspaceActions"
 import { defaultWorkspace } from "../utils/defaults"
+import { useRouter } from "next/router"
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
   const { workspace, loading, error } = useTypedSelector(
     (state) => state.workspaceActive
   )
-
+  const router = useRouter()
+  useEffect(() => {
+    if (!userLogin.user.name) {
+      router.push("/login")
+    }
+  })
   return (
     <div className={styles.root}>
       {loading ? (

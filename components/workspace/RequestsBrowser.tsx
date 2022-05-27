@@ -42,6 +42,7 @@ const RequestsBrowser = (props: RequestsBrowserProps): JSX.Element => {
             // <Request request={props.requests[0]} env={[]} />
             props.requests.map((request) => (
               <Request
+                key={request._id}
                 request={request}
                 env={[]}
                 isSelected={request._id === selectedRequest}
