@@ -32,18 +32,16 @@ const Workspace: React.FC = () => {
               <h2>Collections</h2>
               <nav>
                 <ul>
-                  <li>
-                    <b>collection</b>
-                  </li>
-                  <li>
-                    <b>collection</b>
-                  </li>
-                  <li>
-                    <b>collection</b>
-                  </li>
-                  <li>request</li>
-                  <li>request</li>
-                  <li>request</li>
+                  {workspace.collections.map((folder) => (
+                    <li key={folder._id} className={styles.folderDrawerTab}>
+                      {folder.name}
+                    </li>
+                  ))}
+                  {workspace.requests.map((request) => (
+                    <li key={request._id} className={styles.reqDrawerTab}>
+                      {request.reqName}
+                    </li>
+                  ))}
                 </ul>
               </nav>
             </aside>

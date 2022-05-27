@@ -17,3 +17,13 @@
 .drawer {
   background-color: rgb(7, 16, 22);
 }
+.folderDrawerTab {
+  font-size: 1rem;
+  color: white;
+  padding: 0.3rem 0;
+}
+.reqDrawerTab {
+  font-size: 0.85rem;
+  color: rgb(161, 161, 161);
+  padding: 0 1rem;
+}
