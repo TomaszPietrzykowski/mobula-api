@@ -8,7 +8,7 @@
   margin: auto;
   margin-top: 2rem;
   /* border: 1px solid red; */
-  padding: 1rem 3rem;
+  padding: 3rem;
   background-color: rgb(7, 16, 22);
   display: grid;
   grid-template-columns: 1fr 5fr;

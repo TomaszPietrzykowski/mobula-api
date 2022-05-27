@@ -15,7 +15,6 @@ const RequestsBrowser = (props: RequestsBrowserProps): JSX.Element => {
 
   return (
     <div>
-      <h1>Open requests</h1>
       <div className={styles.wrapper}>
         <nav className={styles.nav}>
           <ul className={styles.tabs}>
@@ -31,15 +30,14 @@ const RequestsBrowser = (props: RequestsBrowserProps): JSX.Element => {
                   id={request._id}
                   onClick={handleRequestSelect}
                 >
-                  {request.reqMethod}
+                  {`${request.reqMethod}  ${request.reqName.slice(0, 12)}`}
                 </li>
               ))}
-            <li>+</li>
+            <li className={styles.tabInactive}>+</li>
           </ul>
         </nav>
         <div className={styles.viewport}>
           {props.requests.length > 0 ? (
-            // <Request request={props.requests[0]} env={[]} />
             props.requests.map((request) => (
               <Request
                 key={request._id}

@@ -375,7 +375,7 @@ const Request = (props: {
                 </p>
                 <div className={styles.responseInfoContainer}>
                   <div>status code: {error?.response?.status || "400"}</div>
-                  <div>status: {String(error.name)}</div>
+                  <div>status: {String(error?.name)}</div>
                   <div>
                     Error time:{" "}
                     {error.response?.mobula.reqEndTime -

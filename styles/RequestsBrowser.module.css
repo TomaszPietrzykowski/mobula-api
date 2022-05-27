@@ -4,17 +4,28 @@
 }
 .nav {
   width: 100%;
-  min-height: 3rem;
-  background-color: rgb(26, 79, 100);
+  background-color: rgb(7, 16, 22);
 }
 .tabs {
   display: flex;
 }
 .tabInactive {
-  color: blue;
+  padding: 0.3rem 1rem;
+  color: rgb(164, 192, 197);
+  background-color: rgb(45, 56, 63);
+  cursor: pointer;
+  border-radius: 0.5rem 0.5rem 0 0;
+  border: 1px solid rgb(127, 155, 160);
+  border-bottom: none;
 }
 .tabActive {
-  color: red;
+  padding: 0.3rem 1rem;
+  color: rgb(8, 241, 210);
+  background-color: rgb(24, 32, 37);
+  cursor: pointer;
+  border-radius: 0.5rem 0.5rem 0 0;
+  border: 1px solid rgb(127, 155, 160);
+  border-bottom: none;
 }
 
 .viewport {
@@ -25,4 +36,6 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  border: 1px solid rgb(127, 155, 160);
+  border-top: none;
 }
