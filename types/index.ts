@@ -21,7 +21,7 @@ export interface MobulaWorkspace {
   name: string
   requests: MobulaRequest[] | []
   openRequests: MobulaRequest[] | []
-  selectedRequest: MobulaRequest
+  selectedRequest: string
   env: Env
 }
 

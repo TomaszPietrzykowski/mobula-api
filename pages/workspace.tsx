@@ -1,12 +1,13 @@
-import React, { useEffect } from "react"
+import React, { MouseEventHandler, useEffect } from "react"
 import styles from "../styles/Workspace.module.css"
 // import { useDispatch } from "react-redux"
 import { useTypedSelector } from "../redux/hooks"
 import RequestsBrowser from "../components/workspace/RequestsBrowser"
-// import { getWorkspace } from "../redux/actions/workspaceActions"
-import { defaultWorkspace } from "../utils/defaults"
+import { openReqInWorkspace } from "../redux/actions/workspaceActions"
+// import { defaultWorkspace } from "../utils/defaults"
 import { useRouter } from "next/router"
 import FolderTab from "../components/workspace/FolderTab"
+import { useDispatch } from "react-redux"
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
@@ -14,11 +15,17 @@ const Workspace: React.FC = () => {
     (state) => state.workspaceActive
   )
   const router = useRouter()
+  const dispatch = useDispatch()
   useEffect(() => {
     if (!userLogin.user.name) {
       router.push("/login")
     }
   })
+
+  const handleClick = (e: any): void => {
+    dispatch(openReqInWorkspace(e?.target.id, workspace))
+  }
+
   return (
     <div className={styles.root}>
       {loading ? (
@@ -34,13 +41,15 @@ const Workspace: React.FC = () => {
               <nav>
                 <ul>
                   {workspace.collections.map((folder) => (
-                    // <li key={folder._id} className={styles.folderDrawerTab}>
-                    //   {folder.name}
-                    // </li>
                     <FolderTab key={folder._id} collection={folder} />
                   ))}
                   {workspace.requests.map((request) => (
-                    <li key={request._id} className={styles.reqLooseTab}>
+                    <li
+                      key={request._id}
+                      id={request._id}
+                      className={styles.reqLooseTab}
+                      onClick={handleClick}
+                    >
                       {request.reqName}
                     </li>
                   ))}
@@ -48,12 +57,7 @@ const Workspace: React.FC = () => {
               </nav>
             </aside>
             <main className={styles.workbench}>
-              {workspace.openRequests.length > 0 && (
-                <RequestsBrowser
-                  requests={workspace.openRequests}
-                  selectedRequest={workspace.selectedRequest}
-                />
-              )}
+              {workspace.openRequests.length > 0 && <RequestsBrowser />}
             </main>
           </div>
         </React.Fragment>

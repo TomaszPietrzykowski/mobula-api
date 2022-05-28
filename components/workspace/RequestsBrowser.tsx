@@ -1,16 +1,29 @@
-import React, { ReactEventHandler, useEffect, useState } from "react"
+import React from "react"
 import styles from "../../styles/RequestsBrowser.module.css"
 import Request from "../request/Request"
+import {
+  openReqInWorkspace,
+  removeReqFromBrowser,
+} from "../../redux/actions/workspaceActions"
 // types
 import { MobulaRequest, RequestsBrowserProps } from "../../types/index"
+import { useTypedSelector } from "../../redux/hooks"
+import { useDispatch } from "react-redux"
 
-const RequestsBrowser = (props: RequestsBrowserProps): JSX.Element => {
-  const [selectedRequest, setSelectedRequest] = useState<string>(
-    props.selectedRequest
+const RequestsBrowser = (): JSX.Element => {
+  const { workspace } = useTypedSelector((state) => state.workspaceActive)
+  const { selectedRequest, openRequests } = useTypedSelector(
+    (state) => state.workspaceActive.workspace
   )
+  const dispatch = useDispatch()
 
   const handleRequestSelect = (e) => {
-    setSelectedRequest(e.target.id)
+    dispatch(openReqInWorkspace(e.target.id, workspace))
+  }
+
+  const handleRequestClose = (e) => {
+    console.log(e.target.parentElement.id)
+    // dispatch(removeReqFromBrowser(e.target.id, workspace))
   }
 
   return (
@@ -18,8 +31,8 @@ const RequestsBrowser = (props: RequestsBrowserProps): JSX.Element => {
       <div className={styles.wrapper}>
         <nav className={styles.nav}>
           <ul className={styles.tabs}>
-            {props.requests.length > 0 &&
-              props.requests.map((request: MobulaRequest) => (
+            {openRequests.length > 0 &&
+              openRequests.map((request: MobulaRequest) => (
                 <li
                   key={request._id}
                   className={
@@ -30,15 +43,18 @@ const RequestsBrowser = (props: RequestsBrowserProps): JSX.Element => {
                   id={request._id}
                   onClick={handleRequestSelect}
                 >
-                  {`${request.reqMethod}  ${request.reqName.slice(0, 12)}`}
+                  {/* {`${request.reqMethod}  ${request.reqName.slice(0, 12)}`} */}
+                  {`${request.reqMethod}`}
+                  {"  "}
+                  <span onClick={handleRequestClose}> x </span>
                 </li>
               ))}
             <li className={styles.tabInactive}>+</li>
           </ul>
         </nav>
         <div className={styles.viewport}>
-          {props.requests.length > 0 ? (
-            props.requests.map((request) => (
+          {openRequests.length > 0 ? (
+            openRequests.map((request) => (
               <Request
                 key={request._id}
                 request={request}
