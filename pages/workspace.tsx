@@ -1,13 +1,13 @@
-import React, { MouseEventHandler, useEffect } from "react"
+import React, { useEffect } from "react"
 import styles from "../styles/Workspace.module.css"
-// import { useDispatch } from "react-redux"
+import { useRouter } from "next/router"
+import { useDispatch } from "react-redux"
 import { useTypedSelector } from "../redux/hooks"
 import RequestsBrowser from "../components/workspace/RequestsBrowser"
 import { openReqInWorkspace } from "../redux/actions/workspaceActions"
 // import { defaultWorkspace } from "../utils/defaults"
-import { useRouter } from "next/router"
+
 import FolderTab from "../components/workspace/FolderTab"
-import { useDispatch } from "react-redux"
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)

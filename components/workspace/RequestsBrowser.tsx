@@ -22,8 +22,7 @@ const RequestsBrowser = (): JSX.Element => {
   }
 
   const handleRequestClose = (e) => {
-    console.log(e.target.parentElement.id)
-    // dispatch(removeReqFromBrowser(e.target.id, workspace))
+    dispatch(removeReqFromBrowser(e.target.id, workspace))
   }
 
   return (
@@ -40,13 +39,19 @@ const RequestsBrowser = (): JSX.Element => {
                       ? styles.tabActive
                       : styles.tabInactive
                   }
-                  id={request._id}
-                  onClick={handleRequestSelect}
                 >
-                  {/* {`${request.reqMethod}  ${request.reqName.slice(0, 12)}`} */}
-                  {`${request.reqMethod}`}
-                  {"  "}
-                  <span onClick={handleRequestClose}> x </span>
+                  <div id={request._id} onClick={handleRequestSelect}>
+                    {`${request.reqMethod}  ${request.reqName.slice(0, 12)}`}
+                    {"  "}
+                  </div>
+                  <div
+                    id={request._id}
+                    onClick={handleRequestClose}
+                    className={styles.close}
+                  >
+                    {" "}
+                    x{" "}
+                  </div>
                 </li>
               ))}
             <li className={styles.tabInactive}>+</li>

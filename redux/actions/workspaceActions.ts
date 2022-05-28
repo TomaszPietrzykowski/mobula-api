@@ -41,7 +41,6 @@ export const openReqInWorkspace =
         })
       }
     } else {
-      dispatch({ type: constants.WORKSPACE_ACTIVE_REQUEST })
       try {
         const { data } = await axios.get(
           `http://localhost:5000/api/request/${id}`
@@ -62,8 +61,6 @@ export const openReqInWorkspace =
 
 export const removeReqFromBrowser =
   (id: String, current: MobulaWorkspace) => async (dispatch) => {
-    console.log("remove request from browser called")
-    console.log(`id: ${id}`)
     const filtered = current.openRequests.filter(
       (r: MobulaRequest) => r._id !== id
     )
@@ -72,7 +69,8 @@ export const removeReqFromBrowser =
       payload: {
         ...current,
         openRequests: filtered,
-        selectedRequest: filtered[filtered.length - 1]._id,
+        selectedRequest:
+          filtered.length > 0 ? filtered[filtered.length - 1]._id : "",
       },
     })
   }
