@@ -36,3 +36,7 @@
   color: rgb(100, 184, 121);
   padding: 0 1rem 2rem;
 }
+.newRequestRoot {
+  border: 1px solid rgb(127, 155, 160);
+  padding: 3rem;
+}

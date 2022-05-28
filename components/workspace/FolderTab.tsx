@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import styles from "../../styles/Workspace.module.css"
 
-const FolderTab = ({ collection }) => {
+const FolderTab = ({ collection, setNewRequestModalOpen }) => {
   const [tabOpen, setTabOpen] = useState<Boolean>(false)
   return (
     <React.Fragment>
@@ -18,7 +18,12 @@ const FolderTab = ({ collection }) => {
               {req.reqName}
             </li>
           ))}
-          <li className={styles.addRequestTab}>+ add reqquest</li>
+          <li
+            className={styles.addRequestTab}
+            onClick={() => setNewRequestModalOpen(true)}
+          >
+            + add reqquest
+          </li>
         </React.Fragment>
       )}
     </React.Fragment>
