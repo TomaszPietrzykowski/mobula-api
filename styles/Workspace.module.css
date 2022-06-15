@@ -16,6 +16,15 @@
 
 .drawer {
   background-color: rgb(7, 16, 22);
+  width: 240px;
+}
+.drawer > * > * > *,
+.drawer > * > * > * > * {
+  white-space: nowrap;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
 }
 .folderDrawerTab {
   font-size: 1rem;

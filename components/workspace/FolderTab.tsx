@@ -1,8 +1,18 @@
-import React, { useState } from "react"
-import styles from "../../styles/Workspace.module.css"
+import React, { useState } from 'react'
+import styles from '../../styles/Workspace.module.css'
 
-const FolderTab = ({ collection, setNewRequestModalOpen }) => {
+const FolderTab = ({
+  collection,
+  setNewRequestModalOpen,
+  setNewReqCollection,
+  handleRequestOpen,
+}) => {
   const [tabOpen, setTabOpen] = useState<Boolean>(false)
+
+  const handleNewReq = () => {
+    setNewReqCollection(collection)
+    setNewRequestModalOpen(true)
+  }
   return (
     <React.Fragment>
       <li
@@ -14,14 +24,16 @@ const FolderTab = ({ collection, setNewRequestModalOpen }) => {
       {collection.requests.length > 0 && tabOpen && (
         <React.Fragment>
           {collection.requests.map((req) => (
-            <li key={req._id} className={styles.reqDrawerTab}>
+            <li
+              key={req._id}
+              className={styles.reqDrawerTab}
+              id={req._id}
+              onClick={handleRequestOpen}
+            >
               {req.reqName}
             </li>
           ))}
-          <li
-            className={styles.addRequestTab}
-            onClick={() => setNewRequestModalOpen(true)}
-          >
+          <li className={styles.addRequestTab} onClick={handleNewReq}>
             + add reqquest
           </li>
         </React.Fragment>

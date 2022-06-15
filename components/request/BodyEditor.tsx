@@ -1,11 +1,11 @@
-import React from "react"
+import React from 'react'
 // import "codemirror/lib/codemirror.css"
 // import "codemirror/theme/material.css"
-import "codemirror/mode/javascript/javascript"
-import { Controlled } from "react-codemirror2"
-import "../../styles/BodyEditor.module.css"
+import 'codemirror/mode/javascript/javascript'
+import { Controlled } from 'react-codemirror2'
+import '../../styles/BodyEditor.module.css'
 // types
-import { BodyEditorProps } from "../../types/index"
+import { BodyEditorProps } from '../../types/index'
 
 const BodyEditor = (props: BodyEditorProps): JSX.Element => {
   const handleChange = (editor, data, value) => {
@@ -14,20 +14,20 @@ const BodyEditor = (props: BodyEditorProps): JSX.Element => {
 
   return (
     <React.Fragment>
-      <h1 className="editor-title">Body editor</h1>
-      <div className="editor-container">
+      <h1 className='editor-title'>Body editor</h1>
+      <div className='editor-container'>
         <Controlled
           onBeforeChange={handleChange}
           value={props.value}
-          className="code-mirror-wrapper"
+          className='code-mirror-wrapper'
           options={{
             lineWrapping: true,
             lint: true,
-            theme: "material",
+            theme: 'material',
             lineNumbers: true,
             mode: {
-              name: "javascript",
-              json: "true",
+              name: 'javascript',
+              json: 'true',
             },
           }}
         />
