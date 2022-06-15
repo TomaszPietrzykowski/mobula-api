@@ -1,22 +1,22 @@
-import Head from "next/head"
-import { FC } from "react"
-import styles from "../styles/Home.module.css"
+import Head from 'next/head'
+import { FC } from 'react'
+import styles from '../styles/Home.module.css'
 
 const Home: FC = () => {
   // logic
-  let output: any = "test"
-  let name: string = "Mobula Tarapacana"
+  let output: any = 'test'
+  let name: string = 'Mobula Tarapacana'
   let num: number = 5
   let isOn: boolean = true
   let numbers: number[] = [1, 2, 3, 4]
-  let tuple: [number, string, boolean] = [1, "3", true]
+  let tuple: [number, string, boolean] = [1, '3', true]
   let tupleArray: [number, string][] = [
-    [1, "3"],
-    [2, "3"],
+    [1, '3'],
+    [2, '3'],
   ]
 
   // Union
-  let id: number | string = "2"
+  let id: number | string = '2'
 
   // Enum
   enum DirectionNr {
@@ -26,10 +26,10 @@ const Home: FC = () => {
     right,
   }
   enum DirectionStr {
-    up = "up",
-    down = "down",
-    left = "left",
-    right = "right",
+    up = 'up',
+    down = 'down',
+    left = 'left',
+    right = 'right',
   }
 
   // Objects
@@ -37,13 +37,13 @@ const Home: FC = () => {
 
   const user: User = {
     id: 1,
-    name: "Joseph",
+    name: 'Joseph',
   }
 
   // Type assertion
   let cid: any = 1
   let customerId = cid as string
-  customerId = "2"
+  customerId = '2'
 
   // Functions
   const add = (num1: number, num2: number): number => {
@@ -64,9 +64,9 @@ const Home: FC = () => {
 
   const userOutOfInterface: UserInterface = {
     id: 1,
-    name: "Nameee",
+    name: 'Nameee',
   }
-  userOutOfInterface.name = "Dupersztyngiel"
+  userOutOfInterface.name = 'Dupersztyngiel'
   let o: any = userOutOfInterface.name
 
   // Function interface
@@ -96,7 +96,7 @@ const Home: FC = () => {
     register = () => `${this.name} is registered`
   }
 
-  const pers = new Person(123, "Nowy")
+  const pers = new Person(123, 'Nowy')
 
   // Class extension Subclasses
 
@@ -112,7 +112,7 @@ const Home: FC = () => {
   // Generics
   const getArray = <T extends {}>(items: T[]): T[] => new Array().concat(items)
   const numArray = getArray<number>([1, 2, 3, 4])
-  const stringArray = getArray<string>(["1", "2", "3", "4"])
+  const stringArray = getArray<string>(['1', '2', '3', '4'])
 
   numArray.push(5)
 
@@ -123,15 +123,19 @@ const Home: FC = () => {
     <div className={styles.container}>
       <Head>
         <title>Mobula API</title>
-        <meta name="description" content="Mobula.dev: Browser based HTTP/API client" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta
+          name='description'
+          content='Mobula.dev: Browser based HTTP/API client'
+        />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>Mobula API</h1>
 
         <p className={styles.description}>Boilerplate output:</p>
-        <section></section>
+        <section>Hero</section>
+        <section>Features</section>
       </main>
     </div>
   )

@@ -16,7 +16,12 @@ const Workspace: React.FC = () => {
     (state) => state.workspaceActive
   )
 
-  const [modalOpen, setModalOpen] = useState<boolean>(true)
+  const [modalNewReqOpen, setModalNewReqOpen] = useState<boolean>(false)
+  const [modalNewCollectionOpen, setModalNewCollectionOpen] =
+    useState<boolean>(false)
+  const [modalEditCollectionOpen, setModalEditCollectionOpen] =
+    useState<boolean>(false)
+  const [modalEnvOpen, setModalEnvOpen] = useState<boolean>(false)
   const [newReqCollection, setNewReqCollection] = useState<object>({
     name: '../',
     _id: '1',
@@ -39,7 +44,7 @@ const Workspace: React.FC = () => {
 
   const handleNewRootReq = (e: any): void => {
     setNewReqCollection({ name: '../', _id: '1' })
-    setModalOpen(true)
+    setModalNewReqOpen(true)
   }
 
   return (
@@ -60,7 +65,7 @@ const Workspace: React.FC = () => {
                     <FolderTab
                       key={folder._id}
                       collection={folder}
-                      setNewRequestModalOpen={setModalOpen}
+                      setNewRequestModalOpen={setModalNewReqOpen}
                       handleRequestOpen={handleClick}
                       setNewReqCollection={setNewReqCollection}
                     />
@@ -88,16 +93,40 @@ const Workspace: React.FC = () => {
               {workspace.openRequests.length > 0 && <RequestsBrowser />}
             </main>
           </div>
+          <Modal
+            shouldCloseOnOverlayClick={true}
+            onRequestClose={() => setModalNewReqOpen(false)}
+            isOpen={modalNewReqOpen}
+            style={modalStyles}
+          >
+            <CreateNewRequest selectedCollection={newReqCollection} />
+          </Modal>
+          <Modal
+            shouldCloseOnOverlayClick={true}
+            onRequestClose={() => setModalNewCollectionOpen(false)}
+            isOpen={modalNewCollectionOpen}
+            style={modalStyles}
+          >
+            <h1>New collection</h1>
+          </Modal>
+          <Modal
+            shouldCloseOnOverlayClick={true}
+            onRequestClose={() => setModalEditCollectionOpen(false)}
+            isOpen={modalEditCollectionOpen}
+            style={modalStyles}
+          >
+            <h1>Edit collection</h1>
+          </Modal>
+          <Modal
+            shouldCloseOnOverlayClick={true}
+            onRequestClose={() => setModalEnvOpen(false)}
+            isOpen={modalEnvOpen}
+            style={modalStyles}
+          >
+            <h1>Environment</h1>
+          </Modal>
         </React.Fragment>
       )}
-      <Modal
-        shouldCloseOnOverlayClick={true}
-        onRequestClose={() => setModalOpen(false)}
-        isOpen={modalOpen}
-        style={modalStyles}
-      >
-        <CreateNewRequest selectedCollection={newReqCollection} />
-      </Modal>
     </div>
   )
 }
