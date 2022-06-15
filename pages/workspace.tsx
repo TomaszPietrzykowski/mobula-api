@@ -9,6 +9,7 @@ import { openReqInWorkspace } from '../redux/actions/workspaceActions'
 import Modal from 'react-modal'
 import FolderTab from '../components/workspace/FolderTab'
 import CreateNewRequest from '../components/workspace/CreateNewRequest'
+import EnvModal from '../components/workspace/EnvModal'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
@@ -21,7 +22,7 @@ const Workspace: React.FC = () => {
     useState<boolean>(false)
   const [modalEditCollectionOpen, setModalEditCollectionOpen] =
     useState<boolean>(false)
-  const [modalEnvOpen, setModalEnvOpen] = useState<boolean>(false)
+  const [modalEnvOpen, setModalEnvOpen] = useState<boolean>(true)
   const [newReqCollection, setNewReqCollection] = useState<object>({
     name: '../',
     _id: '1',
@@ -123,7 +124,7 @@ const Workspace: React.FC = () => {
             isOpen={modalEnvOpen}
             style={modalStyles}
           >
-            <h1>Environment</h1>
+            <EnvModal />
           </Modal>
         </React.Fragment>
       )}
