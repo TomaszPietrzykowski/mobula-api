@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
-// import { sendRequest } from "../../redux/actions/requestActions"
-// import { useDispatch } from "react-redux"
-// import { useTypedSelector } from "../../redux/hooks"
-// import * as constants from "../../redux/constants/requestConstants"
 import styles from '../../styles/Request.module.css'
 import Response from '../response/Response'
 import BodyEditor from './BodyEditor'
@@ -55,6 +51,9 @@ const Request = (props: {
   const [response, setResponse] = useState<AxiosResponse | null>(null)
   const [isCorsError, setIsCorsError] = useState<boolean>(false)
   const [error, setError] = useState<any>(null)
+
+  // --------------------TO DO ----------
+  // ---- Bring in ENV from redux, replace with props -> modify custom types ---------
 
   /*
    * -----------  Axios request - E X E C U T E ---------------------
@@ -196,7 +195,9 @@ const Request = (props: {
   }
 
   const v = props.isSelected ? 'block' : 'none'
+
   // ------------- JSX --------------------------
+
   return (
     <div className={styles.root} style={{ display: v }}>
       <form onSubmit={handleSubmit} className={styles.urlForm}>

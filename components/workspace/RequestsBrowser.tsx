@@ -17,6 +17,9 @@ const RequestsBrowser = (): JSX.Element => {
   )
   const dispatch = useDispatch()
 
+  /*
+   * browser actions handlers
+   */
   const handleRequestSelect = (e) => {
     dispatch(openReqInWorkspace(e.target.id, workspace))
   }

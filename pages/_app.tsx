@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <Fragment>
         <section>
-          <Header title='Mobula API' color='green' />
+          <Header />
           <Component {...pageProps} />
         </section>
         <Footer />

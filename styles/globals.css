@@ -99,6 +99,15 @@ body {
   background: var(--color-primary-1);
   color: var(--color-secondary-1);
 }
+/* --------------- */
+/* nextjs only      */
+/* --------------- */
+#__next {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 /* --------------- */
 /* Utility classes */

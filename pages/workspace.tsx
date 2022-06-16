@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux'
 import { useTypedSelector } from '../redux/hooks'
 import RequestsBrowser from '../components/workspace/RequestsBrowser'
 import { openReqInWorkspace } from '../redux/actions/workspaceActions'
-// import { defaultWorkspace } from "../utils/defaults"
 import Modal from 'react-modal'
 import FolderTab from '../components/workspace/FolderTab'
 import CreateNewRequest from '../components/workspace/CreateNewRequest'
