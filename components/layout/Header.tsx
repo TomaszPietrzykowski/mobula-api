@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { useDispatch } from "react-redux"
-import styles from "../../styles/Header.module.css"
-import * as constants from "../../redux/constants/userConstants"
+import Link from 'next/link'
+import { useDispatch } from 'react-redux'
+import styles from '../../styles/Header.module.css'
+import * as constants from '../../redux/constants/userConstants'
 
 export interface Props {
   title: string
@@ -16,17 +16,17 @@ const Header = (props: Props): JSX.Element => {
       <nav>
         <ul className={styles.nav}>
           <li>
-            <Link href="/">
+            <Link href='/'>
               <a>Home</a>
             </Link>
           </li>
           <li>
-            <Link href="/workspace">
+            <Link href='/workspace'>
               <a>Workspace</a>
             </Link>
           </li>
           <li>
-            <Link href="/login">
+            <Link href='/login'>
               <a>Login</a>
             </Link>
           </li>

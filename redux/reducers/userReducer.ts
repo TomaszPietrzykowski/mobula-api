@@ -1,5 +1,5 @@
-import { AnyAction } from "redux"
-import * as constants from "../constants/userConstants"
+import { AnyAction } from 'redux'
+import * as constants from '../constants/userConstants'
 
 const initialState = {
   user: {},

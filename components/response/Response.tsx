@@ -1,7 +1,7 @@
-import React from "react"
-import ResponseHeaders from "./ResponseHeaders"
-import BodyDisplay from "./BodyDisplay"
-import ResponseStatusBar from "./ResponseStatusBar"
+import React from 'react'
+import ResponseHeaders from './ResponseHeaders'
+import BodyDisplay from './BodyDisplay'
+import ResponseStatusBar from './ResponseStatusBar'
 
 const Response = ({ response }) => {
   return (

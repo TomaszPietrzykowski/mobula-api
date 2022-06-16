@@ -1,14 +1,14 @@
-import React from "react"
-import styles from "../../styles/RequestsBrowser.module.css"
-import Request from "../request/Request"
+import React from 'react'
+import styles from '../../styles/RequestsBrowser.module.css'
+import Request from '../request/Request'
 import {
   openReqInWorkspace,
   removeReqFromBrowser,
-} from "../../redux/actions/workspaceActions"
+} from '../../redux/actions/workspaceActions'
 // types
-import { MobulaRequest, RequestsBrowserProps } from "../../types/index"
-import { useTypedSelector } from "../../redux/hooks"
-import { useDispatch } from "react-redux"
+import { MobulaRequest, RequestsBrowserProps } from '../../types/index'
+import { useTypedSelector } from '../../redux/hooks'
+import { useDispatch } from 'react-redux'
 
 const RequestsBrowser = (): JSX.Element => {
   const { workspace } = useTypedSelector((state) => state.workspaceActive)
@@ -42,15 +42,15 @@ const RequestsBrowser = (): JSX.Element => {
                 >
                   <div id={request._id} onClick={handleRequestSelect}>
                     {`${request.reqMethod}  ${request.reqName.slice(0, 12)}`}
-                    {"  "}
+                    {'  '}
                   </div>
                   <div
                     id={request._id}
                     onClick={handleRequestClose}
                     className={styles.close}
                   >
-                    {" "}
-                    x{" "}
+                    {' '}
+                    x{' '}
                   </div>
                 </li>
               ))}

@@ -1,7 +1,7 @@
-import React from "react"
-import styles from "../../styles/Response.module.css"
-import { js as beautify } from "js-beautify"
-import { ResponseStatusBarProps } from "../../types/index"
+import React from 'react'
+import styles from '../../styles/Response.module.css'
+import { js as beautify } from 'js-beautify'
+import { ResponseStatusBarProps } from '../../types/index'
 
 const ResponseHeaders = ({ response }: ResponseStatusBarProps): JSX.Element => {
   return (

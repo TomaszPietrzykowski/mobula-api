@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react"
-import axios, { AxiosRequestConfig, AxiosResponse, Method } from "axios"
+import React, { useState, useEffect } from 'react'
+import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
 // import { sendRequest } from "../../redux/actions/requestActions"
 // import { useDispatch } from "react-redux"
 // import { useTypedSelector } from "../../redux/hooks"
 // import * as constants from "../../redux/constants/requestConstants"
-import styles from "../../styles/Request.module.css"
-import Response from "../response/Response"
-import BodyEditor from "./BodyEditor"
-import UrlPreview from "./UrlPreview"
-import markEnv from "../../utils/markEnv"
-import parseEnv from "../../utils/parseEnv"
-import { KeyVal } from "../../types/index"
+import styles from '../../styles/Request.module.css'
+import Response from '../response/Response'
+import BodyEditor from './BodyEditor'
+import UrlPreview from './UrlPreview'
+import markEnv from '../../utils/markEnv'
+import parseEnv from '../../utils/parseEnv'
+import { KeyVal } from '../../types/index'
 
 // extend axios types
-declare module "axios" {
+declare module 'axios' {
   export interface AxiosRequestConfig {
     mobula?: {
       reqStartTime?: number
@@ -38,17 +38,17 @@ const Request = (props: {
   const [reqHeaders, setReqHeaders] = useState<{}>(
     props.request.reqHeaders || {}
   )
-  const [newHeaderKey, setNewHeaderKey] = useState<string>("")
-  const [newHeaderValue, setNewHeaderValue] = useState<string>("")
+  const [newHeaderKey, setNewHeaderKey] = useState<string>('')
+  const [newHeaderValue, setNewHeaderValue] = useState<string>('')
   const [reqQueries, setReqQueries] = useState<{}>(
     props.request.reqQueries || {}
   )
-  const [newQueryKey, setNewQueryKey] = useState<string>("")
-  const [newQueryValue, setNewQueryValue] = useState<string>("")
+  const [newQueryKey, setNewQueryKey] = useState<string>('')
+  const [newQueryValue, setNewQueryValue] = useState<string>('')
   const [reqMethod, setReqMethod] = useState<Method>(props.request.reqMethod)
   const [proxy, setProxy] = useState<boolean>(props.request.proxy)
   const [env, setEnv] = useState<KeyVal[]>(props.env)
-  const [bodyEditorValue, setBodyEditorValue] = useState<string>("{\n\t\n}\n")
+  const [bodyEditorValue, setBodyEditorValue] = useState<string>('{\n\t\n}\n')
   const [requestNavState, setRequestNavState] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)
@@ -80,8 +80,8 @@ const Request = (props: {
   const makeRequest = async () => {
     const requestUrl: string = proxy
       ? `${process.env.NEXT_PUBLIC_CORS_PROXY}${reqUrl
-          .replace("?", "<>")
-          .replaceAll("&", "><")}`
+          .replace('?', '<>')
+          .replaceAll('&', '><')}`
       : `${reqUrl}`
 
     console.log(requestUrl)
@@ -92,9 +92,9 @@ const Request = (props: {
       params: reqQueries,
       validateStatus: (status) => status >= 100 && status < 600,
       data:
-        reqMethod.toUpperCase() !== "GET" &&
-        reqMethod.toUpperCase() !== "HEAD" &&
-        reqMethod.toUpperCase() !== "OPTIONS"
+        reqMethod.toUpperCase() !== 'GET' &&
+        reqMethod.toUpperCase() !== 'HEAD' &&
+        reqMethod.toUpperCase() !== 'OPTIONS'
           ? JSON.parse(bodyEditorValue) || {}
           : null,
     }
@@ -122,7 +122,7 @@ const Request = (props: {
           return res
         },
         (err) => {
-          if (typeof err.response === "undefined") setIsCorsError(true)
+          if (typeof err.response === 'undefined') setIsCorsError(true)
           return Promise.reject(err)
         }
       )
@@ -160,10 +160,10 @@ const Request = (props: {
    */
   const handleAddHeader = (e: React.SyntheticEvent): void => {
     e.preventDefault()
-    if (newHeaderKey === "" || newHeaderValue === "") return
+    if (newHeaderKey === '' || newHeaderValue === '') return
     setReqHeaders({ ...reqHeaders, [newHeaderKey]: newHeaderValue })
-    setNewHeaderKey("")
-    setNewHeaderValue("")
+    setNewHeaderKey('')
+    setNewHeaderValue('')
   }
   // new header form state
   const handleNewHeaderKey = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -180,10 +180,10 @@ const Request = (props: {
    */
   const handleAddQuery = (e: React.SyntheticEvent): void => {
     e.preventDefault()
-    if (newQueryKey === "" || newQueryValue === "") return
+    if (newQueryKey === '' || newQueryValue === '') return
     setReqQueries({ ...reqQueries, [newQueryKey]: newQueryValue })
-    setNewQueryKey("")
-    setNewQueryValue("")
+    setNewQueryKey('')
+    setNewQueryValue('')
   }
   // new query form state
   const handleNewQueryKey = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -195,31 +195,31 @@ const Request = (props: {
     setNewQueryValue(e.currentTarget.value)
   }
 
-  const v = props.isSelected ? "block" : "none"
+  const v = props.isSelected ? 'block' : 'none'
   // ------------- JSX --------------------------
   return (
     <div className={styles.root} style={{ display: v }}>
       <form onSubmit={handleSubmit} className={styles.urlForm}>
         <div className={styles.selectWrapper}>
           <select
-            id="method"
+            id='method'
             onChange={(e) => handleMethod(e)}
             className={styles.select}
           >
-            <option value="GET">GET</option>
-            <option value="POST">POST</option>
-            <option value="PUT">PUT</option>
-            <option value="PATCH">PATCH</option>
-            <option value="DELETE">DELETE</option>
-            <option value="OPTIONS">OPTIONS</option>
-            <option value="HEAD">HEAD</option>
+            <option value='GET'>GET</option>
+            <option value='POST'>POST</option>
+            <option value='PUT'>PUT</option>
+            <option value='PATCH'>PATCH</option>
+            <option value='DELETE'>DELETE</option>
+            <option value='OPTIONS'>OPTIONS</option>
+            <option value='HEAD'>HEAD</option>
           </select>
           <span className={styles.customArrow}></span>
         </div>
         <div className={styles.urlWrapper}>
           <input
-            type="text"
-            id="url"
+            type='text'
+            id='url'
             value={reqUrl}
             className={styles.url}
             onChange={(e) => handleUrl(e)}
@@ -229,7 +229,7 @@ const Request = (props: {
             dangerouslySetInnerHTML={{ __html: markEnv(reqUrl, env) }}
           ></p>
         </div>
-        <button type="submit" className={styles.sendBtn}>
+        <button type='submit' className={styles.sendBtn}>
           Send
         </button>
       </form>
@@ -279,8 +279,8 @@ const Request = (props: {
             <section>
               <h3>Request Headers</h3>
               {Object.entries(reqHeaders).map(([key, value]) => (
-                <div style={{ display: "flex" }} key={key}>
-                  <div style={{ marginRight: "2rem" }}>{key}</div>
+                <div style={{ display: 'flex' }} key={key}>
+                  <div style={{ marginRight: '2rem' }}>{key}</div>
                   <div>{String(value)}</div>
                   <button
                     onClick={() => {
@@ -295,29 +295,29 @@ const Request = (props: {
               ))}
               <form onSubmit={handleAddHeader}>
                 <input
-                  type="text"
-                  id="new-header-key"
+                  type='text'
+                  id='new-header-key'
                   value={newHeaderKey}
                   onChange={handleNewHeaderKey}
                   className={styles.headerInput}
                 />
                 <input
-                  type="text"
-                  id="new-header-value"
+                  type='text'
+                  id='new-header-value'
                   value={newHeaderValue}
                   onChange={handleNewHeaderValue}
                   className={styles.headerInput}
                 />
 
-                <button type="submit">Add header</button>
+                <button type='submit'>Add header</button>
               </form>
             </section>
           ) : requestNavState === 1 ? (
             <section>
               <h3>Query Params</h3>
               {Object.entries(reqQueries).map(([key, value]) => (
-                <div style={{ display: "flex" }} key={key}>
-                  <div style={{ marginRight: "2rem" }}>{key}</div>
+                <div style={{ display: 'flex' }} key={key}>
+                  <div style={{ marginRight: '2rem' }}>{key}</div>
                   <div>{String(value)}</div>
                   <button
                     onClick={() => {
@@ -332,19 +332,19 @@ const Request = (props: {
               ))}
               <form onSubmit={handleAddQuery}>
                 <input
-                  type="text"
+                  type='text'
                   value={newQueryKey}
                   onChange={handleNewQueryKey}
                   className={styles.QueryInput}
                 />
                 <input
-                  type="text"
+                  type='text'
                   value={newQueryValue}
                   onChange={handleNewQueryValue}
                   className={styles.QueryInput}
                 />
 
-                <button type="submit">Add Query Param</button>
+                <button type='submit'>Add Query Param</button>
               </form>
             </section>
           ) : requestNavState === 2 ? (
@@ -374,20 +374,20 @@ const Request = (props: {
                   connection
                 </p>
                 <div className={styles.responseInfoContainer}>
-                  <div>status code: {error?.response?.status || "400"}</div>
+                  <div>status code: {error?.response?.status || '400'}</div>
                   <div>status: {String(error?.name)}</div>
                   <div>
-                    Error time:{" "}
+                    Error time:{' '}
                     {error.response?.mobula.reqEndTime -
-                      error.response?.config.mobula.reqStartTime || ""}
+                      error.response?.config.mobula.reqStartTime || ''}
                     ms
                   </div>
-                  <div>size: {"123"}ks</div>
+                  <div>size: {'123'}ks</div>
                 </div>
                 <h5>Response Headers</h5>
                 {Object.entries(error.config.headers).map(([key, value]) => (
-                  <div style={{ display: "flex" }} key={key}>
-                    <div style={{ marginRight: "2rem" }}>{key}</div>
+                  <div style={{ display: 'flex' }} key={key}>
+                    <div style={{ marginRight: '2rem' }}>{key}</div>
                     <div>{String(value)}</div>
                   </div>
                 ))}

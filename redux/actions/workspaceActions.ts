@@ -1,6 +1,6 @@
-import axios from "axios"
-import { MobulaRequest, MobulaWorkspace } from "../../types"
-import * as constants from "../constants/workspaceConstants"
+import axios from 'axios'
+import { MobulaRequest, MobulaWorkspace } from '../../types'
+import * as constants from '../constants/workspaceConstants'
 
 export const getWorkspace = (id: String) => async (dispatch) => {
   dispatch({ type: constants.WORKSPACE_ACTIVE_REQUEST })
@@ -70,7 +70,7 @@ export const removeReqFromBrowser =
         ...current,
         openRequests: filtered,
         selectedRequest:
-          filtered.length > 0 ? filtered[filtered.length - 1]._id : "",
+          filtered.length > 0 ? filtered[filtered.length - 1]._id : '',
       },
     })
   }

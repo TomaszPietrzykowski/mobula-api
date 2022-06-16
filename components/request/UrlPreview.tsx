@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
-import isEmptyObj from "../../utils/isEmptyObj"
-import parseEnv from "../../utils/parseEnv"
-import { UrlPreviewProps } from "../../types/index"
+import React, { useEffect, useState } from 'react'
+import isEmptyObj from '../../utils/isEmptyObj'
+import parseEnv from '../../utils/parseEnv'
+import { UrlPreviewProps } from '../../types/index'
 
 const UrlPreview = ({
   url,
@@ -16,8 +16,8 @@ const UrlPreview = ({
       Object.entries(queryParams).forEach((el) => {
         arr.push(`${el[0]}=${el[1]}`)
       })
-      const prefix: string = url.includes("?") ? "&" : "?"
-      const queryStr: string = `${prefix}${arr.join("&")}`
+      const prefix: string = url.includes('?') ? '&' : '?'
+      const queryStr: string = `${prefix}${arr.join('&')}`
       setOutputString(`${url}${queryStr}`)
     } else {
       setOutputString(url)
@@ -26,7 +26,7 @@ const UrlPreview = ({
 
   // jsx
   return (
-    <div style={{ padding: "1.3rem", color: "lightblue" }}>
+    <div style={{ padding: '1.3rem', color: 'lightblue' }}>
       {parseEnv(outputString, env)}
     </div>
   )

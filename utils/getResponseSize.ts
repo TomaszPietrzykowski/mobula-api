@@ -1,4 +1,4 @@
-import prettyBytes from "pretty-bytes"
+import prettyBytes from 'pretty-bytes'
 
 const getResponseSize = (response) => {
   let length = 0
