@@ -2,9 +2,12 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import styles from '../../styles/Header.module.css'
 import * as constants from '../../redux/constants/userConstants'
+import { useTypedSelector } from '../../redux/hooks'
 
 const Header = (): JSX.Element => {
   const dispatch = useDispatch()
+
+  const { user } = useTypedSelector((state) => state.userLogin)
 
   // -- predefine JSX ----------------------
   const userNavLoggedIn: JSX.Element = (
@@ -63,7 +66,9 @@ const Header = (): JSX.Element => {
           </li>
         </ul>
       </nav>
-      <nav className={styles.userNav}>{userNavLoggedOut}</nav>
+      <nav className={styles.userNav}>
+        {user.name ? userNavLoggedIn : userNavLoggedOut}
+      </nav>
     </header>
   )
 }

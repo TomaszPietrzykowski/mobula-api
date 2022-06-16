@@ -21,7 +21,7 @@ const Workspace: React.FC = () => {
     useState<boolean>(false)
   const [modalEditCollectionOpen, setModalEditCollectionOpen] =
     useState<boolean>(false)
-  const [modalEnvOpen, setModalEnvOpen] = useState<boolean>(true)
+  const [modalEnvOpen, setModalEnvOpen] = useState<boolean>(false)
   const [newReqCollection, setNewReqCollection] = useState<object>({
     name: '../',
     _id: '1',

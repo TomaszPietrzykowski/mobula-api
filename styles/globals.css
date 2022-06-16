@@ -100,7 +100,7 @@ body {
   color: var(--color-secondary-1);
 }
 /* --------------- */
-/* nextjs only      */
+/* nextjs only - remove eventually   */
 /* --------------- */
 #__next {
   height: 100vh;
