@@ -3,16 +3,42 @@ import { useDispatch } from 'react-redux'
 import styles from '../../styles/Header.module.css'
 import * as constants from '../../redux/constants/userConstants'
 
-export interface Props {
-  title: string
-  color?: string
-}
-
-const Header = (props: Props): JSX.Element => {
+const Header = (): JSX.Element => {
   const dispatch = useDispatch()
+
+  // -- predefine JSX ----------------------
+  const userNavLoggedIn: JSX.Element = (
+    <ul className={styles.nav}>
+      <li>Profile</li>
+      <li
+        onClick={() => {
+          dispatch({ type: constants.USER_LOGIN_RESET })
+        }}
+      >
+        Logout
+      </li>
+    </ul>
+  )
+
+  const userNavLoggedOut: JSX.Element = (
+    <ul className={styles.nav}>
+      <li>
+        <Link href='/login'>
+          <a>Login</a>
+        </Link>
+      </li>
+      <li className={styles.registerBtn}>
+        <Link href='/register'>
+          <a>Get Started For Free</a>
+        </Link>
+      </li>
+    </ul>
+  )
   return (
     <header className={styles.root}>
-      <h1 style={{ color: props.color }}>{props.title}</h1>
+      <div>
+        <div>MOBULA*DEV</div>
+      </div>
       <nav>
         <ul className={styles.nav}>
           <li>
@@ -26,19 +52,18 @@ const Header = (props: Props): JSX.Element => {
             </Link>
           </li>
           <li>
-            <Link href='/login'>
-              <a>Login</a>
+            <Link href='/docs'>
+              <a>Docs</a>
             </Link>
           </li>
-          <li
-            onClick={() => {
-              dispatch({ type: constants.USER_LOGIN_RESET })
-            }}
-          >
-            Logout
+          <li>
+            <Link href='/contact'>
+              <a>Contact</a>
+            </Link>
           </li>
         </ul>
       </nav>
+      <nav className={styles.userNav}>{userNavLoggedOut}</nav>
     </header>
   )
 }

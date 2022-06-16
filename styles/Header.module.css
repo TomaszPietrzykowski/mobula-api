@@ -1,12 +1,21 @@
 .root {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  padding: 1rem;
 }
 
 .nav {
   display: flex;
+  justify-content: center;
+}
+.userNav {
+  display: flex;
+  justify-content: flex-end;
 }
 .nav li {
   padding: 0.5rem 1rem;
+  margin-inline: .5rem;
+}
+.registerBtn {
+  background-color: var(--color-primary-400);
 }
