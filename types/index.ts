@@ -22,14 +22,14 @@ export interface MobulaWorkspace {
   requests: MobulaRequest[] | []
   openRequests: MobulaRequest[] | []
   selectedRequest: string
-  env: Env
+  env: MobulaEnv
 }
 
-export interface Env {
-  id: string
+export interface MobulaEnv {
+  _id?: string
   name: string
   user: string
-  variables: KeyVal[]
+  variables: KeyVal[] | []
 }
 
 export interface UrlPreviewProps {

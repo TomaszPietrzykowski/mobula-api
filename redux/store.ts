@@ -3,6 +3,11 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducer'
 import {
+  envActiveReducer,
+  envCreateReducer,
+  envUpdateReducer,
+} from './reducers/envReducers'
+import {
   workspaceActiveReducer,
   workspaceAllReducer,
 } from './reducers/workspaceReducer'
@@ -12,6 +17,9 @@ const rootReducer = combineReducers({
   userRegister: userRegisterReducer,
   workspaceActive: workspaceActiveReducer,
   workspaceAll: workspaceAllReducer,
+  envActive: envActiveReducer,
+  envCreate: envCreateReducer,
+  envUpdate: envUpdateReducer,
 })
 
 const initialState = {}
