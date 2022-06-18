@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { MobulaEnv } from '../../types'
 import * as constants from '../constants/envConstants'
+import { useTypedSelector } from '../hooks'
 
 export const createEnv = (env: MobulaEnv) => async (dispatch) => {
   dispatch({ type: constants.ENV_CREATE_REQUEST })
@@ -26,8 +27,17 @@ export const openEnv = (id: string) => async (dispatch) => {
   dispatch({ type: constants.ENV_OPEN_REQUEST })
 
   try {
-    // add auth
-    const { data } = await axios.get(`http://localhost:5000/api/env/${id}`)
+    const { user } = useTypedSelector((state) => state.userLogin)
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    }
+    const { data } = await axios.get(
+      `http://localhost:5000/api/env/${id}`,
+      config
+    )
 
     dispatch({ type: constants.ENV_OPEN_SUCCESS, payload: data })
   } catch (error) {
@@ -38,10 +48,11 @@ export const openEnv = (id: string) => async (dispatch) => {
 export const updateEnv = (env: MobulaEnv) => async (dispatch) => {
   dispatch({ type: constants.ENV_UPDATE_REQUEST })
   try {
+    const { user } = useTypedSelector((state) => state.userLogin)
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        // add auth
+        Authorization: `Bearer ${user.token}`,
       },
     }
     const { data } = await axios.put(
@@ -59,8 +70,14 @@ export const updateEnv = (env: MobulaEnv) => async (dispatch) => {
 export const deleteEnv = (id: string) => async (dispatch) => {
   dispatch({ type: constants.ENV_UPDATE_REQUEST })
   try {
-    // add auth
-    await axios.delete(`http://localhost:5000/api/env/${id}`)
+    const { user } = useTypedSelector((state) => state.userLogin)
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    }
+    await axios.delete(`http://localhost:5000/api/env/${id}`, config)
     dispatch({ type: constants.ENV_UPDATE_SUCCESS })
   } catch (error) {
     dispatch({ type: constants.ENV_UPDATE_FAIL, payload: error })

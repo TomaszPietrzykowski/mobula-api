@@ -36,7 +36,7 @@ const Workspace: React.FC = () => {
     if (!userLogin.user.name) {
       router.push('/login')
     }
-  })
+  }, [userLogin])
 
   const handleClick = (e: any): void => {
     dispatch(openReqInWorkspace(e?.target.id, workspace))
