@@ -29,16 +29,16 @@ export const envCreateReducer = (state = initialState, action: AnyAction) => {
 
 export const envActiveReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
-    case constants.ENV_CREATE_REQUEST:
+    case constants.ENV_OPEN_REQUEST:
       return { ...state, loading: true }
 
-    case constants.ENV_CREATE_SUCCESS:
+    case constants.ENV_OPEN_SUCCESS:
       return { env: action.payload, loading: false, success: true }
 
-    case constants.ENV_CREATE_FAIL:
+    case constants.ENV_OPEN_FAIL:
       return { error: action.payload, loading: false, success: false }
 
-    case constants.ENV_CREATE_RESET:
+    case constants.ENV_OPEN_RESET:
       return { ...initialState }
 
     default:

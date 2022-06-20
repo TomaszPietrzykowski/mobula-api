@@ -6,7 +6,7 @@ const initialActiveWsState = {
     requests: [],
     openRequests: [],
     selectedRequest: '',
-    env: [],
+    env: '',
   },
   loading: true,
   error: null,

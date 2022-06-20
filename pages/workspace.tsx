@@ -12,9 +12,11 @@ import Modal from 'react-modal'
 import FolderTab from '../components/workspace/FolderTab'
 import CreateNewRequest from '../components/workspace/CreateNewRequest'
 import EnvModal from '../components/workspace/EnvModal'
+import { openEnv } from '../redux/actions/envActions'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
+  const { env } = useTypedSelector((state) => state.envActive)
   const { workspace, loading, error } = useTypedSelector(
     (state) => state.workspaceActive
   )
@@ -44,7 +46,10 @@ const Workspace: React.FC = () => {
         getWorkspace(userLogin.user.workspaceActive, userLogin.user.token)
       )
     }
-  }, [userLogin, userLogin.user.workspaceActive, workspace])
+    if (workspace && workspace.env !== '') {
+      dispatch(openEnv(workspace.env, userLogin.user.token))
+    }
+  }, [userLogin, userLogin.user.workspaceActive, workspace, workspace.env])
 
   const handleClick = (e: any): void => {
     dispatch(openReqInWorkspace(e?.target.id, workspace))
@@ -65,6 +70,13 @@ const Workspace: React.FC = () => {
         <React.Fragment>
           <div className={styles.header}>
             <h1>{workspace.name}</h1>
+            <h3>
+              {env.name ? (
+                `Environment: ${env.name}`
+              ) : (
+                <div onClick={() => setModalEnvOpen(true)}>no environment</div>
+              )}
+            </h3>
           </div>
           <div className={styles.container}>
             <aside className={styles.drawer}>
