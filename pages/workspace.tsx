@@ -4,7 +4,10 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { useTypedSelector } from '../redux/hooks'
 import RequestsBrowser from '../components/workspace/RequestsBrowser'
-import { openReqInWorkspace } from '../redux/actions/workspaceActions'
+import {
+  getWorkspace,
+  openReqInWorkspace,
+} from '../redux/actions/workspaceActions'
 import Modal from 'react-modal'
 import FolderTab from '../components/workspace/FolderTab'
 import CreateNewRequest from '../components/workspace/CreateNewRequest'
@@ -36,7 +39,12 @@ const Workspace: React.FC = () => {
     if (!userLogin.user.name) {
       router.push('/login')
     }
-  }, [userLogin])
+    if (userLogin.user.workspaceActive && !workspace) {
+      dispatch(
+        getWorkspace(userLogin.user.workspaceActive, userLogin.user.token)
+      )
+    }
+  }, [userLogin, userLogin.user.workspaceActive, workspace])
 
   const handleClick = (e: any): void => {
     dispatch(openReqInWorkspace(e?.target.id, workspace))
@@ -51,6 +59,8 @@ const Workspace: React.FC = () => {
     <div className={styles.root}>
       {loading ? (
         <h1>loading workspace</h1>
+      ) : !workspace ? (
+        <h1>no workspace</h1>
       ) : (
         <React.Fragment>
           <div className={styles.header}>

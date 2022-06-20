@@ -2,14 +2,22 @@ import axios from 'axios'
 import { MobulaRequest, MobulaWorkspace } from '../../types'
 import * as constants from '../constants/workspaceConstants'
 
-export const getWorkspace = (id: String) => async (dispatch) => {
+export const getWorkspace = (id: String, token) => async (dispatch) => {
   dispatch({ type: constants.WORKSPACE_ACTIVE_REQUEST })
+
   try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
     const { data } = await axios.get(
-      `http://localhost:5000/api/workspace/${id}`
+      `http://localhost:5000/api/workspace/${id}`,
+      config
     )
     dispatch({ type: constants.WORKSPACE_ACTIVE_SUCCESS, payload: data })
   } catch (error) {
+    console.log('action called, catch block entered', `error: ${error}`)
     dispatch({ type: constants.WORKSPACE_ACTIVE_FAIL, payload: error })
   }
 }

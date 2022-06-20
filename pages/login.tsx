@@ -20,7 +20,8 @@ const LogIn: React.FC = () => {
 
   useEffect(() => {
     if (user && user.workspaceActive) {
-      dispatch(getWorkspace(user.workspaceActive))
+      console.log(user.workspaceActive)
+      dispatch(getWorkspace(user.workspaceActive, user.token))
     }
     if (user && user.name) {
       if (router.query.redirect) {
@@ -29,7 +30,7 @@ const LogIn: React.FC = () => {
         router.push('/workspace')
       }
     }
-  }, [user, success])
+  }, [user, success, user.workspaceActive])
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault()
