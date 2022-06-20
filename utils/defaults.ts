@@ -1,4 +1,9 @@
-import { MobulaRequest, MobulaWorkspace, KeyVal, Env } from '../types/index'
+import {
+  MobulaRequest,
+  MobulaWorkspace,
+  KeyVal,
+  MobulaEnv,
+} from '../types/index'
 
 export const defaultRequest: MobulaRequest = {
   _id: '1',
@@ -43,8 +48,8 @@ export const exemplaryRequest: MobulaRequest = {
   ],
 }
 
-export const defaultEnv: Env = {
-  id: 'db_uuid',
+export const defaultEnv: MobulaEnv = {
+  _id: 'db_uuid',
   name: 'PRODUCTION_CM',
   user: 'user_id',
   variables: [
@@ -62,3 +67,41 @@ export const defaultWorkspace: MobulaWorkspace = {
   selectedRequest: defaultRequest._id,
   env: defaultEnv,
 }
+
+// --------------- SANDBOX --------
+
+export const todos = [
+  {
+    reqName: "Get all TODO's",
+    reqUrl: 'https://jsonplaceholder.typicode.com/todos',
+    reqMethod: 'GET',
+    reqHeaders: {},
+    reqQueries: {},
+    proxy: true,
+    reqBody: {},
+  },
+  {
+    reqName: 'Get TODO by ID',
+    reqUrl: 'https://jsonplaceholder.typicode.com/todos/1',
+    reqMethod: 'GET',
+    reqHeaders: {},
+    reqQueries: {},
+    proxy: true,
+    reqBody: {},
+  },
+  {
+    reqName: 'Create new TODO',
+    reqUrl: 'https://jsonplaceholder.typicode.com/todos',
+    reqMethod: 'POST',
+    reqHeaders: {
+      'Content-Type': 'application/json',
+    },
+    reqQueries: {},
+    proxy: true,
+    reqBody: {
+      userId: 1,
+      title: 'Walk the dog',
+      completed: false,
+    },
+  },
+]

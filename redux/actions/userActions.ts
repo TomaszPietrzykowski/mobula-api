@@ -1,4 +1,5 @@
 import axios from 'axios'
+import setupNewUsersWorkspace from '../../utils/setupNewUsersData'
 import * as constants from '../constants/userConstants'
 
 export const logIn = (email: String, password: String) => async (dispatch) => {
@@ -36,6 +37,8 @@ export const register =
         config
       )
 
+      // const defaultWorkspace = await setupNewUsersWorkspace(data.user._id)
+      // console.log(defaultWorkspace)
       dispatch({ type: constants.USER_REGISTER_SUCCESS, payload: data })
     } catch (error) {
       dispatch({ type: constants.USER_REGISTER_FAIL, payload: error })
