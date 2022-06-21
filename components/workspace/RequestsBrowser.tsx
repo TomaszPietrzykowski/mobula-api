@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux'
 
 const RequestsBrowser = (): JSX.Element => {
   const { workspace } = useTypedSelector((state) => state.workspaceActive)
+  const { env } = useTypedSelector((state) => state.envActive)
   const { selectedRequest, openRequests } = useTypedSelector(
     (state) => state.workspaceActive.workspace
   )
@@ -66,7 +67,7 @@ const RequestsBrowser = (): JSX.Element => {
               <Request
                 key={request._id}
                 request={request}
-                env={[]}
+                env={env.variables}
                 isSelected={request._id === selectedRequest}
               />
             ))
