@@ -7,7 +7,6 @@ import BodyEditor from './BodyEditor'
 import UrlPreview from './UrlPreview'
 import markEnv from '../../utils/markEnv'
 import parseEnv from '../../utils/parseEnv'
-import { KeyVal } from '../../types/index'
 import getMethodColor from '../../utils/getMethodColor'
 
 // extend axios types

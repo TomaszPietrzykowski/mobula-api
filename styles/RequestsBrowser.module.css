@@ -28,6 +28,20 @@
   border: 1px solid rgb(127, 155, 160);
   border-bottom: none;
   display: flex;
+  position: relative;
+  /* outline: 2px solid rgb(24, 32, 37) */
+}
+.tabActive::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: rgb(24, 32, 37);
+  transform: translateY(2px);
+  z-index: 999;
+  /* outline: 2px solid rgb(24, 32, 37) */
 }
 
 .close {
@@ -42,5 +56,5 @@
   justify-content: center;
   position: relative;
   border: 1px solid rgb(127, 155, 160);
-  border-top: none;
+  /* border-top: none; */
 }
