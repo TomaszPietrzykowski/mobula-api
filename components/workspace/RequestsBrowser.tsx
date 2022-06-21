@@ -67,7 +67,6 @@ const RequestsBrowser = (): JSX.Element => {
               <Request
                 key={request._id}
                 request={request}
-                env={env.variables}
                 isSelected={request._id === selectedRequest}
               />
             ))

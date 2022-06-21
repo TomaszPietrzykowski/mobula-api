@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useTypedSelector } from '../../redux/hooks'
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios'
 import styles from '../../styles/Request.module.css'
 import Response from '../response/Response'
@@ -7,6 +8,7 @@ import UrlPreview from './UrlPreview'
 import markEnv from '../../utils/markEnv'
 import parseEnv from '../../utils/parseEnv'
 import { KeyVal } from '../../types/index'
+import getMethodColor from '../../utils/getMethodColor'
 
 // extend axios types
 declare module 'axios' {
@@ -22,11 +24,8 @@ declare module 'axios' {
   }
 }
 
-const Request = (props: {
-  request: any
-  env: KeyVal[] | []
-  isSelected: Boolean
-}) => {
+const Request = (props: { request: any; isSelected: Boolean }) => {
+  const { env } = useTypedSelector((state) => state.envActive)
   /*
    * -----------  Component level state ---------------------
    */
@@ -43,7 +42,6 @@ const Request = (props: {
   const [newQueryValue, setNewQueryValue] = useState<string>('')
   const [reqMethod, setReqMethod] = useState<Method>(props.request.reqMethod)
   const [proxy, setProxy] = useState<boolean>(props.request.proxy)
-  const [env, setEnv] = useState<KeyVal[]>(props.env)
   const [bodyEditorValue, setBodyEditorValue] = useState<string>('{\n\t\n}\n')
   const [requestNavState, setRequestNavState] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
@@ -51,10 +49,6 @@ const Request = (props: {
   const [response, setResponse] = useState<AxiosResponse | null>(null)
   const [isCorsError, setIsCorsError] = useState<boolean>(false)
   const [error, setError] = useState<any>(null)
-
-  // --------------------TO DO ----------
-  // ---- Bring in ENV from redux, replace with props -> modify custom types ---------
-
   /*
    * -----------  Axios request - E X E C U T E ---------------------
    */
@@ -86,7 +80,7 @@ const Request = (props: {
     console.log(requestUrl)
     const config: AxiosRequestConfig = {
       method: reqMethod,
-      url: parseEnv(requestUrl, env),
+      url: parseEnv(requestUrl, env?.variables),
       headers: proxy ? proxyHeaders(reqHeaders) : reqHeaders,
       params: reqQueries,
       validateStatus: (status) => status >= 100 && status < 600,
@@ -206,14 +200,16 @@ const Request = (props: {
             id='method'
             onChange={(e) => handleMethod(e)}
             className={styles.select}
+            style={getMethodColor(reqMethod)}
           >
-            <option value='GET'>GET</option>
-            <option value='POST'>POST</option>
-            <option value='PUT'>PUT</option>
-            <option value='PATCH'>PATCH</option>
-            <option value='DELETE'>DELETE</option>
-            <option value='OPTIONS'>OPTIONS</option>
-            <option value='HEAD'>HEAD</option>
+            <option value={reqMethod}>{reqMethod}</option>
+            {['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS', 'HEAD']
+              .filter((m) => m !== reqMethod)
+              .map((m) => (
+                <option value={m} key={m}>
+                  {m}
+                </option>
+              ))}
           </select>
           <span className={styles.customArrow}></span>
         </div>
@@ -227,14 +223,14 @@ const Request = (props: {
           />
           <p
             className={styles.urlMask}
-            dangerouslySetInnerHTML={{ __html: markEnv(reqUrl, env) }}
+            dangerouslySetInnerHTML={{ __html: markEnv(reqUrl, env.variables) }}
           ></p>
         </div>
         <button type='submit' className={styles.sendBtn}>
           Send
         </button>
       </form>
-      <UrlPreview url={reqUrl} queryParams={reqQueries} env={env} />
+      <UrlPreview url={reqUrl} queryParams={reqQueries} env={env.variables} />
       <section className={styles.styledProxy}>
         <div
           className={proxy ? styles.proxyBtnActive : styles.proxyBtn}

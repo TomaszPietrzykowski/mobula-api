@@ -2,7 +2,7 @@ import { AnyAction } from 'redux'
 import * as constants from '../constants/envConstants'
 
 const initialState = {
-  env: {},
+  env: { variables: [] },
   loading: false,
   error: null,
   success: false,
