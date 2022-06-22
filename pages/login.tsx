@@ -20,7 +20,6 @@ const LogIn: React.FC = () => {
 
   useEffect(() => {
     if (user && user.workspaceActive) {
-      console.log(user.workspaceActive)
       dispatch(getWorkspace(user.workspaceActive, user.token))
     }
     if (user && user.name) {

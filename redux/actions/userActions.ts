@@ -36,9 +36,7 @@ export const register =
         { email, name, password },
         config
       )
-
-      // const defaultWorkspace = await setupNewUsersWorkspace(data.user._id)
-      // console.log(defaultWorkspace)
+      dispatch({ type: constants.USER_LOGIN_SUCCESS, payload: data })
       dispatch({ type: constants.USER_REGISTER_SUCCESS, payload: data })
     } catch (error) {
       dispatch({ type: constants.USER_REGISTER_FAIL, payload: error })

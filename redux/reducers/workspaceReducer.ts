@@ -33,7 +33,7 @@ export const workspaceActiveReducer = (
       return { error: action.payload, loading: false }
 
     case constants.WORKSPACE_ACTIVE_RESET:
-      return { ...state, workspace: {} }
+      return initialActiveWsState
 
     default:
       return state

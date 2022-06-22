@@ -41,7 +41,7 @@ const Workspace: React.FC = () => {
     if (!userLogin.user.name) {
       router.push('/login')
     }
-    if (userLogin.user.workspaceActive && !workspace) {
+    if (userLogin.user.workspaceActive && !workspace._id) {
       dispatch(
         getWorkspace(userLogin.user.workspaceActive, userLogin.user.token)
       )
@@ -80,7 +80,6 @@ const Workspace: React.FC = () => {
           </div>
           <div className={styles.container}>
             <aside className={styles.drawer}>
-              <h2>Collections</h2>
               <nav>
                 <ul>
                   {workspace.collections.map((folder) => (

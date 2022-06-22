@@ -24,7 +24,7 @@ const Register: React.FC = () => {
       if (router.query.redirect) {
         router.push(router.query.redirect as string)
       } else {
-        router.push('/')
+        router.push('/workspace')
       }
     }
   }, [user, success])
