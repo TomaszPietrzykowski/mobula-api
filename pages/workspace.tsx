@@ -21,6 +21,7 @@ const Workspace: React.FC = () => {
     (state) => state.workspaceActive
   )
 
+  const [modalWelcomeOpen, setModalWelcomeOpen] = useState<boolean>(false)
   const [modalNewReqOpen, setModalNewReqOpen] = useState<boolean>(false)
   const [modalNewCollectionOpen, setModalNewCollectionOpen] =
     useState<boolean>(false)
@@ -49,6 +50,9 @@ const Workspace: React.FC = () => {
     if (workspace && workspace.env !== '') {
       dispatch(openEnv(workspace.env, userLogin.user.token))
     }
+    if (router.query.ftv === 'register') {
+      setModalWelcomeOpen(true)
+    }
   }, [userLogin, userLogin.user.workspaceActive, workspace, workspace.env])
 
   const handleClick = (e: any): void => {
@@ -58,6 +62,10 @@ const Workspace: React.FC = () => {
   const handleNewRootReq = (e: any): void => {
     setNewReqCollection({ name: '../', _id: '1' })
     setModalNewReqOpen(true)
+  }
+  const handleWelcomeModalClose = (e: any): void => {
+    setModalWelcomeOpen(false)
+    router.push('/workspace')
   }
 
   return (
@@ -145,6 +153,19 @@ const Workspace: React.FC = () => {
             style={modalStyles}
           >
             <h1>Edit collection</h1>
+          </Modal>
+          <Modal
+            shouldCloseOnOverlayClick={true}
+            onRequestClose={handleWelcomeModalClose}
+            isOpen={modalWelcomeOpen}
+            style={modalStyles}
+          >
+            <h1>Welcome in Mobula</h1>
+            <p>
+              We've setup for you a skeleton project with couple of exemplary
+              requests to get you up and running.
+            </p>
+            <button onClick={handleWelcomeModalClose}>OK, lets go!</button>
           </Modal>
           <Modal
             shouldCloseOnOverlayClick={true}
