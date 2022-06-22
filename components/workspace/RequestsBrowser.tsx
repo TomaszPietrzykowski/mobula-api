@@ -44,9 +44,12 @@ const RequestsBrowser = (): JSX.Element => {
                       : styles.tabInactive
                   }
                 >
-                  <div id={request._id} onClick={handleRequestSelect}>
-                    {`${request.reqMethod}  ${request.reqName.slice(0, 12)}`}
-                    {'  '}
+                  <div
+                    id={request._id}
+                    className={styles.requestName}
+                    onClick={handleRequestSelect}
+                  >
+                    {`${request.reqName}`}
                   </div>
                   <div
                     id={request._id}

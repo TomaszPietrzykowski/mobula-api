@@ -1,21 +1,26 @@
 .root {
   width: 100%;
+  background-color: var(--color-primary-1);
+  margin-top: 2rem;
   /* border: 1px solid green; */
 }
 .container {
   width: 100%;
   max-width: 1920px;
   margin: auto;
-  margin-top: 2rem;
   /* border: 1px solid red; */
-  padding: 3rem;
-  background-color: rgb(7, 16, 22);
+  padding: 2rem;
   display: grid;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: 18% 82%;
 }
-
+.header {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+}
 .drawer {
-  background-color: rgb(7, 16, 22);
+  padding-right: 1rem;
+  margin-right: 1rem;
   /* border: 1px solid blue; */
 }
 .drawer > * > * > *,
@@ -29,12 +34,14 @@
 .folderDrawerTab {
   font-size: 1rem;
   color: white;
-  padding: 0.3rem 0;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid white;
+  border-radius: 4px;
 }
 .reqDrawerTab {
   font-size: 0.85rem;
   color: rgb(161, 161, 161);
-  padding: 0 1rem;
+  padding: 0.6rem 0.5rem 0.2rem 1rem;
 }
 .reqLooseTab {
   font-size: 0.85rem;
@@ -43,7 +50,7 @@
 .addRequestTab {
   font-size: 0.85rem;
   color: rgb(100, 184, 121);
-  padding: 0 1rem 2rem;
+  padding: 0.6rem 0.5rem 2rem 1rem;
 }
 .newRequestRoot {
   border: 1px solid rgb(127, 155, 160);

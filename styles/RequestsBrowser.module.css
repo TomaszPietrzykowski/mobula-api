@@ -9,6 +9,27 @@
 .tabs {
   display: flex;
 }
+.tabs > * {
+  width:100%;
+  min-width: 100px;
+  max-width: 240px;
+  display: flex;
+  justify-content: space-between;
+}
+.tabs :last-child{
+  width: auto;
+  min-width: auto;
+  max-width: auto;
+  display: flex;
+  justify-content: center;
+}
+.requestName {
+  white-space: nowrap;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+}
 .tabInactive {
   padding: 0.3rem 1rem;
   color: rgb(164, 192, 197);
@@ -29,7 +50,6 @@
   border-bottom: none;
   display: flex;
   position: relative;
-  /* outline: 2px solid rgb(24, 32, 37) */
 }
 .tabActive::after {
   content: "";
@@ -41,7 +61,7 @@
   background-color: rgb(24, 32, 37);
   transform: translateY(2px);
   z-index: 999;
-  /* outline: 2px solid rgb(24, 32, 37) */
+
 }
 
 .close {

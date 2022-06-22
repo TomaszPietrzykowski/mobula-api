@@ -7,7 +7,7 @@ const FolderTab = ({
   setNewReqCollection,
   handleRequestOpen,
 }) => {
-  const [tabOpen, setTabOpen] = useState<Boolean>(false)
+  const [tabOpen, setTabOpen] = useState<Boolean>(true)
 
   const handleNewReq = () => {
     setNewReqCollection(collection)

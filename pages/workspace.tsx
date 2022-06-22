@@ -69,14 +69,22 @@ const Workspace: React.FC = () => {
       ) : (
         <React.Fragment>
           <div className={styles.header}>
-            <h1>{workspace.name}</h1>
-            <h3>
+            <div className={styles.workspaceName}>{workspace.name}</div>
+            <div
+              className={styles.rightPanel}
+              onClick={() => setModalEnvOpen(true)}
+            >
               {env.name ? (
-                `Environment: ${env.name}`
+                `ENV: ${env.name}`
               ) : (
-                <div onClick={() => setModalEnvOpen(true)}>no environment</div>
+                <div
+                  className={styles.noEnv}
+                  onClick={() => setModalEnvOpen(true)}
+                >
+                  no environment
+                </div>
               )}
-            </h3>
+            </div>
           </div>
           <div className={styles.container}>
             <aside className={styles.drawer}>
