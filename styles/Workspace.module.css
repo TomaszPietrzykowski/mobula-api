@@ -47,6 +47,10 @@
   margin-left: 1rem;
   color: var(--color-primary-100);
 }
+.iconFolderTree {
+  height: 1.6rem;
+  color: var(--color-primary-500);
+}
 .drawer {
   padding-right: 1rem;
   margin-right: 1rem;

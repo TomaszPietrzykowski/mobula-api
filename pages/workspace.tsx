@@ -113,6 +113,12 @@ const Workspace: React.FC = () => {
           </div>
           <div className={styles.container}>
             <aside className={styles.drawer}>
+              <div>
+                <FontAwesomeIcon
+                  icon={['fas', 'folder-tree']}
+                  className={styles.iconFolderTree}
+                />
+              </div>
               <nav>
                 <ul>
                   {workspace.collections.map((folder) => (
