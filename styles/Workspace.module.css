@@ -18,6 +18,35 @@
   display: flex;
   justify-content: space-between;
 }
+.leftPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.rightPanel {
+  display: flex;
+}
+.workspaceActions {
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+.iconContainer {
+  cursor: pointer;
+}
+.iconContainer:hover {
+  opacity: .8;
+}
+.iconSave {
+  height: 1.8rem;
+  margin-right: 1rem;
+  color: var(--color-primary-300);
+}
+.iconEdit {
+  height: 1.6rem;
+  margin-left: 1rem;
+  color: var(--color-primary-100);
+}
 .drawer {
   padding-right: 1rem;
   margin-right: 1rem;

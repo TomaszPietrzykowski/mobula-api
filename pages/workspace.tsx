@@ -13,6 +13,7 @@ import FolderTab from '../components/workspace/FolderTab'
 import CreateNewRequest from '../components/workspace/CreateNewRequest'
 import EnvModal from '../components/workspace/EnvModal'
 import { openEnv } from '../redux/actions/envActions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
@@ -77,13 +78,29 @@ const Workspace: React.FC = () => {
       ) : (
         <React.Fragment>
           <div className={styles.header}>
-            <div className={styles.workspaceName}>{workspace.name}</div>
+            <div className={styles.leftPanel}>
+              <div className={styles.workspaceName}>{workspace.name}</div>
+              <div className={styles.workspaceActions}>
+                <div className={styles.iconContainer}>
+                  <FontAwesomeIcon
+                    icon={['far', 'pen-to-square']}
+                    className={styles.iconEdit}
+                  />
+                </div>
+              </div>
+            </div>
             <div
               className={styles.rightPanel}
               onClick={() => setModalEnvOpen(true)}
             >
+              <div className={styles.iconContainer}>
+                <FontAwesomeIcon
+                  icon={['far', 'floppy-disk']}
+                  className={styles.iconSave}
+                />
+              </div>
               {env.name ? (
-                `ENV: ${env.name}`
+                <div className={styles.envNamenv}>{`ENV: ${env.name}`}</div>
               ) : (
                 <div
                   className={styles.noEnv}
