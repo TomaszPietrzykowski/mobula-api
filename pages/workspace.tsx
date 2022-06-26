@@ -70,8 +70,8 @@ const Workspace: React.FC = () => {
     // if (userLogin.user.workspaceActive === '') {
     //   dispatch({ type: constants.WORKSPACE_ACTIVE_RESET })
     // }
-    if (workspace && workspace.environmet && workspace.environmet !== '') {
-      dispatch(openEnv(workspace.environmet, userLogin.user.token))
+    if (workspace && workspace.env && workspace.env !== '') {
+      dispatch(openEnv(workspace.env, userLogin.user.token))
     }
     if (router.query.ftv === 'register') {
       setModalWelcomeOpen(true)
