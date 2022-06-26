@@ -21,18 +21,22 @@ const FolderTab = ({
       >
         {collection.name}
       </li>
-      {collection.requests.length > 0 && tabOpen && (
+      {tabOpen && (
         <React.Fragment>
-          {collection.requests.map((req) => (
-            <li
-              key={req._id}
-              className={styles.reqDrawerTab}
-              id={req._id}
-              onClick={handleRequestOpen}
-            >
-              {req.reqName}
-            </li>
-          ))}
+          {collection.requests.length > 0 && (
+            <React.Fragment>
+              {collection.requests.map((req) => (
+                <li
+                  key={req._id}
+                  className={styles.reqDrawerTab}
+                  id={req._id}
+                  onClick={handleRequestOpen}
+                >
+                  {req.reqName}
+                </li>
+              ))}
+            </React.Fragment>
+          )}
           <li className={styles.addRequestTab} onClick={handleNewReq}>
             + add reqquest
           </li>

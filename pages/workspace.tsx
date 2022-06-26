@@ -16,6 +16,7 @@ import EnvModal from '../components/workspace/EnvModal'
 import { openEnv } from '../redux/actions/envActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import EditWorkspaceNameModal from '../components/workspace/EditWorkspaceNameModal'
+import AddCollectionModal from '../components/workspace/AddCollectionModal'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
@@ -24,6 +25,7 @@ const Workspace: React.FC = () => {
     (state) => state.workspaceActive
   )
   const [menuOpen, setMenuOpen] = useState<boolean>(false)
+  const [modalNewFolder, setModalNewFolder] = useState<boolean>(false)
   const [modalEditName, setModalEditName] = useState<boolean>(false)
   const [modalWelcomeOpen, setModalWelcomeOpen] = useState<boolean>(false)
   const [modalNewReqOpen, setModalNewReqOpen] = useState<boolean>(false)
@@ -112,8 +114,11 @@ const Workspace: React.FC = () => {
                       : styles.menuDropdownHidden
                   }
                 >
-                  <ul>
-                    <li className={styles.menuItem}>
+                  <ul className={styles.dropdownUL}>
+                    <li
+                      className={styles.menuItem}
+                      onClick={() => setModalNewFolder(true)}
+                    >
                       <FontAwesomeIcon
                         icon={['fas', 'folder-plus']}
                         className={styles.dropdownIcon}
@@ -149,6 +154,13 @@ const Workspace: React.FC = () => {
                       <div className={styles.dropdownLabel}>Delete project</div>
                     </li>
                   </ul>
+                  <div
+                    className={styles.menuClose}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {' '}
+                    X{' '}
+                  </div>
                 </div>
               </div>
               <div className={styles.workspaceName}>{workspace.name}</div>
@@ -275,6 +287,14 @@ const Workspace: React.FC = () => {
             <EditWorkspaceNameModal
               closeModal={() => setModalEditName(false)}
             />
+          </Modal>
+          <Modal
+            shouldCloseOnOverlayClick={true}
+            onRequestClose={() => setModalNewFolder(false)}
+            isOpen={modalNewFolder}
+            style={modalStyles}
+          >
+            <AddCollectionModal closeModal={() => setModalNewFolder(false)} />
           </Modal>
         </React.Fragment>
       )}

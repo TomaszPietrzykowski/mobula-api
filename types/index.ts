@@ -23,7 +23,16 @@ export interface MobulaWorkspace {
   requests: MobulaRequest[] | []
   openRequests: MobulaRequest[] | []
   selectedRequest: string
+  collections: string[] | []
   env: MobulaEnv
+}
+
+export interface MobulaCollection {
+  _id?: string
+  workspace: string
+  user: string
+  name: string
+  requests: MobulaRequest[] | []
 }
 
 export interface MobulaEnv {

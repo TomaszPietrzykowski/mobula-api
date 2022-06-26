@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MobulaRequest, MobulaWorkspace } from '../../types'
+import { MobulaCollection, MobulaRequest, MobulaWorkspace } from '../../types'
 import * as constants from '../constants/workspaceConstants'
 
 export const getWorkspace = (id: String, token) => async (dispatch) => {
@@ -54,6 +54,34 @@ export const getAllWorkspaces = (userId: String) => async (dispatch) => {
     dispatch({ type: constants.WORKSPACE_ALL_FAIL, payload: error })
   }
 }
+
+export const addCollectionToWorkspace =
+  (collection: MobulaCollection, current: MobulaWorkspace, token: string) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: constants.WORKSPACE_ACTIVE_REQUEST })
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const { data } = await axios.post(
+        `http://localhost:5000/api/collection`,
+        collection,
+        config
+      )
+      dispatch({
+        type: constants.WORKSPACE_ACTIVE_SUCCESS,
+        payload: { ...current, collections: [...current.collections, data] },
+      })
+    } catch (error) {
+      dispatch({
+        type: constants.WORKSPACE_ACTIVE_FAIL,
+        payload: error,
+      })
+    }
+  }
 
 export const openReqInWorkspace =
   (id: String, current: MobulaWorkspace) => async (dispatch) => {
