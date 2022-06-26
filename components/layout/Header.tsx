@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import styles from '../../styles/Header.module.css'
 import * as constants from '../../redux/constants/userConstants'
+import * as wsConstants from '../../redux/constants/workspaceConstants'
 import { useTypedSelector } from '../../redux/hooks'
 
 const Header = (): JSX.Element => {
@@ -16,6 +17,7 @@ const Header = (): JSX.Element => {
       <li
         onClick={() => {
           dispatch({ type: constants.USER_LOGIN_RESET })
+          dispatch({ type: wsConstants.WORKSPACE_ACTIVE_RESET })
         }}
       >
         Logout
