@@ -19,6 +19,8 @@ import EditWorkspaceNameModal from '../components/workspace/EditWorkspaceNameMod
 import AddCollectionModal from '../components/workspace/AddCollectionModal'
 import NewWorkspaceModal from '../components/workspace/NewWorkspaceModal'
 import NoRequests from '../components/workspace/NoRequests'
+import NoWorkspace from '../components/workspace/NoWorkspace'
+import * as constants from '../redux/constants/workspaceConstants'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
@@ -58,21 +60,27 @@ const Workspace: React.FC = () => {
       (userLogin.user.workspaceActive &&
         userLogin.user.workspaceActive !== '' &&
         !workspace?._id) ||
-      workspace._id !== userLogin.user.workspaceActive ||
-      (userLogin.user.workspaceActive &&
-        userLogin.user.workspaceActive !== workspace._id)
+      (workspace?._id !== userLogin.user.workspaceActive &&
+        userLogin.user.workspaceActive !== '')
     ) {
       dispatch(
         getWorkspace(userLogin.user.workspaceActive, userLogin.user.token)
       )
     }
+    // if (userLogin.user.workspaceActive === '') {
+    //   dispatch({ type: constants.WORKSPACE_ACTIVE_RESET })
+    // }
     if (workspace && workspace.environmet && workspace.environmet !== '') {
       dispatch(openEnv(workspace.environmet, userLogin.user.token))
     }
     if (router.query.ftv === 'register') {
       setModalWelcomeOpen(true)
     }
-    if (userLogin.user?.token && success) {
+    if (
+      userLogin.user?.token &&
+      success &&
+      userLogin.user.workspaceActive !== ''
+    ) {
       dispatch(updateWorkspace(workspace, userLogin.user.token))
     }
   }, [userLogin, workspace, workspace?.environmet, success, userSuccess])
@@ -106,8 +114,8 @@ const Workspace: React.FC = () => {
     <div className={styles.root}>
       {loading || userLoading ? (
         <h1>loading workspace</h1>
-      ) : !workspace ? (
-        <h1>no workspace</h1>
+      ) : !workspace._id ? (
+        <NoWorkspace />
       ) : (
         <React.Fragment>
           <div className={styles.header}>

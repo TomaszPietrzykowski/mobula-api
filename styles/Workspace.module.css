@@ -152,5 +152,26 @@ background: var(--color-primary-1);
   display: flex;
   justify-content: center; 
   align-items: center; 
-  min-height: 30vh;
+height: 100%;
+}
+.NWwrapper {
+  display: grid;
+  grid-template-columns: 18% 82%; 
+  min-height: 80vh;
+  width: 100%;
+  border: 1px solid red;
+}
+.NWcontainer {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100%;
+  background: var(--color-primary-2)
+}
+.NWdrawer {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100%;
+  background: var(--color-primary-200)
 }

@@ -5,7 +5,7 @@ const NoRequests = () => {
   return (
     <div className={styles.NRcontainer}>
       <div className={styles.NRcontent}>
-        <h1>No open requests</h1>
+        <h3>No requests open in editor</h3>
         <p>Open existing or create new request</p>
       </div>
     </div>

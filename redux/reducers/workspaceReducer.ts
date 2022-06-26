@@ -8,7 +8,7 @@ const initialActiveWsState = {
     selectedRequest: '',
     env: '',
   },
-  loading: true,
+  loading: false,
   error: null,
   success: false,
 }
