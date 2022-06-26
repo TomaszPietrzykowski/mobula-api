@@ -16,11 +16,12 @@ const NewWorkspaceModal = ({ closeModal }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    console.log(user)
     dispatch(
       createWorkspace(
         {
           name: name,
-          user: user._id as string,
+          users: [user._id as string],
           requests: [],
           openRequests: [],
           collections: [],
@@ -40,6 +41,7 @@ const NewWorkspaceModal = ({ closeModal }) => {
           <input
             type='text'
             id='name'
+            required={true}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />

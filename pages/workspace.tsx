@@ -21,7 +21,7 @@ import NewWorkspaceModal from '../components/workspace/NewWorkspaceModal'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
-  const { loading: userLoading } = userLogin
+  const { loading: userLoading, success: userSuccess } = userLogin
   const { env } = useTypedSelector((state) => state.envActive)
   const { workspace, loading, success, error } = useTypedSelector(
     (state) => state.workspaceActive
@@ -48,10 +48,19 @@ const Workspace: React.FC = () => {
   Modal.setAppElement('#__next')
 
   useEffect(() => {
-    if (!userLogin.user?.name && !userLoading) {
-      router.push('/login')
+    if (!userLoading) {
+      if (!userLogin.user?.name) {
+        router.push('/login')
+      }
     }
-    if (userLogin.user?.workspaceActive && !workspace._id) {
+    if (
+      (userLogin.user.workspaceActive &&
+        userLogin.user.workspaceActive !== '' &&
+        !workspace?._id) ||
+      workspace._id !== userLogin.user.workspaceActive ||
+      (userLogin.user.workspaceActive &&
+        userLogin.user.workspaceActive !== workspace._id)
+    ) {
       dispatch(
         getWorkspace(userLogin.user.workspaceActive, userLogin.user.token)
       )
@@ -62,10 +71,10 @@ const Workspace: React.FC = () => {
     if (router.query.ftv === 'register') {
       setModalWelcomeOpen(true)
     }
-    if (success) {
+    if (userLogin.user?.token && success) {
       dispatch(updateWorkspace(workspace, userLogin.user.token))
     }
-  }, [userLogin, workspace, workspace.environmet, success])
+  }, [userLogin, workspace, workspace?.environmet, success, userSuccess])
 
   const handleClick = (e: any): void => {
     dispatch(openReqInWorkspace(e?.target.id, workspace))

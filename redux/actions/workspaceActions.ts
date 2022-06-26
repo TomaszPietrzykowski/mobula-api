@@ -6,7 +6,6 @@ import * as userConstants from '../constants/userConstants'
 export const createWorkspace =
   (workspace: MobulaWorkspace, user) => async (dispatch) => {
     try {
-      dispatch({ type: constants.WORKSPACE_ACTIVE_REQUEST })
       const config = {
         headers: {
           'Content-Type': 'application/json',
@@ -18,20 +17,22 @@ export const createWorkspace =
         workspace,
         config
       )
-      // UPDATE USER LOGIC NEEDED ______________________________________
-      // update user.workspaces and user.workspaceActive
-      // dispatch({
-      //   type: userConstants.USER_LOGIN_SUCCESS,
-      //   payload: {
-      //     ...user,
-      //     name: user.name,
-      //     workspaces: [...user.workspaces, data._id],
-      //     workspaceActive: data._id,
-      //   },
-      // }) _____________________________________________________________
-      dispatch({ type: constants.WORKSPACE_ACTIVE_SUCCESS, payload: data })
+      if (data) {
+        dispatch({ type: userConstants.USER_LOGIN_REQUEST })
+        dispatch({
+          type: userConstants.USER_LOGIN_SUCCESS,
+          payload: {
+            ...user,
+            workspaceActive: data._id,
+          },
+        })
+        dispatch({
+          type: constants.WORKSPACE_ACTIVE_SUCCESS,
+          payload: { ...data },
+        })
+      }
     } catch (error) {
-      dispatch({ type: userConstants.USER_LOGIN_FAIL, payload: error })
+      dispatch({ type: constants.WORKSPACE_ACTIVE_FAIL, payload: error })
     }
   }
 
