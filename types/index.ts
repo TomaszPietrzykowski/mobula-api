@@ -18,6 +18,7 @@ export interface MobulaRequest {
 }
 
 export interface MobulaWorkspace {
+  _id?: string
   name: string
   requests: MobulaRequest[] | []
   openRequests: MobulaRequest[] | []

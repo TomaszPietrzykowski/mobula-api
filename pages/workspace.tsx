@@ -7,6 +7,7 @@ import RequestsBrowser from '../components/workspace/RequestsBrowser'
 import {
   getWorkspace,
   openReqInWorkspace,
+  updateWorkspace,
 } from '../redux/actions/workspaceActions'
 import Modal from 'react-modal'
 import FolderTab from '../components/workspace/FolderTab'
@@ -18,7 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
   const { env } = useTypedSelector((state) => state.envActive)
-  const { workspace, loading, error } = useTypedSelector(
+  const { workspace, loading, success, error } = useTypedSelector(
     (state) => state.workspaceActive
   )
 
@@ -48,13 +49,22 @@ const Workspace: React.FC = () => {
         getWorkspace(userLogin.user.workspaceActive, userLogin.user.token)
       )
     }
-    if (workspace && workspace.env !== '') {
-      dispatch(openEnv(workspace.env, userLogin.user.token))
+    if (workspace && workspace.environmet && workspace.environmet !== '') {
+      dispatch(openEnv(workspace.environmet, userLogin.user.token))
     }
     if (router.query.ftv === 'register') {
       setModalWelcomeOpen(true)
     }
-  }, [userLogin, userLogin.user.workspaceActive, workspace, workspace.env])
+    if (success) {
+      dispatch(updateWorkspace(workspace, userLogin.user.token))
+    }
+  }, [
+    userLogin,
+    userLogin.user.workspaceActive,
+    workspace,
+    workspace.environmet,
+    success,
+  ])
 
   const handleClick = (e: any): void => {
     dispatch(openReqInWorkspace(e?.target.id, workspace))
@@ -67,6 +77,10 @@ const Workspace: React.FC = () => {
   const handleWelcomeModalClose = (e: any): void => {
     setModalWelcomeOpen(false)
     router.push('/workspace')
+  }
+  const handleUpdateWorkspace = (e: any): void => {
+    console.log('update handler triggered')
+    dispatch(updateWorkspace(workspace, userLogin.user.token))
   }
 
   return (
@@ -89,18 +103,18 @@ const Workspace: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div
-              className={styles.rightPanel}
-              onClick={() => setModalEnvOpen(true)}
-            >
-              <div className={styles.iconContainer}>
+            <div className={styles.rightPanel}>
+              <div
+                className={styles.iconContainer}
+                onClick={handleUpdateWorkspace}
+              >
                 <FontAwesomeIcon
                   icon={['far', 'floppy-disk']}
                   className={styles.iconSave}
                 />
               </div>
               {env.name ? (
-                <div className={styles.envNamenv}>{`ENV: ${env.name}`}</div>
+                <div className={styles.envName}>{`ENV: ${env.name}`}</div>
               ) : (
                 <div
                   className={styles.noEnv}

@@ -10,12 +10,14 @@ import {
 import {
   workspaceActiveReducer,
   workspaceAllReducer,
+  workspaceUpdateReducer,
 } from './reducers/workspaceReducer'
 
 const rootReducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   workspaceActive: workspaceActiveReducer,
+  workspaceUpdate: workspaceUpdateReducer,
   workspaceAll: workspaceAllReducer,
   envActive: envActiveReducer,
   envCreate: envCreateReducer,

@@ -17,10 +17,31 @@ export const getWorkspace = (id: String, token) => async (dispatch) => {
     )
     dispatch({ type: constants.WORKSPACE_ACTIVE_SUCCESS, payload: data })
   } catch (error) {
-    console.log('action called, catch block entered', `error: ${error}`)
     dispatch({ type: constants.WORKSPACE_ACTIVE_FAIL, payload: error })
   }
 }
+
+export const updateWorkspace =
+  (workspace: MobulaWorkspace, token: string) => async (dispatch) => {
+    try {
+      dispatch({ type: constants.WORKSPACE_UPDATE_REQUEST })
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const { data } = await axios.put(
+        `http://localhost:5000/api/workspace/${workspace._id}`,
+        workspace,
+        config
+      )
+      dispatch({ type: constants.WORKSPACE_UPDATE_SUCCESS, payload: data })
+    } catch (error) {
+      dispatch({ type: constants.WORKSPACE_UPDATE_FAIL, payload: error })
+    }
+  }
 
 export const getAllWorkspaces = (userId: String) => async (dispatch) => {
   dispatch({ type: constants.WORKSPACE_ALL_REQUEST })
