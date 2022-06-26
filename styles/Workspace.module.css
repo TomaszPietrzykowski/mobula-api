@@ -148,3 +148,9 @@ background: var(--color-primary-1);
 /* .workbench {
   width: 100%
 } */
+.NRcontainer {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  min-height: 30vh;
+}

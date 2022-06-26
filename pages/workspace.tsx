@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import EditWorkspaceNameModal from '../components/workspace/EditWorkspaceNameModal'
 import AddCollectionModal from '../components/workspace/AddCollectionModal'
 import NewWorkspaceModal from '../components/workspace/NewWorkspaceModal'
+import NoRequests from '../components/workspace/NoRequests'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
@@ -241,7 +242,11 @@ const Workspace: React.FC = () => {
               </nav>
             </aside>
             <main className={styles.workbench}>
-              {workspace.openRequests.length > 0 && <RequestsBrowser />}
+              {workspace.openRequests.length > 0 ? (
+                <RequestsBrowser />
+              ) : (
+                <NoRequests />
+              )}
             </main>
           </div>
           <Modal
