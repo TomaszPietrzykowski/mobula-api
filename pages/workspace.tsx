@@ -17,14 +17,17 @@ import { openEnv } from '../redux/actions/envActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import EditWorkspaceNameModal from '../components/workspace/EditWorkspaceNameModal'
 import AddCollectionModal from '../components/workspace/AddCollectionModal'
+import NewWorkspaceModal from '../components/workspace/NewWorkspaceModal'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
+  const { loading: userLoading } = userLogin
   const { env } = useTypedSelector((state) => state.envActive)
   const { workspace, loading, success, error } = useTypedSelector(
     (state) => state.workspaceActive
   )
   const [menuOpen, setMenuOpen] = useState<boolean>(false)
+  const [modalNewProject, setModalNewProject] = useState<boolean>(false)
   const [modalNewFolder, setModalNewFolder] = useState<boolean>(false)
   const [modalEditName, setModalEditName] = useState<boolean>(false)
   const [modalWelcomeOpen, setModalWelcomeOpen] = useState<boolean>(false)
@@ -45,10 +48,10 @@ const Workspace: React.FC = () => {
   Modal.setAppElement('#__next')
 
   useEffect(() => {
-    if (!userLogin.user.name) {
+    if (!userLogin.user?.name && !userLoading) {
       router.push('/login')
     }
-    if (userLogin.user.workspaceActive && !workspace._id) {
+    if (userLogin.user?.workspaceActive && !workspace._id) {
       dispatch(
         getWorkspace(userLogin.user.workspaceActive, userLogin.user.token)
       )
@@ -62,13 +65,7 @@ const Workspace: React.FC = () => {
     if (success) {
       dispatch(updateWorkspace(workspace, userLogin.user.token))
     }
-  }, [
-    userLogin,
-    userLogin.user.workspaceActive,
-    workspace,
-    workspace.environmet,
-    success,
-  ])
+  }, [userLogin, workspace, workspace.environmet, success])
 
   const handleClick = (e: any): void => {
     dispatch(openReqInWorkspace(e?.target.id, workspace))
@@ -86,10 +83,18 @@ const Workspace: React.FC = () => {
     console.log('update handler triggered')
     dispatch(updateWorkspace(workspace, userLogin.user.token))
   }
+  const handleNewFolder = (e: any): void => {
+    setModalNewFolder(true)
+    setMenuOpen(false)
+  }
+  const handleNewProject = (e: any): void => {
+    setModalNewProject(true)
+    setMenuOpen(false)
+  }
 
   return (
     <div className={styles.root}>
-      {loading ? (
+      {loading || userLoading ? (
         <h1>loading workspace</h1>
       ) : !workspace ? (
         <h1>no workspace</h1>
@@ -115,10 +120,7 @@ const Workspace: React.FC = () => {
                   }
                 >
                   <ul className={styles.dropdownUL}>
-                    <li
-                      className={styles.menuItem}
-                      onClick={() => setModalNewFolder(true)}
-                    >
+                    <li className={styles.menuItem} onClick={handleNewFolder}>
                       <FontAwesomeIcon
                         icon={['fas', 'folder-plus']}
                         className={styles.dropdownIcon}
@@ -132,7 +134,7 @@ const Workspace: React.FC = () => {
                       />
                       <div className={styles.dropdownLabel}>New request</div>
                     </li>
-                    <li className={styles.menuItem}>
+                    <li className={styles.menuItem} onClick={handleNewProject}>
                       <FontAwesomeIcon
                         icon={['fas', 'folder-tree']}
                         className={styles.dropdownIcon}
@@ -295,6 +297,14 @@ const Workspace: React.FC = () => {
             style={modalStyles}
           >
             <AddCollectionModal closeModal={() => setModalNewFolder(false)} />
+          </Modal>
+          <Modal
+            shouldCloseOnOverlayClick={true}
+            onRequestClose={() => setModalNewProject(false)}
+            isOpen={modalNewProject}
+            style={modalStyles}
+          >
+            <NewWorkspaceModal closeModal={() => setModalNewProject(false)} />
           </Modal>
         </React.Fragment>
       )}

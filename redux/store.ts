@@ -23,8 +23,8 @@ const rootReducer = combineReducers({
   envCreate: envCreateReducer,
   envUpdate: envUpdateReducer,
 })
-
 const initialState = {}
+
 const middleware = [thunk]
 
 const store = createStore(

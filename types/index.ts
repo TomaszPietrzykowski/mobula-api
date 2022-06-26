@@ -20,11 +20,12 @@ export interface MobulaRequest {
 export interface MobulaWorkspace {
   _id?: string
   name: string
+  user: string
   requests: MobulaRequest[] | []
   openRequests: MobulaRequest[] | []
-  selectedRequest: string
+  selectedRequest?: string
   collections: string[] | []
-  env: MobulaEnv
+  env?: MobulaEnv
 }
 
 export interface MobulaCollection {

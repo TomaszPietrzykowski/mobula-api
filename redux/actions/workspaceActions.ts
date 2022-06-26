@@ -1,6 +1,39 @@
 import axios from 'axios'
 import { MobulaCollection, MobulaRequest, MobulaWorkspace } from '../../types'
 import * as constants from '../constants/workspaceConstants'
+import * as userConstants from '../constants/userConstants'
+
+export const createWorkspace =
+  (workspace: MobulaWorkspace, user) => async (dispatch) => {
+    try {
+      dispatch({ type: constants.WORKSPACE_ACTIVE_REQUEST })
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+      const { data }: any = await axios.post(
+        `http://localhost:5000/api/workspace`,
+        workspace,
+        config
+      )
+      // UPDATE USER LOGIC NEEDED ______________________________________
+      // update user.workspaces and user.workspaceActive
+      // dispatch({
+      //   type: userConstants.USER_LOGIN_SUCCESS,
+      //   payload: {
+      //     ...user,
+      //     name: user.name,
+      //     workspaces: [...user.workspaces, data._id],
+      //     workspaceActive: data._id,
+      //   },
+      // }) _____________________________________________________________
+      dispatch({ type: constants.WORKSPACE_ACTIVE_SUCCESS, payload: data })
+    } catch (error) {
+      dispatch({ type: userConstants.USER_LOGIN_FAIL, payload: error })
+    }
+  }
 
 export const getWorkspace = (id: String, token) => async (dispatch) => {
   dispatch({ type: constants.WORKSPACE_ACTIVE_REQUEST })

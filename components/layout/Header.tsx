@@ -67,7 +67,7 @@ const Header = (): JSX.Element => {
         </ul>
       </nav>
       <nav className={styles.userNav}>
-        {user.name ? userNavLoggedIn : userNavLoggedOut}
+        {user?.name ? userNavLoggedIn : userNavLoggedOut}
       </nav>
     </header>
   )
