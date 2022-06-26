@@ -15,6 +15,7 @@ import CreateNewRequest from '../components/workspace/CreateNewRequest'
 import EnvModal from '../components/workspace/EnvModal'
 import { openEnv } from '../redux/actions/envActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import EditWorkspaceNameModal from '../components/workspace/EditWorkspaceNameModal'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
@@ -22,7 +23,8 @@ const Workspace: React.FC = () => {
   const { workspace, loading, success, error } = useTypedSelector(
     (state) => state.workspaceActive
   )
-
+  const [menuOpen, setMenuOpen] = useState<boolean>(false)
+  const [modalEditName, setModalEditName] = useState<boolean>(false)
   const [modalWelcomeOpen, setModalWelcomeOpen] = useState<boolean>(false)
   const [modalNewReqOpen, setModalNewReqOpen] = useState<boolean>(false)
   const [modalNewCollectionOpen, setModalNewCollectionOpen] =
@@ -93,12 +95,69 @@ const Workspace: React.FC = () => {
         <React.Fragment>
           <div className={styles.header}>
             <div className={styles.leftPanel}>
+              <div className={styles.menuContainer}>
+                <div
+                  className={styles.iconContainer}
+                  onClick={() => setMenuOpen(!menuOpen)}
+                >
+                  <FontAwesomeIcon
+                    icon={['fas', 'ellipsis-vertical']}
+                    className={styles.iconWsMenu}
+                  />
+                </div>
+                <div
+                  className={
+                    menuOpen
+                      ? styles.menuDropdownActive
+                      : styles.menuDropdownHidden
+                  }
+                >
+                  <ul>
+                    <li className={styles.menuItem}>
+                      <FontAwesomeIcon
+                        icon={['fas', 'folder-plus']}
+                        className={styles.dropdownIcon}
+                      />
+                      <div className={styles.dropdownLabel}>New folder</div>
+                    </li>
+                    <li className={styles.menuItem}>
+                      <FontAwesomeIcon
+                        icon={['fas', 'circle-nodes']}
+                        className={styles.dropdownIcon}
+                      />
+                      <div className={styles.dropdownLabel}>New request</div>
+                    </li>
+                    <li className={styles.menuItem}>
+                      <FontAwesomeIcon
+                        icon={['fas', 'folder-tree']}
+                        className={styles.dropdownIcon}
+                      />
+                      <div className={styles.dropdownLabel}>New project</div>
+                    </li>
+                    <li className={styles.menuItem}>
+                      <FontAwesomeIcon
+                        icon={['far', 'folder-open']}
+                        className={styles.dropdownIcon}
+                      />
+                      <div className={styles.dropdownLabel}>Open project</div>
+                    </li>
+                    <li className={styles.menuItem}>
+                      <FontAwesomeIcon
+                        icon={['far', 'trash-can']}
+                        className={styles.dropdownIcon}
+                      />
+                      <div className={styles.dropdownLabel}>Delete project</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <div className={styles.workspaceName}>{workspace.name}</div>
               <div className={styles.workspaceActions}>
                 <div className={styles.iconContainer}>
                   <FontAwesomeIcon
                     icon={['far', 'pen-to-square']}
                     className={styles.iconEdit}
+                    onClick={() => setModalEditName(true)}
                   />
                 </div>
               </div>
@@ -114,6 +173,7 @@ const Workspace: React.FC = () => {
                 />
               </div>
               {env.name ? (
+                // restructure ------------------ action on wrapper
                 <div className={styles.envName}>{`ENV: ${env.name}`}</div>
               ) : (
                 <div
@@ -127,12 +187,6 @@ const Workspace: React.FC = () => {
           </div>
           <div className={styles.container}>
             <aside className={styles.drawer}>
-              <div>
-                <FontAwesomeIcon
-                  icon={['fas', 'folder-tree']}
-                  className={styles.iconFolderTree}
-                />
-              </div>
               <nav>
                 <ul>
                   {workspace.collections.map((folder) => (
@@ -211,6 +265,16 @@ const Workspace: React.FC = () => {
             style={modalStyles}
           >
             <EnvModal />
+          </Modal>
+          <Modal
+            shouldCloseOnOverlayClick={true}
+            onRequestClose={() => setModalEditName(false)}
+            isOpen={modalEditName}
+            style={modalStyles}
+          >
+            <EditWorkspaceNameModal
+              closeModal={() => setModalEditName(false)}
+            />
           </Modal>
         </React.Fragment>
       )}

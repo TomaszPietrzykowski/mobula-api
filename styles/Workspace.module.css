@@ -23,6 +23,39 @@
   align-items: center;
   justify-content: space-between;
 }
+.menuContainer {
+  position: relative;
+}
+.menuDropdownActive {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background:var(--color-primary-2);
+  width: max-content;
+  padding: .5rem;
+  display: block;
+  
+}
+.menuDropdownHidden {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--color-primary-2);
+  padding: 0 .5rem;
+  display: none;
+  
+}
+.dropdownIcon {
+  height: 1.5rem;
+  color: var(--color-primary-100);
+  margin-right: 1.5rem;
+}
+.menuItem {
+  padding: .5rem 1.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
 .rightPanel {
   display: flex;
 }
@@ -45,11 +78,12 @@
 .iconEdit {
   height: 1.6rem;
   margin-left: 1rem;
-  color: var(--color-primary-100);
+  color: var(--color-primary-400);
 }
-.iconFolderTree {
+.iconWsMenu {
   height: 1.6rem;
-  color: var(--color-primary-500);
+  color: var(--color-primary-100);
+  margin-right: 1rem;
 }
 .drawer {
   padding-right: 1rem;
