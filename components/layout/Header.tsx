@@ -17,6 +17,7 @@ const Header = (): JSX.Element => {
       <li
         onClick={() => {
           dispatch({ type: constants.USER_LOGIN_RESET })
+          dispatch({ type: constants.USER_REGISTER_RESET })
           dispatch({ type: wsConstants.WORKSPACE_ACTIVE_RESET })
         }}
       >

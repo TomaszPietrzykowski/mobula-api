@@ -29,7 +29,7 @@ const LogIn: React.FC = () => {
         router.push('/workspace')
       }
     }
-  }, [user, success, user.workspaceActive])
+  }, [user, success, user?.workspaceActive])
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault()

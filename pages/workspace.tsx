@@ -60,7 +60,8 @@ const Workspace: React.FC = () => {
       (userLogin.user.workspaceActive &&
         userLogin.user.workspaceActive !== '' &&
         !workspace?._id) ||
-      (workspace?._id !== userLogin.user.workspaceActive &&
+      (userLogin.user.workspaceActive &&
+        workspace?._id !== userLogin.user.workspaceActive &&
         userLogin.user.workspaceActive !== '')
     ) {
       dispatch(
@@ -114,7 +115,7 @@ const Workspace: React.FC = () => {
     <div className={styles.root}>
       {loading || userLoading ? (
         <h1>loading workspace</h1>
-      ) : !workspace._id ? (
+      ) : !workspace?._id ? (
         <NoWorkspace />
       ) : (
         <React.Fragment>
