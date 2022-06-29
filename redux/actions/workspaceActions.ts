@@ -52,7 +52,13 @@ export const getWorkspace = (id: String, token) => async (dispatch) => {
     )
     dispatch({ type: constants.WORKSPACE_ACTIVE_SUCCESS, payload: data })
   } catch (error) {
-    dispatch({ type: constants.WORKSPACE_ACTIVE_FAIL, payload: error })
+    dispatch({
+      type: constants.WORKSPACE_ACTIVE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
   }
 }
 
@@ -79,7 +85,13 @@ export const deleteWorkspace = (id: string, user) => async (dispatch) => {
     dispatch({ type: envConstants.ENV_OPEN_RESET })
     dispatch({ type: constants.WORKSPACE_ACTIVE_RESET })
   } catch (error) {
-    dispatch({ type: constants.WORKSPACE_ACTIVE_FAIL, payload: error })
+    dispatch({
+      type: constants.WORKSPACE_ACTIVE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
   }
 }
 
@@ -113,7 +125,13 @@ export const getAllWorkspaces = (userId: String) => async (dispatch) => {
     )
     dispatch({ type: constants.WORKSPACE_ALL_SUCCESS, payload: workspace })
   } catch (error) {
-    dispatch({ type: constants.WORKSPACE_ALL_FAIL, payload: error })
+    dispatch({
+      type: constants.WORKSPACE_ALL_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
   }
 }
 
@@ -140,7 +158,10 @@ export const addCollectionToWorkspace =
     } catch (error) {
       dispatch({
         type: constants.WORKSPACE_ACTIVE_FAIL,
-        payload: error,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
       })
     }
   }
@@ -173,7 +194,13 @@ export const openReqInWorkspace =
           },
         })
       } catch (error) {
-        dispatch({ type: constants.WORKSPACE_ACTIVE_FAIL, payload: error })
+        dispatch({
+          type: constants.WORKSPACE_ACTIVE_FAIL,
+          payload:
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message,
+        })
       }
     }
   }

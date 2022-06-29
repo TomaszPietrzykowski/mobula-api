@@ -18,7 +18,13 @@ export const createEnv = (env: MobulaEnv) => async (dispatch) => {
 
     dispatch({ type: constants.ENV_CREATE_SUCCESS, payload: data })
   } catch (error) {
-    dispatch({ type: constants.ENV_CREATE_FAIL, payload: error })
+    dispatch({
+      type: constants.ENV_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
   }
 }
 
@@ -39,7 +45,13 @@ export const openEnv = (id: string, token: string) => async (dispatch) => {
     console.log('response received', data)
     dispatch({ type: constants.ENV_OPEN_SUCCESS, payload: data })
   } catch (error) {
-    dispatch({ type: constants.ENV_OPEN_FAIL, payload: error })
+    dispatch({
+      type: constants.ENV_OPEN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
   }
 }
 
@@ -61,7 +73,13 @@ export const updateEnv =
 
       dispatch({ type: constants.ENV_UPDATE_SUCCESS, payload: data })
     } catch (error) {
-      dispatch({ type: constants.ENV_UPDATE_FAIL, payload: error })
+      dispatch({
+        type: constants.ENV_UPDATE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
     }
   }
 
@@ -77,6 +95,12 @@ export const deleteEnv = (id: string, token: string) => async (dispatch) => {
     await axios.delete(`http://localhost:5000/api/env/${id}`, config)
     dispatch({ type: constants.ENV_UPDATE_SUCCESS })
   } catch (error) {
-    dispatch({ type: constants.ENV_UPDATE_FAIL, payload: error })
+    dispatch({
+      type: constants.ENV_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
   }
 }

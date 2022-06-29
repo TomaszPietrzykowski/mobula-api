@@ -17,7 +17,13 @@ export const logIn = (email: String, password: String) => async (dispatch) => {
     )
     dispatch({ type: constants.USER_LOGIN_SUCCESS, payload: data })
   } catch (error) {
-    dispatch({ type: constants.USER_LOGIN_FAIL, payload: error })
+    dispatch({
+      type: constants.USER_LOGIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
   }
 }
 
@@ -39,6 +45,12 @@ export const register =
       dispatch({ type: constants.USER_LOGIN_SUCCESS, payload: data })
       dispatch({ type: constants.USER_REGISTER_SUCCESS, payload: data })
     } catch (error) {
-      dispatch({ type: constants.USER_REGISTER_FAIL, payload: error })
+      dispatch({
+        type: constants.USER_REGISTER_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
     }
   }

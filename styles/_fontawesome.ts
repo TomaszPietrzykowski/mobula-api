@@ -15,6 +15,7 @@ import {
   faFolderPlus,
   faCircleNodes,
   faFolderTree,
+  faBomb,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -25,5 +26,6 @@ library.add(
   faCircleNodes,
   faFolderTree,
   faFolderOpen,
-  faTrashCan
+  faTrashCan,
+  faBomb
 )

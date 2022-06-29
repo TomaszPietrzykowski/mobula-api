@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import styles from '../styles/Workspace.module.css'
+import styles from '../styles/Login.module.css'
 import { useDispatch } from 'react-redux'
 import { useTypedSelector } from '../redux/hooks'
 import { logIn } from '../redux/actions/userActions'
 import { getWorkspace } from '../redux/actions/workspaceActions'
 import { useRouter } from 'next/router'
+import AppError from '../components/layout/Error'
 
 const LogIn: React.FC = () => {
   const [email, setEmail] = useState<string>('')
@@ -40,7 +41,7 @@ const LogIn: React.FC = () => {
     <div className={styles.container}>
       <main className={styles.workbench}>
         {error ? (
-          <h1>{error}</h1>
+          <AppError error={error} />
         ) : (
           <div className={styles.formContainer}>
             <form className={styles.form} onSubmit={submitHandler}>

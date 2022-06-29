@@ -38,8 +38,8 @@
   --color-success-100: #a2f0bc;
   --color-success-500: #12bd4b;
 
-  --color-error-100: #f1acc9;
-  --color-error-500: #a10c4a;
+  --color-error-100: rgb(204, 89, 127);
+  --color-error-500: rgb(59, 6, 27);
 }
 
 /* --------------- */
