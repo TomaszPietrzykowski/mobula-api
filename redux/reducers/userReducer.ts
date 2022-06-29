@@ -3,7 +3,7 @@ import * as constants from '../constants/userConstants'
 
 const initialState = {
   user: {},
-  loading: true,
+  loading: false,
   error: null,
   success: false,
 }

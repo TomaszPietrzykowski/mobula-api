@@ -2,6 +2,7 @@ import axios from 'axios'
 import { MobulaCollection, MobulaRequest, MobulaWorkspace } from '../../types'
 import * as constants from '../constants/workspaceConstants'
 import * as userConstants from '../constants/userConstants'
+import * as envConstants from '../constants/envConstants'
 
 export const createWorkspace =
   (workspace: MobulaWorkspace, user) => async (dispatch) => {
@@ -50,6 +51,33 @@ export const getWorkspace = (id: String, token) => async (dispatch) => {
       config
     )
     dispatch({ type: constants.WORKSPACE_ACTIVE_SUCCESS, payload: data })
+  } catch (error) {
+    dispatch({ type: constants.WORKSPACE_ACTIVE_FAIL, payload: error })
+  }
+}
+
+export const deleteWorkspace = (id: string, user) => async (dispatch) => {
+  dispatch({ type: constants.WORKSPACE_ACTIVE_REQUEST })
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    }
+    await axios.delete(`http://localhost:5000/api/workspace/${id}`, config)
+    dispatch({
+      type: userConstants.USER_LOGIN_SUCCESS,
+      payload: {
+        ...user,
+        workspaces: user.workspaces.filter(
+          (ws) => ws.toString() !== id.toString()
+        ),
+        workspaceActive: null,
+      },
+    })
+    dispatch({ type: constants.WORKSPACE_UPDATE_RESET })
+    dispatch({ type: envConstants.ENV_OPEN_RESET })
+    dispatch({ type: constants.WORKSPACE_ACTIVE_RESET })
   } catch (error) {
     dispatch({ type: constants.WORKSPACE_ACTIVE_FAIL, payload: error })
   }

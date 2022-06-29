@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useTypedSelector } from '../redux/hooks'
 import RequestsBrowser from '../components/workspace/RequestsBrowser'
 import {
+  deleteWorkspace,
   getWorkspace,
   openReqInWorkspace,
   updateWorkspace,
@@ -68,10 +69,7 @@ const Workspace: React.FC = () => {
         getWorkspace(userLogin.user.workspaceActive, userLogin.user.token)
       )
     }
-    // if (userLogin.user.workspaceActive === '') {
-    //   dispatch({ type: constants.WORKSPACE_ACTIVE_RESET })
-    // }
-    if (workspace && workspace.env && workspace.env !== '') {
+    if (workspace && workspace.env && workspace.env !== '' && !loading) {
       dispatch(openEnv(workspace.env, userLogin.user.token))
     }
     if (router.query.ftv === 'register') {
@@ -80,6 +78,7 @@ const Workspace: React.FC = () => {
     if (
       userLogin.user?.token &&
       success &&
+      userLogin.user.workspaceActive &&
       userLogin.user.workspaceActive !== ''
     ) {
       dispatch(updateWorkspace(workspace, userLogin.user.token))
@@ -99,7 +98,6 @@ const Workspace: React.FC = () => {
     router.push('/workspace')
   }
   const handleUpdateWorkspace = (e: any): void => {
-    console.log('update handler triggered')
     dispatch(updateWorkspace(workspace, userLogin.user.token))
   }
   const handleNewFolder = (e: any): void => {
@@ -109,6 +107,9 @@ const Workspace: React.FC = () => {
   const handleNewProject = (e: any): void => {
     setModalNewProject(true)
     setMenuOpen(false)
+  }
+  const handleDeleteProject = (e: any): void => {
+    dispatch(deleteWorkspace(workspace._id, userLogin.user))
   }
 
   return (
@@ -172,7 +173,12 @@ const Workspace: React.FC = () => {
                         icon={['far', 'trash-can']}
                         className={styles.dropdownIcon}
                       />
-                      <div className={styles.dropdownLabel}>Delete project</div>
+                      <div
+                        className={styles.dropdownLabel}
+                        onClick={handleDeleteProject}
+                      >
+                        Delete project
+                      </div>
                     </li>
                   </ul>
                   <div
