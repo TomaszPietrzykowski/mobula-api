@@ -21,7 +21,7 @@ const LogIn: React.FC = () => {
 
   useEffect(() => {
     if (user && user.workspaceActive) {
-      dispatch(getWorkspace(user.workspaceActive, user.token))
+      dispatch(getWorkspace(user.workspaceActive, user))
     }
     if (user && user.name) {
       if (router.query.redirect) {

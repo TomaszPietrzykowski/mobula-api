@@ -37,19 +37,24 @@ export const createWorkspace =
     }
   }
 
-export const getWorkspace = (id: String, token) => async (dispatch) => {
+export const getWorkspace = (id: String, user) => async (dispatch) => {
   dispatch({ type: constants.WORKSPACE_ACTIVE_REQUEST })
 
   try {
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${user.token}`,
       },
     }
     const { data } = await axios.get(
       `http://localhost:5000/api/workspace/${id}`,
       config
     )
+
+    dispatch({
+      type: userConstants.USER_LOGIN_SUCCESS,
+      payload: { ...user, workspaceActive: id },
+    })
     dispatch({ type: constants.WORKSPACE_ACTIVE_SUCCESS, payload: data })
   } catch (error) {
     dispatch({
@@ -120,10 +125,10 @@ export const updateWorkspace =
 export const getAllWorkspaces = (userId: String) => async (dispatch) => {
   dispatch({ type: constants.WORKSPACE_ALL_REQUEST })
   try {
-    const workspace = await axios.get(
+    const { data } = await axios.get(
       `http://localhost:5000/api/workspace/getall/${userId}`
     )
-    dispatch({ type: constants.WORKSPACE_ALL_SUCCESS, payload: workspace })
+    dispatch({ type: constants.WORKSPACE_ALL_SUCCESS, payload: data })
   } catch (error) {
     dispatch({
       type: constants.WORKSPACE_ALL_FAIL,

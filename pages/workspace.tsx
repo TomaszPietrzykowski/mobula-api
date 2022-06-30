@@ -21,7 +21,7 @@ import AddCollectionModal from '../components/workspace/AddCollectionModal'
 import NewWorkspaceModal from '../components/workspace/NewWorkspaceModal'
 import NoRequests from '../components/workspace/NoRequests'
 import NoWorkspace from '../components/workspace/NoWorkspace'
-import * as constants from '../redux/constants/workspaceConstants'
+import OpenWorkspaceModal from '../components/workspace/OpenWorkspaceModal'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
@@ -32,6 +32,7 @@ const Workspace: React.FC = () => {
   )
   const [menuOpen, setMenuOpen] = useState<boolean>(false)
   const [modalNewProject, setModalNewProject] = useState<boolean>(false)
+  const [modalOpenWorkspace, setModalOpenWorkspace] = useState<boolean>(true)
   const [modalNewFolder, setModalNewFolder] = useState<boolean>(false)
   const [modalEditName, setModalEditName] = useState<boolean>(false)
   const [modalWelcomeOpen, setModalWelcomeOpen] = useState<boolean>(false)
@@ -65,9 +66,7 @@ const Workspace: React.FC = () => {
         workspace?._id !== userLogin.user.workspaceActive &&
         userLogin.user.workspaceActive !== '')
     ) {
-      dispatch(
-        getWorkspace(userLogin.user.workspaceActive, userLogin.user.token)
-      )
+      dispatch(getWorkspace(userLogin.user.workspaceActive, userLogin.user))
     }
     if (workspace && workspace.env && workspace.env !== '' && !loading) {
       dispatch(openEnv(workspace.env, userLogin.user.token))
@@ -108,6 +107,10 @@ const Workspace: React.FC = () => {
     setModalNewProject(true)
     setMenuOpen(false)
   }
+  const handleOpenProject = (e: any): void => {
+    setModalOpenWorkspace(true)
+    setMenuOpen(false)
+  }
   const handleDeleteProject = (e: any): void => {
     dispatch(deleteWorkspace(workspace._id, userLogin.user))
   }
@@ -117,7 +120,10 @@ const Workspace: React.FC = () => {
       {loading || userLoading ? (
         <h1>loading workspace</h1>
       ) : !workspace?._id ? (
-        <NoWorkspace />
+        <NoWorkspace
+          openProject={() => setModalOpenWorkspace(true)}
+          newProject={() => setModalNewProject(true)}
+        />
       ) : (
         <React.Fragment>
           <div className={styles.header}>
@@ -161,7 +167,7 @@ const Workspace: React.FC = () => {
                       />
                       <div className={styles.dropdownLabel}>New project</div>
                     </li>
-                    <li className={styles.menuItem}>
+                    <li className={styles.menuItem} onClick={handleOpenProject}>
                       <FontAwesomeIcon
                         icon={['far', 'folder-open']}
                         className={styles.dropdownIcon}
@@ -337,6 +343,17 @@ const Workspace: React.FC = () => {
           </Modal>
         </React.Fragment>
       )}
+      <Modal
+        shouldCloseOnOverlayClick={true}
+        onRequestClose={() => setModalOpenWorkspace(false)}
+        isOpen={modalOpenWorkspace}
+        style={modalStyles}
+      >
+        <OpenWorkspaceModal
+          closeModal={() => setModalOpenWorkspace(false)}
+          handleNewProject={handleNewProject}
+        />
+      </Modal>
     </div>
   )
 }

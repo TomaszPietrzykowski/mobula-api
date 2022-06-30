@@ -14,7 +14,7 @@ const initialActiveWsState = {
 }
 
 const initialAllWsState = {
-  workspaces: [],
+  workspaces: null,
   loading: false,
   error: null,
 }
@@ -78,7 +78,7 @@ export const workspaceAllReducer = (
       return { error: action.payload, loading: false }
 
     case constants.WORKSPACE_ALL_RESET:
-      return { ...state, workspaces: [] }
+      return { ...state, workspaces: null }
 
     default:
       return state
