@@ -50,7 +50,6 @@ export const getWorkspace = (id: String, user) => async (dispatch) => {
       `http://localhost:5000/api/workspace/${id}`,
       config
     )
-
     dispatch({
       type: userConstants.USER_LOGIN_SUCCESS,
       payload: { ...user, workspaceActive: id },
@@ -122,11 +121,17 @@ export const updateWorkspace =
     }
   }
 
-export const getAllWorkspaces = (userId: String) => async (dispatch) => {
+export const getAllWorkspaces = (user) => async (dispatch) => {
   dispatch({ type: constants.WORKSPACE_ALL_REQUEST })
   try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    }
     const { data } = await axios.get(
-      `http://localhost:5000/api/workspace/getall/${userId}`
+      `http://localhost:5000/api/workspace/getall/${user._id}`,
+      config
     )
     dispatch({ type: constants.WORKSPACE_ALL_SUCCESS, payload: data })
   } catch (error) {

@@ -113,6 +113,7 @@ const Workspace: React.FC = () => {
   }
   const handleDeleteProject = (e: any): void => {
     dispatch(deleteWorkspace(workspace._id, userLogin.user))
+    setMenuOpen(false)
   }
 
   return (
@@ -333,16 +334,16 @@ const Workspace: React.FC = () => {
           >
             <AddCollectionModal closeModal={() => setModalNewFolder(false)} />
           </Modal>
-          <Modal
-            shouldCloseOnOverlayClick={true}
-            onRequestClose={() => setModalNewProject(false)}
-            isOpen={modalNewProject}
-            style={modalStyles}
-          >
-            <NewWorkspaceModal closeModal={() => setModalNewProject(false)} />
-          </Modal>
         </React.Fragment>
       )}
+      <Modal
+        shouldCloseOnOverlayClick={true}
+        onRequestClose={() => setModalNewProject(false)}
+        isOpen={modalNewProject}
+        style={modalStyles}
+      >
+        <NewWorkspaceModal closeModal={() => setModalNewProject(false)} />
+      </Modal>
       <Modal
         shouldCloseOnOverlayClick={true}
         onRequestClose={() => setModalOpenWorkspace(false)}

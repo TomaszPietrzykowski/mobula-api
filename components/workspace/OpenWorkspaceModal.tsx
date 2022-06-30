@@ -16,7 +16,7 @@ const OpenWorkspaceModal = ({ closeModal, handleNewProject }) => {
 
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getAllWorkspaces(user._id))
+    dispatch(getAllWorkspaces(user))
   }, [])
 
   return (
