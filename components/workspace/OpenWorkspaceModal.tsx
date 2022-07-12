@@ -7,6 +7,7 @@ import {
 
 import { useTypedSelector } from '../../redux/hooks'
 import styles from '../../styles/Workspace.module.css'
+import AppError from '../layout/Error'
 
 const OpenWorkspaceModal = ({ closeModal, handleNewProject }) => {
   const { workspaces, loading, error } = useTypedSelector(
@@ -23,6 +24,8 @@ const OpenWorkspaceModal = ({ closeModal, handleNewProject }) => {
     <div className={styles.newRequestRoot}>
       {loading ? (
         <h1>loading</h1>
+      ) : error ? (
+        <AppError error={error} />
       ) : (
         <div>
           <h1>Open project</h1>

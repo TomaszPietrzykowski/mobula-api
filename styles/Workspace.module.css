@@ -2,10 +2,12 @@
   width: 100%;
   background-color: var(--color-primary-1);
   margin-top: 2rem;
+  height: 100%;
   /* border: 1px solid green; */
 }
 .container {
   width: 100%;
+  height: 100%;
   max-width: 1920px;
   margin: auto;
   /* border: 1px solid red; */
@@ -126,6 +128,32 @@ background: var(--color-primary-1);
   padding: 0.4rem 0.5rem;
   border: 1px solid white;
   border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.folderLeft {
+  display: flex;
+}
+.folderRight {
+  display: flex;
+  align-items: center;
+}
+.folderMenuBtn {
+  margin: 0 .3rem;
+  padding: .2rem 0;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+}
+.folderMenuIcon {
+  color: var(--color-primary-100);
+}
+.folderCollapseBtn {
+  min-width: 1.5rem;
+}
+.folderCollapseIcon {
+  color: var(--color-primary-200);
 }
 .reqDrawerTab {
   font-size: 0.85rem;

@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import styles from '../../styles/Workspace.module.css'
 
@@ -9,9 +10,16 @@ const FolderTab = ({
 }) => {
   const [tabOpen, setTabOpen] = useState<Boolean>(true)
 
-  const handleNewReq = () => {
+  const handleNewReq = (e) => {
+    e.stopPropagation()
     setNewReqCollection(collection)
     setNewRequestModalOpen(true)
+  }
+  const handleDeleteCollection = (e) => {
+    e.stopPropagation()
+  }
+  const handleEditCollection = (e) => {
+    e.stopPropagation()
   }
   return (
     <React.Fragment>
@@ -19,7 +27,49 @@ const FolderTab = ({
         className={styles.folderDrawerTab}
         onClick={() => setTabOpen(!tabOpen)}
       >
-        {collection.name}
+        <div className={styles.folderLeft}>
+          <div className={styles.folderCollapseBtn}>
+            {tabOpen ? (
+              <span>
+                <FontAwesomeIcon
+                  icon={['fas', 'chevron-down']}
+                  className={styles.folderCollapseIcon}
+                />
+              </span>
+            ) : (
+              <span>
+                <FontAwesomeIcon
+                  icon={['fas', 'chevron-right']}
+                  className={styles.folderCollapseIcon}
+                />
+              </span>
+            )}
+          </div>
+          {collection.name}
+        </div>
+        <div className={styles.folderRight}>
+          <div className={styles.folderMenuBtn} onClick={handleNewReq}>
+            <FontAwesomeIcon
+              icon={['far', 'square-plus']}
+              className={styles.folderMenuIcon}
+            />
+          </div>
+          <div className={styles.folderMenuBtn} onClick={handleEditCollection}>
+            <FontAwesomeIcon
+              icon={['far', 'pen-to-square']}
+              className={styles.folderMenuIcon}
+            />
+          </div>
+          <div
+            className={styles.folderMenuBtn}
+            onClick={handleDeleteCollection}
+          >
+            <FontAwesomeIcon
+              icon={['far', 'trash-can']}
+              className={styles.folderMenuIcon}
+            />
+          </div>
+        </div>
       </li>
       {tabOpen && (
         <React.Fragment>

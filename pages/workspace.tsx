@@ -22,6 +22,7 @@ import NewWorkspaceModal from '../components/workspace/NewWorkspaceModal'
 import NoRequests from '../components/workspace/NoRequests'
 import NoWorkspace from '../components/workspace/NoWorkspace'
 import OpenWorkspaceModal from '../components/workspace/OpenWorkspaceModal'
+import AppError from '../components/layout/Error'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
@@ -120,6 +121,8 @@ const Workspace: React.FC = () => {
     <div className={styles.root}>
       {loading || userLoading ? (
         <h1>loading workspace</h1>
+      ) : error ? (
+        <AppError error={error} />
       ) : !workspace?._id ? (
         <NoWorkspace
           openProject={() => setModalOpenWorkspace(true)}

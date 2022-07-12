@@ -8,6 +8,7 @@ import {
   faPenToSquare,
   faFolderOpen,
   faTrashCan,
+  faSquarePlus,
 } from '@fortawesome/free-regular-svg-icons'
 // import solid icons
 import {
@@ -16,6 +17,8 @@ import {
   faCircleNodes,
   faFolderTree,
   faBomb,
+  faChevronRight,
+  faChevronDown,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -27,5 +30,8 @@ library.add(
   faFolderTree,
   faFolderOpen,
   faTrashCan,
-  faBomb
+  faBomb,
+  faChevronRight,
+  faChevronDown,
+  faSquarePlus
 )
