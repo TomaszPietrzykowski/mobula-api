@@ -7,6 +7,7 @@ const FolderTab = ({
   setNewRequestModalOpen,
   setNewReqCollection,
   handleRequestOpen,
+  setModalEditCollectionOpen,
 }) => {
   const [tabOpen, setTabOpen] = useState<Boolean>(true)
 
@@ -17,9 +18,13 @@ const FolderTab = ({
   }
   const handleDeleteCollection = (e) => {
     e.stopPropagation()
+    if (confirm('Are you sure you want to delete this folder?')) {
+      console.log(`delete collection id: ${collection._id}`)
+    }
   }
   const handleEditCollection = (e) => {
     e.stopPropagation()
+    setModalEditCollectionOpen(true)
   }
   return (
     <React.Fragment>

@@ -23,6 +23,7 @@ import NoRequests from '../components/workspace/NoRequests'
 import NoWorkspace from '../components/workspace/NoWorkspace'
 import OpenWorkspaceModal from '../components/workspace/OpenWorkspaceModal'
 import AppError from '../components/layout/Error'
+import EditCollectionModal from '../components/workspace/editCollectionModal'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
@@ -245,6 +246,7 @@ const Workspace: React.FC = () => {
                       setNewRequestModalOpen={setModalNewReqOpen}
                       handleRequestOpen={handleClick}
                       setNewReqCollection={setNewReqCollection}
+                      setModalEditCollectionOpen={setModalEditCollectionOpen}
                     />
                   ))}
                   {workspace.requests.map((request) => (
@@ -296,7 +298,9 @@ const Workspace: React.FC = () => {
             isOpen={modalEditCollectionOpen}
             style={modalStyles}
           >
-            <h1>Edit collection</h1>
+            <EditCollectionModal
+              closeModal={() => setModalEditCollectionOpen(false)}
+            />
           </Modal>
           <Modal
             shouldCloseOnOverlayClick={true}
