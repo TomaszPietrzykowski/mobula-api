@@ -176,6 +176,81 @@ export const addCollectionToWorkspace =
     }
   }
 
+export const updateCollection =
+  (collection: MobulaCollection, current: MobulaWorkspace, token: string) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: constants.WORKSPACE_ACTIVE_REQUEST })
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+
+      const { data } = await axios.put(
+        `http://localhost:5000/api/collection/${collection._id}`,
+        collection,
+        config
+      )
+
+      const filtered = current.collections.map((c) => {
+        if (c._id === collection._id) return data
+        return c
+      })
+
+      dispatch({
+        type: constants.WORKSPACE_ACTIVE_SUCCESS,
+        payload: { ...current, collections: [...filtered] },
+      })
+    } catch (error) {
+      dispatch({
+        type: constants.WORKSPACE_ACTIVE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+
+export const deleteCollection =
+  (id: String, current: MobulaWorkspace, token: string) => async (dispatch) => {
+    try {
+      dispatch({ type: constants.WORKSPACE_ACTIVE_REQUEST })
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+
+      const filtered = current.collections.filter((c) => c !== id)
+
+      const updatedWorkspace = await axios.put(
+        `http://localhost:5000/api/workspace/${current._id}`,
+        { ...current, collections: [...filtered] },
+        config
+      )
+      await axios.delete(`http://localhost:5000/api/collection/${id}`, config)
+
+      dispatch({
+        type: constants.WORKSPACE_ACTIVE_SUCCESS,
+        payload: updatedWorkspace,
+      })
+    } catch (error) {
+      dispatch({
+        type: constants.WORKSPACE_ACTIVE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+
 export const openReqInWorkspace =
   (id: String, current: MobulaWorkspace) => async (dispatch) => {
     if (

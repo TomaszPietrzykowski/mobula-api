@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { deleteCollection } from '../../redux/actions/workspaceActions'
+import { useTypedSelector } from '../../redux/hooks'
 import styles from '../../styles/Workspace.module.css'
 
 const FolderTab = ({
@@ -11,6 +14,11 @@ const FolderTab = ({
 }) => {
   const [tabOpen, setTabOpen] = useState<Boolean>(true)
 
+  const workspace = useTypedSelector((state) => state.workspaceActive.workspace)
+  const userLogin = useTypedSelector((state) => state.userLogin)
+
+  const dispatch = useDispatch()
+
   const handleNewReq = (e) => {
     e.stopPropagation()
     setNewReqCollection(collection)
@@ -20,12 +28,16 @@ const FolderTab = ({
     e.stopPropagation()
     if (confirm('Are you sure you want to delete this folder?')) {
       console.log(`delete collection id: ${collection._id}`)
+      dispatch(
+        deleteCollection(collection._id, workspace, userLogin.user.token)
+      )
     }
   }
   const handleEditCollection = (e) => {
     e.stopPropagation()
     setModalEditCollectionOpen(true)
   }
+
   return (
     <React.Fragment>
       <li

@@ -23,7 +23,7 @@ import NoRequests from '../components/workspace/NoRequests'
 import NoWorkspace from '../components/workspace/NoWorkspace'
 import OpenWorkspaceModal from '../components/workspace/OpenWorkspaceModal'
 import AppError from '../components/layout/Error'
-import EditCollectionModal from '../components/workspace/editCollectionModal'
+import EditCollectionModal from '../components/workspace/EditCollectionModal'
 
 const Workspace: React.FC = () => {
   const userLogin = useTypedSelector((state) => state.userLogin)
