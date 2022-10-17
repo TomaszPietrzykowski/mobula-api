@@ -2,44 +2,48 @@
 /* Import          */
 /* --------------- */
 
-@import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Courier+Prime&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Courier+Prime&display=swap');
 
 /* --------------- */
 /* Variables       */
 /* --------------- */
 
 :root {
+  /* currently used */
   --clr-accent: 0, 255, 0;
-  --color-grey-50: hsl(265, 55%, 96%);
-  --color-grey-100: hsl(265, 19%, 88%);
-  --color-grey-200: hsl(265, 7%, 70%);
-  --color-grey-300: hsl(265, 6%, 66%);
-  --color-grey-400: hsl(265, 4%, 57%);
-  --color-grey-500: hsl(265, 3%, 53%);
-  --color-grey-600: hsl(265, 4%, 42%);
-  --color-grey-700: hsl(265, 4%, 31%);
-  --color-grey-800: hsl(276, 5%, 20%);
-  --color-grey-900: hsl(280, 5%, 13%);
-
-  --color-primary-1: rgba(7, 16, 22);
-  --color-primary-2: rgba(24, 32, 37);
-  --color-primary-3: rgba(36, 51, 61);
-  --color-primary-50: #c8b3ce;
-  --color-primary-100: #a07aaa;
-  --color-primary-200: #884c97;
-  --color-primary-300: #843897;
-  --color-primary-400: #732392;
-  --color-primary-500: #5a097a;
-  --color-primary-600: #480264;
-  --color-primary-700: #3d0264;
-
-  --color-secondary-1: rgba(187, 215, 235);
-
   --color-success-100: #a2f0bc;
   --color-success-500: #12bd4b;
 
   --color-error-100: rgb(204, 89, 127);
   --color-error-500: rgb(59, 6, 27);
+
+  /* figma mockup imports */
+  --color-violet-500: hsl(270, 100%, 36%);
+
+  --color-marine-300: hsl(190, 100%, 65%);
+
+  --color-blue-400: hsl(210, 83%, 53%);
+
+  --color-purple-500: hsl(292, 100%, 25%);
+  --color-purple-600: hsl(292, 100%, 18%);
+  --color-purple-700: hsl(292, 100%, 6%);
+  --color-purple-800: hsl(292, 100%, 3%);
+
+  --color-magenta-200: hsl(330, 100%, 65%);
+  --color-magenta-300: hsl(330, 100%, 53%);
+  --color-magenta-700: hsl(330, 100%, 18%);
+  --color-magenta-800: hsl(330, 100%, 9%);
+  --color-magenta-900: hsl(330, 100%, 3%);
+
+  /* text colors */
+  --text-primary-1: hsl(0, 0%, 100%);
+  --text-secondary-1: hsl(330, 30%, 85%);
+
+  /* test colors */
+  --color-primary-1: rgba(7, 16, 22);
+  --color-primary-2: rgba(24, 32, 37);
+  --color-primary-3: rgba(36, 51, 61);
+  --color-secondary-1: rgba(187, 215, 235);
 }
 
 /* --------------- */
@@ -163,7 +167,7 @@ body {
 .cm-s-material.CodeMirror {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  font-family: "Courier Prime", monospace;
+  font-family: 'Courier Prime', monospace;
   /* height: auto; --- work out with container */
   height: auto;
   padding-bottom: 2rem;
