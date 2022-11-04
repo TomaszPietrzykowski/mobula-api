@@ -1,23 +1,38 @@
 .root {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  padding: 1rem;
+  padding: 1.1rem 4rem;
   align-items: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
 }
 
-.nav {
+.pageNav ul {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.userNav {
+.userNav ul {
   display: flex;
   justify-content: flex-end;
 }
-.nav li {
+.pageNav ul li,
+.userNav ul li {
   padding: 0.5rem 1rem;
-  margin-inline: .5rem;
+  margin-inline: 0.5rem;
+  font-weight: 500;
+  font-size: 1.1rem;
 }
+
 .registerBtn {
-  background-color: var(--color-primary-400);
+  padding: 0 0.5rem;
+  background-color: var(--color-violet-500);
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+}
+
+.registerBtn:hover {
+  background-color: var(--color-violet-600);
 }

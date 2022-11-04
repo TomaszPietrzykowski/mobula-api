@@ -5,18 +5,21 @@ import styles from '../../styles/Home.module.css'
 const HeroSection = (): JSX.Element => {
   return (
     <div className={styles.heroContainer}>
-      <div className={styles.slogan}>
-        <h1>
-          Effortless Api design
+      <div className={styles.left}></div>
+      <div className={styles.right}>
+        <h1 className={styles.title}>
+          Test your
           <br />
-          and testing
+          endpoints
+          <br />
+          with grace
         </h1>
-        <p>
-          Browser based HTTP client. Draft, save, organize and test your
-          endpoints from wherever you are.
+        <p className={styles.subtitle}>
+          Browser based HTTP client <br />
+          for rapid testing of APIs
         </p>
+        <button className={styles.actionBtn}>Get started</button>
       </div>
-      <div className={styles.image}>mobula pic</div>
     </div>
   )
 }

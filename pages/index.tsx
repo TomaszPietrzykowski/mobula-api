@@ -18,7 +18,7 @@ const Home: FC = () => {
 
       <main className={styles.main}>
         <HeroSection />
-        <FeaturesSection />
+        {/* <FeaturesSection /> */}
       </main>
     </div>
   )
